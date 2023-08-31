@@ -34,7 +34,6 @@ namespace Prom.LPR.Worker.Executors
         {
             Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Started LPR job");
             Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Bucket -> [{bucket}]");
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Bucket -> [{jobParam.LPRUploadPath}]");
 
             var ts = DateTime.Now.ToString("yyyyMMddhhmm");
         }
@@ -47,6 +46,7 @@ namespace Prom.LPR.Worker.Executors
         protected override void ThreadExecutor()
         {
             //Do LPR logic here
+            Log.Information(jobParam.Message);
 
             Final();
         }

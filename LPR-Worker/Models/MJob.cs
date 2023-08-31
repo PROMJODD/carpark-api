@@ -7,6 +7,6 @@ namespace Prom.LPR.Worker.Models
         public string? JobId { get; set; }
         public string? Type { get; set; }
 
-        public string? LPRUploadPath { get; set; }
+        public required string Message { get; set; }
     }
 }

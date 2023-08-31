@@ -40,7 +40,8 @@ namespace Prom.LPR.Worker.MessageQue
                 while (true) 
                 {
                     var consumeResult = consumer.Consume();
-                    Console.WriteLine($"Message received from {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
+                    MJob job = new MJob() { Message = consumeResult.Message.Value };
+                    queue.Enqueue(job);
                 }
             }
             catch (OperationCanceledException) 

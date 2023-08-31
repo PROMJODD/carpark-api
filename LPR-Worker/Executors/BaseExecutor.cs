@@ -5,7 +5,7 @@ namespace Prom.LPR.Worker.Executors
 {
     public abstract class BaseExecutor : IExecutor
     {
-        protected MJob jobParam = new MJob() { Id = ""};
+        protected MJob jobParam = new MJob() { Message = "", Id = ""};
 
         protected abstract void ThreadExecutor();
         protected abstract void Init();
