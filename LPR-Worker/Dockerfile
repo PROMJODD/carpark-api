@@ -17,4 +17,5 @@ RUN dotnet publish "LPR-Worker.csproj" -c Release -o /app/publish /p:UseAppHost=
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY ["LPR-Worker/Properties/appsettings.json", "Properties/"]
 ENTRYPOINT ["dotnet", "LPR-Worker.dll"]
