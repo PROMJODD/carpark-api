@@ -12,18 +12,23 @@ namespace Prom.LPR.Worker.Processors
     {
         private readonly IConfiguration configuration;
         private Hashtable threadMap = new Hashtable();
+        private int maxThread = 1;
 
-        protected IMessageQue messageQue = new KafkaMQ("", "", 9999);
+        protected IMessageQue messageQue = new KafkaMQ("", "", "", 9999);
 
         protected override void Init()
         {
             var topic = ConfigUtils.GetConfig(configuration, "kafka:topic");
             var host = ConfigUtils.GetConfig(configuration, "kafka:host");
             var port = ConfigUtils.GetConfig(configuration, "kafka:port");
+            var group = ConfigUtils.GetConfig(configuration, "kafka:group");
+
+            var mt = ConfigUtils.GetConfig(configuration, "kafka:maxThread");
+            maxThread = mt.ToInt();
 
             Log.Information($"Started Kafka processor Topic=[{topic}], Host=[{host}], Port=[{port}]");
 
-            messageQue = new KafkaMQ(topic, host, port.ToInt());
+            messageQue = new KafkaMQ(topic, group, host, port.ToInt());
             messageQue.Init();
         }
 
@@ -63,9 +68,9 @@ namespace Prom.LPR.Worker.Processors
         {
             while (true)
             {
-                if (threadMap.Count >= 5)
+                if (threadMap.Count >= maxThread)
                 {
-                    Log.Information("Thread count is above the limit, do nothing");
+                    Log.Information($"Thread count is above the limit [{maxThread}], do nothing");
                 }
                 else
                 {
