@@ -1,12 +1,15 @@
 using Serilog;
 using Microsoft.Extensions.Configuration;
 using Prom.LPR.Worker.Utils;
+using Prom.LPR.Worker.Models;
+using System.Text.Json;
 
 namespace Prom.LPR.Worker.Executors
 {
     public class LPRExector : BaseExecutor
     {
         private readonly IConfiguration? configuration;
+        private MJobLPR? lprJob = new MJobLPR() { Message = "", JobType = "LPR" };
 
         private string bucket = "";
         private string lprHost = "";
@@ -30,23 +33,48 @@ namespace Prom.LPR.Worker.Executors
             }
         }
 
+        private void DeriveJob()
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            try
+            {
+                lprJob = JsonSerializer.Deserialize<MJobLPR>(jobParam.Message, options);
+                if (lprJob != null)
+                {
+                    lprJob.JobId = lprJob.RefId;
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+        }
+
         protected override void Init()
         {
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Started LPR job");
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Bucket -> [{bucket}]");
+            DeriveJob();
 
-            var ts = DateTime.Now.ToString("yyyyMMddhhmm");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Started LPR job");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Bucket -> [{bucket}]");
+
+            //var ts = DateTime.Now.ToString("yyyyMMddhhmm");
         }
 
         private void Final()
         {
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Finished LPR job");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Finished LPR job");
         }
 
         protected override void ThreadExecutor()
         {
-            //Do LPR logic here
-            Log.Information(jobParam.Message);
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - User=[{lprJob?.UploadUser}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
 
             Final();
         }
