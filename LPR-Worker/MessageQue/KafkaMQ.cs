@@ -1,29 +1,55 @@
 using Serilog;
 using Prom.LPR.Worker.Models;
+using Confluent.Kafka;
 
 namespace Prom.LPR.Worker.MessageQue
 {
     public class KafkaMQ : BaseMessageQue
     {
         private Queue<MJob> queue = new Queue<MJob>();
+        private ConsumerConfig? consumerCfg = null;
         private readonly string topic = "";
+        private readonly string groupId = "";
         private readonly string host = "";
         private readonly int port = 3333;
 
-        public KafkaMQ(string topic, string host, int port)
+        public KafkaMQ(string topic, string group, string host, int port)
         {
             this.topic = topic;
             this.host = host;
             this.port = port;
+            this.groupId = group;
+
+            consumerCfg = new ConsumerConfig 
+            {
+                BootstrapServers = this.host,
+                AutoOffsetReset = AutoOffsetReset.Latest,
+                ClientId = "",
+                GroupId = this.groupId,
+                BrokerAddressFamily = BrokerAddressFamily.V4,
+            };
         }
 
         private void PullMessage()
         {
-            while (true)
+            var consumer = new ConsumerBuilder<Ignore, string>(consumerCfg).Build();
+            consumer.Subscribe(this.topic);
+
+            try 
             {
-                //Do something here
-                //Read from Kafka
-                Thread.Sleep(1000);
+                while (true) 
+                {
+                    var consumeResult = consumer.Consume();
+                    Console.WriteLine($"Message received from {consumeResult.TopicPartitionOffset}: {consumeResult.Message.Value}");
+                }
+            }
+            catch (OperationCanceledException) 
+            {
+                // The consumer was stopped via cancellation token.
+            } 
+            finally 
+            {
+                consumer.Close();
             }
         }
 
@@ -35,7 +61,7 @@ namespace Prom.LPR.Worker.MessageQue
 
         protected override void Initlize()
         {
-            Log.Information("Waiting for message(s) in Kafka...");
+            Log.Information($"Waiting for message(s) in Kafka topic=[{this.topic}], group=[{this.groupId}]...");
             SubscribeKafka();
         }
 
