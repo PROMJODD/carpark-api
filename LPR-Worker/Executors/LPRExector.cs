@@ -61,8 +61,6 @@ namespace Prom.LPR.Worker.Executors
 
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Started LPR job");
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Bucket -> [{bucket}]");
-
-            //var ts = DateTime.Now.ToString("yyyyMMddhhmm");
         }
 
         private void Final()
@@ -70,21 +68,38 @@ namespace Prom.LPR.Worker.Executors
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Finished LPR job");
         }
 
+        private void DownloadFile(string? gcsPath, string? objectName, string? refId) 
+        {
+            var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
+            var localPath = $"/tmp/${ts}.${refId}";
+
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading file [{gcsPath}] to [{localPath}]");
+
+            StorageClient storageClient = StorageClient.Create();
+            using (var f = File.OpenRead(localPath))
+            {
+                storageClient.DownloadObject(bucket, objectName, f);
+            }
+        }
+
         protected override void ThreadExecutor()
         {
             try
             {
+                var ftpPath = lprJob?.UploadPath;
+                var gcsBasePath = $"gs://{bucket}/{lprJob?.UploadUser}";
+
+                /* Replace "/ftp" with "gs://<bucket>/<user>" */
+                var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
+                var objectName = ftpPath?.Replace("/ftp/", "");
+
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - User=[{lprJob?.UploadUser}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
-
-                var ftpPath = lprJob?.UploadPath;
-                var gcsBasePath = $"gs://{bucket}/{lprJob?.UploadUser}";
-                /* Replace "/ftp" with "gs://<bucket>/<user>" */
-                var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
-
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
+
+                DownloadFile(gcsPath, objectName, lprJob?.JobId);
             }
             catch (Exception e)
             {
