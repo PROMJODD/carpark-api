@@ -68,7 +68,7 @@ namespace Prom.LPR.Worker.Executors
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Finished LPR job");
         }
 
-        private void DownloadFile(string? gcsPath, string? objectName, string? refId) 
+        private string DownloadFile(string? gcsPath, string? objectName, string? refId) 
         {
             var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
             var localPath = $"/tmp/${ts}.${refId}";
@@ -80,6 +80,8 @@ namespace Prom.LPR.Worker.Executors
             {
                 storageClient.DownloadObject(bucket, objectName, f);
             }
+
+            return localPath;
         }
 
         protected override void ThreadExecutor()
@@ -99,7 +101,7 @@ namespace Prom.LPR.Worker.Executors
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
 
-                DownloadFile(gcsPath, objectName, lprJob?.JobId);
+                var localFile = DownloadFile(gcsPath, objectName, lprJob?.JobId);
             }
             catch (Exception e)
             {
