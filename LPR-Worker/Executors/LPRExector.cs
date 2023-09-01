@@ -75,7 +75,7 @@ namespace Prom.LPR.Worker.Executors
         private string DownloadFile(string? gcsPath, string? objectName, string? refId) 
         {
             var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
-            var localPath = $"/tmp/{ts}.{refId}";
+            var localPath = $"/tmp/{ts}.{refId}.jpg"; // Important to use .jpg extension, LPR needs this
 
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading file [{gcsPath}] to [{localPath}]");
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading object [{objectName}] to [{localPath}]");
