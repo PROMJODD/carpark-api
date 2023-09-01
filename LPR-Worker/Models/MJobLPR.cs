@@ -11,7 +11,7 @@ namespace Prom.LPR.Worker.Models
         public string? EquipmentId { get; set; }
         public string? UploadUser { get; set; }
         public string? UploadTimeMs { get; set; }
-        public long UploadSize { get; set; }
+        public string? UploadSize { get; set; }
         public string? StartDtm { get; set; }
     }
 }
