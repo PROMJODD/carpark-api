@@ -129,7 +129,9 @@ namespace Prom.LPR.Worker.Executors
             {
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
-                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - LPR Result -> [{responseBody}]");
+
+                //Use Console.WriteLine to display JSON correctly
+                Console.WriteLine($"[{lprJob?.JobType}:{lprJob?.JobId}] - LPR Result -> [{responseBody}]");
             }
             catch (Exception e)
             {
