@@ -100,7 +100,7 @@ namespace Prom.LPR.Worker.Executors
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - User=[{lprJob?.UploadUser}]");
-                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - FTP Path=[{lprJob?.UploadPath}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
 
                 var localFile = DownloadFile(gcsPath, objectName, lprJob?.JobId);
