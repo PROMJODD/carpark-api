@@ -63,6 +63,8 @@ namespace Prom.LPR.Worker.Executors
 
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Started LPR job");
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Bucket -> [{bucket}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - LPR Base Url -> [{lprBaseUrl}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - LPR Path -> [{lprPath}]");
         }
 
         private void Final()
@@ -127,7 +129,7 @@ namespace Prom.LPR.Worker.Executors
             {
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
-                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] LPR Result -> [{responseBody}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - LPR Result -> [{responseBody}]");
             }
             catch (Exception e)
             {
