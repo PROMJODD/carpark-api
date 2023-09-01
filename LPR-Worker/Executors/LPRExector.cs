@@ -1,12 +1,16 @@
 using Serilog;
 using Microsoft.Extensions.Configuration;
 using Prom.LPR.Worker.Utils;
+using Prom.LPR.Worker.Models;
+using System.Text.Json;
+using Google.Cloud.Storage.V1;
 
 namespace Prom.LPR.Worker.Executors
 {
     public class LPRExector : BaseExecutor
     {
         private readonly IConfiguration? configuration;
+        private MJobLPR? lprJob = new MJobLPR() { Message = "", JobType = "LPR" };
 
         private string bucket = "";
         private string lprHost = "";
@@ -30,23 +34,81 @@ namespace Prom.LPR.Worker.Executors
             }
         }
 
+        private void DeriveJob()
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            try
+            {
+                lprJob = JsonSerializer.Deserialize<MJobLPR>(jobParam.Message, options);
+                if (lprJob != null)
+                {
+                    lprJob.JobId = lprJob.RefId;
+                    lprJob.JobType = "LPR";
+                }
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
+        }
+
         protected override void Init()
         {
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Started LPR job");
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Bucket -> [{bucket}]");
+            DeriveJob();
 
-            var ts = DateTime.Now.ToString("yyyyMMddhhmm");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Started LPR job");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Bucket -> [{bucket}]");
         }
 
         private void Final()
         {
-            Log.Information($"[{jobParam.Type}:{jobParam.JobId}] - Finished LPR job");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Finished LPR job");
+        }
+
+        private string DownloadFile(string? gcsPath, string? objectName, string? refId) 
+        {
+            var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
+            var localPath = $"/tmp/{ts}.{refId}";
+
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading file [{gcsPath}] to [{localPath}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading object [{objectName}] to [{localPath}]");
+
+            StorageClient storageClient = StorageClient.Create();
+            using (var f = File.OpenWrite(localPath))
+            {
+                storageClient.DownloadObject(bucket, objectName, f);
+            }
+
+            return localPath;
         }
 
         protected override void ThreadExecutor()
         {
-            //Do LPR logic here
-            Log.Information(jobParam.Message);
+            try
+            {
+                var ftpPath = lprJob?.UploadPath;
+                var gcsBasePath = $"gs://{bucket}/{lprJob?.UploadUser}";
+
+                /* Replace "/ftp" with "gs://<bucket>/<user>" */
+                var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
+                var objectName = ftpPath?.Replace("/ftp", $"{lprJob?.UploadUser}");
+
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - User=[{lprJob?.UploadUser}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
+
+                var localFile = DownloadFile(gcsPath, objectName, lprJob?.JobId);
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
 
             Final();
         }
