@@ -75,6 +75,7 @@ namespace Prom.LPR.Worker.Executors
             var localPath = $"/tmp/{ts}.{refId}";
 
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading file [{gcsPath}] to [{localPath}]");
+            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading object [{objectName}] to [{localPath}]");
 
             StorageClient storageClient = StorageClient.Create();
             using (var f = File.OpenWrite(localPath))
