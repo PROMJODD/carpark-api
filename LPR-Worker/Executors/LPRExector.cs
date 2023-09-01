@@ -4,6 +4,7 @@ using Prom.LPR.Worker.Utils;
 using Prom.LPR.Worker.Models;
 using System.Text.Json;
 using Google.Cloud.Storage.V1;
+using System.Net.Http.Headers;
 
 namespace Prom.LPR.Worker.Executors
 {
@@ -13,8 +14,8 @@ namespace Prom.LPR.Worker.Executors
         private MJobLPR? lprJob = new MJobLPR() { Message = "", JobType = "LPR" };
 
         private string bucket = "";
-        private string lprHost = "";
-        private string lprPort = "";
+        private string lprBaseUrl = "";
+        private string lprPath = "";
         private string lprAuthKey = "";
 
         public LPRExector(IConfiguration? cfg)
@@ -28,8 +29,8 @@ namespace Prom.LPR.Worker.Executors
             {
                 configuration = cfg;
                 bucket = ConfigUtils.GetConfig(configuration, "LPRExecutor:bucket");
-                lprHost = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprHost");
-                lprPort = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprPort");
+                lprBaseUrl = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprBaseUrl");
+                lprPath = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprPath");
                 lprAuthKey = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprAuthKey");
             }
         }
@@ -86,6 +87,56 @@ namespace Prom.LPR.Worker.Executors
             return localPath;
         }
 
+        private HttpClient GetHttpClient()
+        {
+            var client = new HttpClient();
+            Uri baseUri = new Uri(lprBaseUrl);
+            client.BaseAddress = baseUri;
+            client.Timeout = TimeSpan.FromMinutes(0.05);
+
+            return client;
+        }
+
+        private HttpRequestMessage GetRequestMessage()
+        {
+            //Bearer Authentication
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, lprPath);
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", lprAuthKey);
+
+            var productValue = new ProductInfoHeaderValue("lpr-worker", "1.0");
+            requestMessage.Headers.UserAgent.Add(productValue);
+
+            return requestMessage;
+        }
+
+        private void LPRAnalyzeFile(string imagePath)
+        {
+            var client = GetHttpClient();
+            var requestMessage = GetRequestMessage();
+
+            using var stream = File.OpenRead(imagePath);
+            using var content = new MultipartFormDataContent
+            {
+                { new StreamContent(stream), "image", imagePath }
+            };
+            requestMessage.Content = content;
+
+            var task = client.SendAsync(requestMessage);
+            var response = task.Result;
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] LPR Result -> [{responseBody}]");
+            }
+            catch (Exception e)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                Log.Error(responseBody);
+                Log.Error(e.Message);
+            }
+        }
+
         protected override void ThreadExecutor()
         {
             try
@@ -104,6 +155,7 @@ namespace Prom.LPR.Worker.Executors
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
 
                 var localFile = DownloadFile(gcsPath, objectName, lprJob?.JobId);
+                LPRAnalyzeFile(localFile);
             }
             catch (Exception e)
             {
