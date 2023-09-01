@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Prom.LPR.Worker.Utils;
 using Prom.LPR.Worker.Models;
 using System.Text.Json;
+using Google.Cloud.Storage.V1;
 
 namespace Prom.LPR.Worker.Executors
 {
@@ -71,10 +72,24 @@ namespace Prom.LPR.Worker.Executors
 
         protected override void ThreadExecutor()
         {
-            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
-            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
-            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - User=[{lprJob?.UploadUser}]");
-            Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
+            try
+            {
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - User=[{lprJob?.UploadUser}]");
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Path=[{lprJob?.UploadPath}]");
+
+                var ftpPath = lprJob?.UploadPath;
+                var gcsBasePath = $"gs://{bucket}/{lprJob?.UploadUser}";
+                /* Replace "/ftp" with "gs://<bucket>/<user>" */
+                var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
+
+                Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.Message);
+            }
 
             Final();
         }
