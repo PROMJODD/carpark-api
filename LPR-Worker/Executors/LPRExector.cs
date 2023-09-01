@@ -47,6 +47,7 @@ namespace Prom.LPR.Worker.Executors
                 if (lprJob != null)
                 {
                     lprJob.JobId = lprJob.RefId;
+                    lprJob.JobType = "LPR";
                 }
             }
             catch (Exception e)
