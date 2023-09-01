@@ -71,12 +71,12 @@ namespace Prom.LPR.Worker.Executors
         private string DownloadFile(string? gcsPath, string? objectName, string? refId) 
         {
             var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
-            var localPath = $"/tmp/${ts}.${refId}";
+            var localPath = $"/tmp/{ts}.{refId}";
 
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading file [{gcsPath}] to [{localPath}]");
 
             StorageClient storageClient = StorageClient.Create();
-            using (var f = File.OpenRead(localPath))
+            using (var f = File.OpenWrite(localPath))
             {
                 storageClient.DownloadObject(bucket, objectName, f);
             }
