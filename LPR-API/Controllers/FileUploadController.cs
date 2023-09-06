@@ -24,8 +24,7 @@ namespace Prom.LPR.Api.Controllers
             lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
             lprAuthKey = ConfigUtils.GetConfig(cfg, "LPR:lprAuthKey");
 
-            Log.Information($"[{lprBaseUrl}] [{lprPath}]");
-            Log.Information($"[{lprAuthKey}]");
+            Log.Information($"LPR URL=[{lprBaseUrl}], LPR Path=[{lprPath}]");
         }
 
         private HttpClient GetHttpClient()
