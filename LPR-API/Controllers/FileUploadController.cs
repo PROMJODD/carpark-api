@@ -151,14 +151,20 @@ namespace Prom.LPR.Api.Controllers
             var msg = LPRAnalyzeFile(tmpFile);
             var lprObj = GetLPRObject(msg);
 
+
             var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
             var folder = $"{dateStamp}";
             var storagePath = UploadFile(tmpFile, id, folder);
+            
+            var storageObj = new MStorageData() 
+            {
+                StoragePath = storagePath
+            };
 
             var data = new MKafkaMessage() 
             {
                 LprData = lprObj,
-                StoragePath = storagePath
+                StorageData = storageObj
             };
 
             PublishMessage(data);
