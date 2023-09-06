@@ -8,6 +8,6 @@ namespace Prom.LPR.Api.Models
         public string? Brand { get; set; }
         public string? Class { get; set; }
         public string? Color { get; set; }
-        public string? Remaining { get; set; }
+        public int? Remaining { get; set; }
     }
 }

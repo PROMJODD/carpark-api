@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Utils;
 using Google.Cloud.Storage.V1;
+using Prom.LPR.Api.Kafka;
+using System.Text.Json;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -16,6 +18,10 @@ namespace Prom.LPR.Api.Controllers
         private string lprPath = "";
         private string lprAuthKey = "";
         private string imagesBucket = "";
+        private string topic = "";
+        private string kafkaHost = "";
+        private string kafkaPort = "";
+        private Producer<MKafkaMessage> producer;
 
         public FileUploadController(IConfiguration configuration)
         {
@@ -25,7 +31,14 @@ namespace Prom.LPR.Api.Controllers
             lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
             lprAuthKey = ConfigUtils.GetConfig(cfg, "LPR:lprAuthKey");
 
+            topic = ConfigUtils.GetConfig(cfg, "Kafka:topic");
+            kafkaHost = ConfigUtils.GetConfig(cfg, "Kafka:host");
+            kafkaPort = ConfigUtils.GetConfig(cfg, "Kafka:port");
+
             Log.Information($"LPR URL=[{lprBaseUrl}], LPR Path=[{lprPath}]");
+            Log.Information($"Topic=[{topic}], Kafka Host=[{kafkaHost}], Kafka Port=[{kafkaPort}]");
+
+            producer = new Producer<MKafkaMessage>(kafkaHost, kafkaPort);
         }
 
         private HttpClient GetHttpClient()
@@ -47,6 +60,11 @@ namespace Prom.LPR.Api.Controllers
             requestMessage.Headers.UserAgent.Add(productValue);
 
             return requestMessage;
+        }
+
+        private void PublishMessage(MKafkaMessage data)
+        {
+            producer.Produce(data, topic);
         }
 
         private string UploadFile(string localPath, string org, string folder) 
@@ -100,6 +118,17 @@ namespace Prom.LPR.Api.Controllers
             return lprResult;
         }
 
+        private MLPRResult? GetLPRObject(string json)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var obj = JsonSerializer.Deserialize<MLPRResult>(json, options);
+            return obj;
+        }
+
         [HttpPost]
         [Route("org/{id}/action/UploadVehicleImage")]
         public IActionResult UploadVehicleImage(string id, [FromForm] MImageUploaded img)
@@ -120,10 +149,19 @@ namespace Prom.LPR.Api.Controllers
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
             var msg = LPRAnalyzeFile(tmpFile);
+            var lprObj = GetLPRObject(msg);
 
             var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
             var folder = $"{dateStamp}";
-            UploadFile(tmpFile, id, folder);
+            var storagePath = UploadFile(tmpFile, id, folder);
+
+            var data = new MKafkaMessage() 
+            {
+                LprData = lprObj,
+                StoragePath = storagePath
+            };
+
+            PublishMessage(data);
 
             return Ok(msg);
         }
