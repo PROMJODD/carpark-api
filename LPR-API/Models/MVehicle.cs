@@ -1,8 +1,9 @@
 
 namespace Prom.LPR.Api.Models
 {
-    public class MVehicle : BaseModel
+    public class MVehicle
     {
+        public string? _Id { get; set; }
         public string? License { get; set; }
         public string? Province { get; set; }
         public string? VehBrand { get; set; }
