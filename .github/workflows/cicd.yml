@@ -62,7 +62,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        service: [ "lpr-worker" ]
+        service: [ "lpr-worker", "lpr-api" ]
     outputs:
       imageTag: ${{ steps.prep.outputs.version }}
       autoDeployEnv: ${{ steps.prep.outputs.deployEnv }}
@@ -103,6 +103,9 @@ jobs:
         fi
 
         DOCKERFILE=LPR-Worker/Dockerfile
+        if [[ $SERVICE == "lpr-api" ]]; then
+          DOCKERFILE=LPR-API/Dockerfile
+        fi
 
         echo ::set-output name=tags::${TAGS}
         echo ::set-output name=gcr_tags::${GCR_TAGS}
@@ -156,4 +159,3 @@ jobs:
         text: "Done building [${{matrix.service}}] [${{ steps.prep.outputs.version }}] with status [${{job.status}}]"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
-
