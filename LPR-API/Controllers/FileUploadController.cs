@@ -3,6 +3,7 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Utils;
+using Google.Cloud.Storage.V1;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -46,6 +47,23 @@ namespace Prom.LPR.Api.Controllers
             requestMessage.Headers.UserAgent.Add(productValue);
 
             return requestMessage;
+        }
+
+        private string UploadFile(string localPath, string org, string folder) 
+        {
+            var objectName = Path.GetFileName(localPath);
+            string objectPath = $"{org}/{folder}/{objectName}";
+            string gcsPath = $"gs://{imagesBucket}/{objectPath}";
+
+            Log.Information($"Uploading file [{localPath}] to [{gcsPath}]");
+
+            StorageClient storageClient = StorageClient.Create();
+            using (var f = System.IO.File.OpenRead(localPath))
+            {
+                storageClient.UploadObject(imagesBucket, $"{objectPath}", null, f);
+            }
+
+            return gcsPath;
         }
 
         private string LPRAnalyzeFile(string imagePath)
@@ -101,7 +119,11 @@ namespace Prom.LPR.Api.Controllers
             }
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
-            string msg = LPRAnalyzeFile(tmpFile);
+            var msg = LPRAnalyzeFile(tmpFile);
+
+            var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
+            var folder = $"{dateStamp}";
+            UploadFile(tmpFile, id, folder);
 
             return Ok(msg);
         }
