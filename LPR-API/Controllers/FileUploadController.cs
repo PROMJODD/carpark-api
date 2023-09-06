@@ -24,8 +24,7 @@ namespace Prom.LPR.Api.Controllers
             lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
             lprAuthKey = ConfigUtils.GetConfig(cfg, "LPR:lprAuthKey");
 
-            Log.Information($"[{lprBaseUrl}] [{lprPath}]");
-            Log.Information($"[{lprAuthKey}]");
+            Log.Information($"LPR URL=[{lprBaseUrl}], LPR Path=[{lprPath}]");
         }
 
         private HttpClient GetHttpClient()
@@ -49,7 +48,7 @@ namespace Prom.LPR.Api.Controllers
             return requestMessage;
         }
 
-        private void LPRAnalyzeFile(string imagePath)
+        private string LPRAnalyzeFile(string imagePath)
         {
             var client = GetHttpClient();
             var requestMessage = GetRequestMessage();
@@ -64,10 +63,13 @@ namespace Prom.LPR.Api.Controllers
             var task = client.SendAsync(requestMessage);
             var response = task.Result;
 
+            var lprResult = "";
             try
             {
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                lprResult = responseBody;
                 Console.WriteLine($"{responseBody}");
             }
             catch (Exception e)
@@ -76,6 +78,8 @@ namespace Prom.LPR.Api.Controllers
                 Log.Error(responseBody);
                 Log.Error(e.Message);
             }
+
+            return lprResult;
         }
 
         [HttpPost]
@@ -97,15 +101,9 @@ namespace Prom.LPR.Api.Controllers
             }
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
-            LPRAnalyzeFile(tmpFile);
+            string msg = LPRAnalyzeFile(tmpFile);
 
-            var r = new MVehicle() 
-            {
-                License = "กท-234-0999",
-                Province = "กรุงเทพมหานคร"
-            };
-
-            return Ok(r);
+            return Ok(msg);
         }
     }
 }
