@@ -28,6 +28,7 @@ namespace Prom.LPR.Api.Kafka
                 .Build())
             {
                 producer.Produce(topic, new Message<Null, T> { Value = data });
+                producer.Flush();
             }
         }
     }
