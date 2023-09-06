@@ -1,12 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Models;
+using Serilog;
 
 namespace Prom.LPR.Api.Controllers
 {
     [ApiController]
     [Route("/api/[controller]")]
-    //[Authorize]
     public class FileUploadController : ControllerBase
     {
         private readonly IConfiguration cfg;
@@ -18,8 +17,17 @@ namespace Prom.LPR.Api.Controllers
 
         [HttpPost]
         [Route("org/{id}/action/UploadVehicleImage")]
-        public IActionResult UploadVehicleImage(string id)
+        public IActionResult UploadVehicleImage(string id, [FromForm] MImageUploaded img)
         {
+            var image = img.Image;
+            if (image == null)
+            {
+                Log.Information($"No uploaded file available");
+                return NotFound();
+            }
+
+            Log.Information($"Uploaded file --> [{image.FileName}]");
+
             var r = new MVehicle() 
             {
                 License = "กท-234-0999",
