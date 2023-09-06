@@ -101,15 +101,9 @@ namespace Prom.LPR.Api.Controllers
             }
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
-            LPRAnalyzeFile(tmpFile);
+            string msg = LPRAnalyzeFile(tmpFile);
 
-            var r = new MVehicle() 
-            {
-                License = "กท-234-0999",
-                Province = "กรุงเทพมหานคร"
-            };
-
-            return Ok(r);
+            return Ok(msg);
         }
     }
 }
