@@ -1,6 +1,8 @@
+using Serilog;
+using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
-using Serilog;
+using Prom.LPR.Api.Utils;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -9,10 +11,71 @@ namespace Prom.LPR.Api.Controllers
     public class FileUploadController : ControllerBase
     {
         private readonly IConfiguration cfg;
+        private string lprBaseUrl = "";
+        private string lprPath = "";
+        private string lprAuthKey = "";
+        private string imagesBucket = "";
 
         public FileUploadController(IConfiguration configuration)
         {
             cfg = configuration;
+            imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
+            lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPR:lprBaseUrl");
+            lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
+            lprAuthKey = ConfigUtils.GetConfig(cfg, "LPR:lprAuthKey");
+
+            Log.Information($"[{lprBaseUrl}] [{lprPath}]");
+            Log.Information($"[{lprAuthKey}]");
+        }
+
+        private HttpClient GetHttpClient()
+        {
+            var client = new HttpClient();
+            Uri baseUri = new Uri(lprBaseUrl);
+            client.BaseAddress = baseUri;
+            client.Timeout = TimeSpan.FromMinutes(0.05);
+
+            return client;
+        }
+
+        private HttpRequestMessage GetRequestMessage()
+        {
+            //Bearer Authentication
+            var requestMessage = new HttpRequestMessage(HttpMethod.Post, lprPath);
+            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", lprAuthKey);
+            var productValue = new ProductInfoHeaderValue("lpr-api", "1.0");
+            requestMessage.Headers.UserAgent.Add(productValue);
+
+            return requestMessage;
+        }
+
+        private void LPRAnalyzeFile(string imagePath)
+        {
+            var client = GetHttpClient();
+            var requestMessage = GetRequestMessage();
+
+            using var stream = System.IO.File.OpenRead(imagePath);
+            using var content = new MultipartFormDataContent
+            {
+                { new StreamContent(stream), "image", imagePath }
+            };
+
+            requestMessage.Content = content;
+            var task = client.SendAsync(requestMessage);
+            var response = task.Result;
+
+            try
+            {
+                response.EnsureSuccessStatusCode();
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                Console.WriteLine($"{responseBody}");
+            }
+            catch (Exception e)
+            {
+                string responseBody = response.Content.ReadAsStringAsync().Result;
+                Log.Error(responseBody);
+                Log.Error(e.Message);
+            }
         }
 
         [HttpPost]
@@ -26,7 +89,15 @@ namespace Prom.LPR.Api.Controllers
                 return NotFound();
             }
 
-            Log.Information($"Uploaded file --> [{image.FileName}]");
+            var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
+            var tmpFile = $"/tmp/{ts}.{image.FileName}";
+            using (var fileStream = new FileStream(tmpFile, FileMode.Create))
+            {
+                image.CopyTo(fileStream);
+            }
+
+            Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
+            LPRAnalyzeFile(tmpFile);
 
             var r = new MVehicle() 
             {

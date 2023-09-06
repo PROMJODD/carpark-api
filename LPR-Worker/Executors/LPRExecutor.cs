@@ -8,7 +8,7 @@ using System.Net.Http.Headers;
 
 namespace Prom.LPR.Worker.Executors
 {
-    public class LPRExector : BaseExecutor
+    public class LPRExecutor : BaseExecutor
     {
         private readonly IConfiguration? configuration;
         private MJobLPR? lprJob = new MJobLPR() { Message = "", JobType = "LPR" };
@@ -18,7 +18,7 @@ namespace Prom.LPR.Worker.Executors
         private string lprPath = "";
         private string lprAuthKey = "";
 
-        public LPRExector(IConfiguration? cfg)
+        public LPRExecutor(IConfiguration? cfg)
         {
             if (cfg == null)
             {
