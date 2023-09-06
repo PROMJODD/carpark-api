@@ -48,7 +48,7 @@ namespace Prom.LPR.Api.Controllers
             return requestMessage;
         }
 
-        private void LPRAnalyzeFile(string imagePath)
+        private string LPRAnalyzeFile(string imagePath)
         {
             var client = GetHttpClient();
             var requestMessage = GetRequestMessage();
@@ -63,10 +63,13 @@ namespace Prom.LPR.Api.Controllers
             var task = client.SendAsync(requestMessage);
             var response = task.Result;
 
+            var lprResult = "";
             try
             {
                 response.EnsureSuccessStatusCode();
                 string responseBody = response.Content.ReadAsStringAsync().Result;
+
+                lprResult = responseBody;
                 Console.WriteLine($"{responseBody}");
             }
             catch (Exception e)
@@ -75,6 +78,8 @@ namespace Prom.LPR.Api.Controllers
                 Log.Error(responseBody);
                 Log.Error(e.Message);
             }
+
+            return lprResult;
         }
 
         [HttpPost]
