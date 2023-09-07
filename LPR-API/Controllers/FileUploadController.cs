@@ -3,9 +3,10 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Utils;
-using Google.Cloud.Storage.V1;
 using Prom.LPR.Api.Kafka;
 using System.Text.Json;
+using Google.Apis.Auth.OAuth2;
+using Google.Cloud.Storage.V1;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -67,7 +68,7 @@ namespace Prom.LPR.Api.Controllers
             producer.Produce(data, topic);
         }
 
-        private string UploadFile(string localPath, string org, string folder) 
+        private MStorageData UploadFile(string localPath, string org, string folder) 
         {
             var objectName = Path.GetFileName(localPath);
             string objectPath = $"{org}/{folder}/{objectName}";
@@ -81,7 +82,17 @@ namespace Prom.LPR.Api.Controllers
                 storageClient.UploadObject(imagesBucket, $"{objectPath}", null, f);
             }
 
-            return gcsPath;
+            var credential = GoogleCredential.GetApplicationDefault();
+            var urlSigner = UrlSigner.FromCredential(credential);
+            var url = urlSigner.Sign(imagesBucket, objectPath, TimeSpan.FromHours(1), HttpMethod.Get);
+
+            var storageObj = new MStorageData() 
+            {
+                StoragePath = gcsPath,
+                PreSignedUrl = url
+            };
+Console.WriteLine(url);
+            return storageObj;
         }
 
         private string LPRAnalyzeFile(string imagePath)
@@ -154,12 +165,7 @@ namespace Prom.LPR.Api.Controllers
 
             var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
             var folder = $"{dateStamp}";
-            var storagePath = UploadFile(tmpFile, id, folder);
-            
-            var storageObj = new MStorageData() 
-            {
-                StoragePath = storagePath
-            };
+            var storageObj = UploadFile(tmpFile, id, folder);
 
             var data = new MKafkaMessage() 
             {
@@ -170,7 +176,7 @@ namespace Prom.LPR.Api.Controllers
 
             PublishMessage(data);
 
-            return Ok(msg);
+            return Ok(lprObj);
         }
     }
 }
