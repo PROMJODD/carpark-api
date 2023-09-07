@@ -164,7 +164,8 @@ namespace Prom.LPR.Api.Controllers
             var data = new MKafkaMessage() 
             {
                 LprData = lprObj,
-                StorageData = storageObj
+                StorageData = storageObj,
+                HttpRequestHeader = Request.Headers
             };
 
             PublishMessage(data);
