@@ -174,7 +174,7 @@ Console.WriteLine(url);
                 HttpRequestHeader = Request.Headers
             };
 
-            //PublishMessage(data);
+            PublishMessage(data);
 
             return Ok(lprObj);
         }
