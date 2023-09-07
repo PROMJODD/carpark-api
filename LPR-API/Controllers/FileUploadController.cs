@@ -82,16 +82,25 @@ namespace Prom.LPR.Api.Controllers
                 storageClient.UploadObject(imagesBucket, $"{objectPath}", null, f);
             }
 
-            var credential = GoogleCredential.GetApplicationDefault();
-            var urlSigner = UrlSigner.FromCredential(credential);
-            var url = urlSigner.Sign(imagesBucket, objectPath, TimeSpan.FromHours(1), HttpMethod.Get);
+            var url = "";
+            try
+            {
+                var credential = GoogleCredential.GetApplicationDefault();
+                var urlSigner = UrlSigner.FromCredential(credential);
+                url = urlSigner.Sign(imagesBucket, objectPath, TimeSpan.FromHours(1), HttpMethod.Get);
+            }
+            catch (Exception e)
+            {
+                Log.Error($"Unable to sign URL - [{gcsPath}]");
+                Log.Error(e.Message);
+            }
 
             var storageObj = new MStorageData() 
             {
                 StoragePath = gcsPath,
                 PreSignedUrl = url
             };
-Console.WriteLine(url);
+
             return storageObj;
         }
 
@@ -176,7 +185,13 @@ Console.WriteLine(url);
 
             PublishMessage(data);
 
-            return Ok(lprObj);
+            var resp = new MLPRResponse() 
+            {
+                LprData = lprObj,
+                StorageData = storageObj,
+            };
+
+            return Ok(resp);
         }
     }
 }
