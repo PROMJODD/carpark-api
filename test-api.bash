@@ -1,7 +1,7 @@
 #!/bin/bash
 
-. ./export-dev.bash
-FILE_TO_UPLOAD="/c/Users/User/Desktop/TICKET-001.20230829_1236.jpg"
+. ./export.bash
+FILE_TO_UPLOAD="/d/LPR/Jan_2_2020/2020-01-21/0701465008_UQ2733.jpg"
 
 REF_ID=$(date +"%s")
 UPLOADED_PATH=${FILE_TO_UPLOAD}
