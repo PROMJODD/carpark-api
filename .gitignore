@@ -3,3 +3,4 @@
 .vscode
 export*.bash
 run.bash
+*.rb

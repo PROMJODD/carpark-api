@@ -47,7 +47,7 @@ namespace Prom.LPR.Api.Controllers
             var client = new HttpClient();
             Uri baseUri = new Uri(lprBaseUrl);
             client.BaseAddress = baseUri;
-            client.Timeout = TimeSpan.FromMinutes(0.05);
+            client.Timeout = TimeSpan.FromMilliseconds(1000);
 
             return client;
         }
