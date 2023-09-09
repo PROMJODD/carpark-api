@@ -1,4 +1,4 @@
-namespace Prom.LPR.Api.DBContext;
+namespace Prom.LPR.Api.Database;
 
 using Prom.LPR.Api.Models;
 using Microsoft.EntityFrameworkCore;
