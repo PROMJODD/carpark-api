@@ -1,4 +1,6 @@
 using Serilog;
+using Prom.LPR.Api.DBContext;
+using Microsoft.EntityFrameworkCore;
 
 namespace Prom.LPR.Worker
 {
@@ -13,12 +15,23 @@ namespace Prom.LPR.Worker
 
             var builder = WebApplication.CreateBuilder(args);
             builder.Services.AddControllers();
+            var cfg = builder.Configuration;
+
+            var connStr = $"Host={cfg["PostgreSQL:Host"]}; Database={cfg["PostgreSQL:Database"]}; Username={cfg["PostgreSQL:User"]}; Password={cfg["PostgreSQL:Password"]}";
 
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddDbContext<DataContext>(options =>
+                options.UseNpgsql(connStr));
 
             var app = builder.Build();
+
+            using (var scope = app.Services.CreateScope())
+            {
+                var dbContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+                dbContext.Database.Migrate();
+            }
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
