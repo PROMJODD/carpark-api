@@ -1,6 +1,8 @@
 using Serilog;
 using Prom.LPR.Api.Database;
 using Microsoft.EntityFrameworkCore;
+using Prom.LPR.Api.Services;
+using Prom.LPR.Api.Repositories;
 
 namespace Prom.LPR.Worker
 {
@@ -22,8 +24,11 @@ namespace Prom.LPR.Worker
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
             builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connStr));
             builder.Services.AddTransient<DataSeeder>();
+            builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+            builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
 
             var app = builder.Build();
 
