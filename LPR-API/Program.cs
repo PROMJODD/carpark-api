@@ -29,6 +29,8 @@ namespace Prom.LPR.Worker
             builder.Services.AddTransient<DataSeeder>();
             builder.Services.AddScoped<IOrganizationService, OrganizationService>();
             builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            builder.Services.AddScoped<IIamService, IamService>();
+            builder.Services.AddScoped<IIamRepository, IamRepository>();
 
             var app = builder.Build();
 
