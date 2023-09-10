@@ -13,6 +13,7 @@ public class DataContext : DbContext
     }
 
     public DbSet<MOrganization>? Organizations { get; set; }
+    public DbSet<MApiKey>? ApiKeys { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
