@@ -16,7 +16,9 @@ namespace Prom.LPR.Worker
             Log.Logger = log;
 
             var builder = WebApplication.CreateBuilder(args);
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options => options.JsonSerializerOptions.WriteIndented = true);
+
             var cfg = builder.Configuration;
 
             var connStr = $"Host={cfg["PostgreSQL:Host"]}; Database={cfg["PostgreSQL:Database"]}; Username={cfg["PostgreSQL:User"]}; Password={cfg["PostgreSQL:Password"]}";
@@ -29,8 +31,8 @@ namespace Prom.LPR.Worker
             builder.Services.AddTransient<DataSeeder>();
             builder.Services.AddScoped<IOrganizationService, OrganizationService>();
             builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
-            builder.Services.AddScoped<IIamService, IamService>();
-            builder.Services.AddScoped<IIamRepository, IamRepository>();
+            builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
+            builder.Services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
 
             var app = builder.Build();
 

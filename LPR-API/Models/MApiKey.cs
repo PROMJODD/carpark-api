@@ -24,5 +24,8 @@ namespace Prom.LPR.Api.Models
 
         [Column("key_expired_date")]
         public DateTime? KeyExpiredDate { get; set; }
+
+        [Column("key_description")]
+        public string? KeyDescription { get; set; }
     }
 }
