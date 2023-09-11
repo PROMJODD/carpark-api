@@ -27,5 +27,8 @@ namespace Prom.LPR.Api.Models
 
         [Column("key_description")]
         public string? KeyDescription { get; set; }
+
+        [Column("roles_list")]
+        public string? RolesList { get; set; }
     }
 }

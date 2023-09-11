@@ -56,7 +56,7 @@ namespace Prom.LPR.Api.Authentications
                 UserId = m.ApiKey.KeyId,
                 AuthenType = "API-KEY"
             };
-Console.WriteLine($"##### [{u.UserId}] #####");
+
             return u;
         }
     }
