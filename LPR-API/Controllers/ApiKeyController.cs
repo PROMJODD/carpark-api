@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/api/[controller]")]
     public class ApiKeyController : ControllerBase

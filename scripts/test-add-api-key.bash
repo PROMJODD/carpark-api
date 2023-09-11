@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./export-dev.bash
+. ./export.bash
 
 APIKEY=demo-api-key
 DAT_TEMPLATE=template.json

@@ -3,6 +3,9 @@ using Prom.LPR.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Prom.LPR.Api.Services;
 using Prom.LPR.Api.Repositories;
+using Prom.LPR.Api.Authentications;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Prom.LPR.Worker
 {
@@ -34,6 +37,16 @@ namespace Prom.LPR.Worker
             builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
             builder.Services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
 
+            builder.Services.AddScoped<IBasicAuthenticationRepo, BasicAuthenticationRepo>();
+            builder.Services.AddAuthentication("Basic")
+                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandlerDB>("Basic", null);
+
+            builder.Services.AddAuthorization(options => {
+                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder("Basic", "Basic");
+                defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
+                options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+            });
+
             var app = builder.Build();
 
             using (var scope = app.Services.CreateScope())
@@ -53,6 +66,7 @@ namespace Prom.LPR.Worker
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             //app.UseAuthorization();
             app.MapControllers();
             app.Run();
