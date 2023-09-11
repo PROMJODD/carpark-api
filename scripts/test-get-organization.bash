@@ -1,5 +1,5 @@
 #!/bin/bash
 
-. ./export-dev.bash
+. ./export.bash
 
-curl -v -X GET ${ENDPOINT_GET_ORG} -u ${AUTH_USER}:${AUTH_PASSWORD}
+curl -s -X GET ${ENDPOINT_GET_ORG} -u ${AUTH_USER}:${AUTH_PASSWORD}
