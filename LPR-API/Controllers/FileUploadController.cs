@@ -7,9 +7,11 @@ using Prom.LPR.Api.Kafka;
 using System.Text.Json;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Prom.LPR.Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("/api/[controller]")]
     public class FileUploadController : ControllerBase
