@@ -1,3 +1,4 @@
+using Prom.LPR.Api.ModelsViews;
 using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Authentications
@@ -16,11 +17,33 @@ namespace Prom.LPR.Api.Authentications
             service = svc;
         }
 
-        public User? Authenticate(string orgId, string user, string password)
+        private MVApiKey? VerifyKey(string orgId, string user, string password)
         {
             //TODO : Added chaching mechanism here
 
             var m = service!.VerifyApiKey(orgId, password);
+            if (m != null && m.Status!.Equals("OK"))
+            {
+                return m;
+            }
+
+            var g = service!.VerifyApiKey("global", password);
+            if (g != null && g.Status!.Equals("OK"))
+            {
+                return g;
+            }
+
+            return null;
+        }
+
+        public User? Authenticate(string orgId, string user, string password)
+        {
+            var m = VerifyKey(orgId, user, password);
+            if (m == null)
+            {
+                return null;
+            }
+
             if (!m.Status!.Equals("OK"))
             {
                 return null;
@@ -29,9 +52,11 @@ namespace Prom.LPR.Api.Authentications
             var u = new User()
             {
                 UserName = user,
-                Password = password
+                Password = m.ApiKey!.ApiKey,
+                UserId = m.ApiKey.KeyId,
+                AuthenType = "API-KEY"
             };
-
+Console.WriteLine($"##### [{u.UserId}] #####");
             return u;
         }
     }
