@@ -117,11 +117,51 @@ public class DataSeeder
         }
     }
 
+    private void AddRole(string name, string definition, string level, string desc)
+    {
+        var query = context.Roles!.Where(x => x.RoleName!.Equals(name)).FirstOrDefault();
+        if (query != null)
+        {
+            //Already exist
+            return;
+        }
+
+        var r = new MRole() 
+        {
+            RoleName = name,
+            RoleDefinition = definition,
+            RoleLevel = level,
+            RoleDescription = desc
+        };
+
+        context!.Roles!.Add(r);
+    }
+
+    private void SeedDefaultRoles()
+    {
+        AddRole("CREATOR", "Admin:CreateOrganization,ApiKey:AddApiKey", "ADMIN", "Organization creator");
+        AddRole("OWNER", ".+:.+", "ORGANIZATION", "Organization Owner");
+        AddRole("VIEWER", ".+:Get.+", "ORGANIZATION", "Organization Viewer");
+        AddRole("EDITOR", ".+:Add.+,.+:Update.+,.+:Delete.+", "ORGANIZATION", "Organization Editor");
+        AddRole("UPLOADER", "FileUpload:Upload.+Image", "ORGANIZATION", "Organization File Uploader");
+
+        context.SaveChanges();
+    }
+
+    private void UpdateApiKeyRole()
+    {
+        var apiKeys = context.ApiKeys!.Where(x => x.RolesList!.Equals(null) || x.RolesList!.Equals("")).ToList();
+        apiKeys.ForEach(a => a.RolesList = "OWNER");
+        context.SaveChanges();
+    }
+
     public void Seed()
     {
         SeedDefaultOrganization();
         UpdateDefaultOrganizationCustomId();
 
         SeedGlobalOrganization();
+        SeedDefaultRoles();
+        UpdateApiKeyRole();
     }
 }
