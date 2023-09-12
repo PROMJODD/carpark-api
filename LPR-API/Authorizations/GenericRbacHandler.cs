@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Authorizations;
@@ -20,7 +21,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
         return claim;
     }
 
-    private bool IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
+    private string? IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
     {
         var uriPattern = @"^\/api\/(.+)\/org\/(.+)\/action\/(.+)$";
         var matches = Regex.Matches(uri, uriPattern);
@@ -39,16 +40,16 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
                 if (m.Success)
                 {
                     //Console.WriteLine($"### [{role.RoleName}] [{pattern}] [{keyword}] ###");
-                    return true;
+                    return role.RoleName;
                 }
             }
         }
 
-        return false;
+        return "";
     }
 
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, GenericRbacRequirement requirement)
-    {   
+    {
         var idClaim = GetClaim(ClaimTypes.NameIdentifier, context.User.Claims);
         if (idClaim == null)
         {
@@ -76,10 +77,13 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 
         var roles = service.GetRolesList("", role);
 
-        var isValid = IsRoleValid(roles, uri);
-        if (isValid)
+        var roleMatch = IsRoleValid(roles, uri);
+        if (!roleMatch!.Equals(""))
         {
             context.Succeed(requirement);
+
+            var mvcContext = context.Resource as DefaultHttpContext;
+            mvcContext!.HttpContext.Items["Temp-Authorized-Role"] = roleMatch;
         }
 
         return Task.CompletedTask;
