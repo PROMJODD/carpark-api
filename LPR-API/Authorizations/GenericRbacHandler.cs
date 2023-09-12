@@ -8,6 +8,7 @@ namespace Prom.LPR.Api.Authorizations;
 public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 {
     private readonly IRoleService service;
+    private string apiCalled = "";
 
     public GenericRbacHandler(IRoleService svc)
     {
@@ -20,7 +21,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
         return claim;
     }
 
-    private bool IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
+    private string? IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
     {
         var uriPattern = @"^\/api\/(.+)\/org\/(.+)\/action\/(.+)$";
         var matches = Regex.Matches(uri, uriPattern);
@@ -29,6 +30,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
         var api = matches[0].Groups[3].Value;
 
         var keyword = $"{group}:{api}";
+        apiCalled = keyword;
 
         foreach (var role in roles!)
         {
@@ -39,16 +41,16 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
                 if (m.Success)
                 {
                     //Console.WriteLine($"### [{role.RoleName}] [{pattern}] [{keyword}] ###");
-                    return true;
+                    return role.RoleName;
                 }
             }
         }
 
-        return false;
+        return "";
     }
 
     protected override Task HandleRequirementAsync(AuthorizationHandlerContext context, GenericRbacRequirement requirement)
-    {   
+    {
         var idClaim = GetClaim(ClaimTypes.NameIdentifier, context.User.Claims);
         if (idClaim == null)
         {
@@ -70,17 +72,33 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             return Task.CompletedTask;
         }
 
-        //var uid = idClaim.Value;
+        var authMethodClaim = GetClaim(ClaimTypes.AuthenticationMethod, context.User.Claims);
+        if (authMethodClaim == null)
+        {
+            //The authentication failed earlier
+            return Task.CompletedTask;
+        }
+
+        var uid = idClaim.Value;
         var role = roleClaim.Value;
         var uri = uriClaim.Value;
+        var method = authMethodClaim.Value;
 
         var roles = service.GetRolesList("", role);
 
-        var isValid = IsRoleValid(roles, uri);
-        if (isValid)
+        var roleMatch = IsRoleValid(roles, uri);
+        if (!roleMatch!.Equals(""))
         {
             context.Succeed(requirement);
+
+            var mvcContext = context.Resource as DefaultHttpContext;
+            mvcContext!.HttpContext.Items["Temp-Authorized-Role"] = roleMatch;
+            mvcContext!.HttpContext.Items["Temp-API-Called"] = apiCalled;
+            mvcContext!.HttpContext.Items["Temp-Identity-Type"] = method;
+            mvcContext!.HttpContext.Items["Temp-Identity-Id"] = uid;
         }
+
+        //Console.WriteLine($"[{apiCalled}], [{method}], [{uid}]");
 
         return Task.CompletedTask;
     }

@@ -8,6 +8,7 @@ using System.Text.Json;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authorization;
+using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -17,6 +18,7 @@ namespace Prom.LPR.Api.Controllers
     public class FileUploadController : ControllerBase
     {
         private readonly IConfiguration cfg;
+        private readonly IFileUploadedService service;
         private string lprBaseUrl = "";
         private string lprPath = "";
         private string lprAuthKey = "";
@@ -26,9 +28,11 @@ namespace Prom.LPR.Api.Controllers
         private string kafkaPort = "";
         private Producer<MKafkaMessage> producer;
 
-        public FileUploadController(IConfiguration configuration)
+        public FileUploadController(IConfiguration configuration, IFileUploadedService svc)
         {
+            service = svc;
             cfg = configuration;
+
             imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
             lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPR:lprBaseUrl");
             lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
@@ -151,6 +155,42 @@ namespace Prom.LPR.Api.Controllers
             return obj;
         }
 
+        private string GetContextValue(string key)
+        {
+            bool t = HttpContext.Items.TryGetValue(key, out object? e);
+            if (t)
+            {
+                var value = e as string;
+                return value!;
+            }
+
+            return "";
+        }
+
+        private void AddRecord(string id, MKafkaMessage data, string fname)
+        {
+            FileInfo fi = new FileInfo(fname);
+            var m = new MFileUploaded()
+            {
+                OrgId = id,
+                IdentityType = GetContextValue("Temp-Identity-Type"),
+                UploaderId = GetContextValue("Temp-Identity-Id"),
+                UploadedApi = GetContextValue("Temp-API-Called"),
+                StoragePath = data!.StorageData!.StoragePath,
+                RecognitionStatus = data!.LprData!.Status.ToString(),
+                RecognitionMessage = data!.LprData.Message,
+                VehicleLicense = data!.LprData!.Data!.License,
+                VehicleProvince = data!.LprData!.Data!.Province,
+                VehicleBrand = data!.LprData!.Data!.VehBrand,
+                VehicleClass = data!.LprData!.Data!.VehClass,
+                VehicleColor = data!.LprData!.Data!.VehColor,
+                QuotaLeft = data!.LprData!.Data!.Remaining,
+                FileSize = fi.Length,
+            };
+
+            service.AddFileUploaded(id, m);
+        }
+
         [HttpPost]
         [Route("org/{id}/action/UploadVehicleImage")]
         public IActionResult UploadVehicleImage(string id, [FromForm] MImageUploaded img)
@@ -185,6 +225,7 @@ namespace Prom.LPR.Api.Controllers
                 HttpRequestHeader = Request.Headers
             };
 
+            AddRecord(id, data, tmpFile);
             PublishMessage(data);
 
             var resp = new MLPRResponse() 

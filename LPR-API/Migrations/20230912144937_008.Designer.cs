@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using Prom.LPR.Api.Database;
@@ -11,9 +12,11 @@ using Prom.LPR.Api.Database;
 namespace LPR_API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230912144937_008")]
+    partial class _008
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,7 +93,7 @@ namespace LPR_API.Migrations
                         .HasColumnType("text")
                         .HasColumnName("recognition_message");
 
-                    b.Property<string>("RecognitionStatus")
+                    b.Property<string>("RecognitionStation")
                         .HasColumnType("text")
                         .HasColumnName("recognition_status");
 
@@ -106,8 +109,8 @@ namespace LPR_API.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("uploaded_date");
 
-                    b.Property<string>("UploaderId")
-                        .HasColumnType("text")
+                    b.Property<Guid>("UploaderId")
+                        .HasColumnType("uuid")
                         .HasColumnName("uploader_id");
 
                     b.Property<string>("VehicleBrand")
