@@ -18,9 +18,9 @@ namespace Prom.LPR.Api.Authentications
             authenRepo = authRepo;
         }
 
-        protected override User? Authenticate(string orgId, string username, string password)
+        protected override User? Authenticate(string orgId, string username, string password, HttpRequest request)
         {
-            var user = authenRepo!.Authenticate(orgId, username, password);
+            var user = authenRepo!.Authenticate(orgId, username, password, request);
             return user;
         }
     }

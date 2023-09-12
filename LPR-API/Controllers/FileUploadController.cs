@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Prom.LPR.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "GenericRolePolicy")]
     [ApiController]
     [Route("/api/[controller]")]
     public class FileUploadController : ControllerBase

@@ -5,7 +5,7 @@ using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Controllers
 {
-    [Authorize]
+    [Authorize(Policy = "GenericRolePolicy")]
     [ApiController]
     [Route("/api/[controller]")]
     public class ApiKeyController : ControllerBase

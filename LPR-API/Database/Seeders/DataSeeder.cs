@@ -1,4 +1,4 @@
-namespace Prom.LPR.Api.Database;
+namespace Prom.LPR.Api.Database.Seeders;
 
 using PasswordGenerator;
 using Prom.LPR.Api.Models;

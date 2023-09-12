@@ -7,8 +7,9 @@ DAT_TEMPLATE=template.json
 
 cat << EOF > ${DAT_TEMPLATE}
 {
-  "ApiKey": "secretxAseKeykks9803See",
-  "KeyDescription": "API for CCTV file upload"
+  "ApiKey": "secretxAIdboww0jKeykks98SwOe",
+  "KeyDescription": "API for CCTV file upload",
+  "RolesList" : "UPLOADER"
 }
 EOF
 
