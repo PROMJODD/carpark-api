@@ -15,11 +15,13 @@ public class DataContext : DbContext
     public DbSet<MOrganization>? Organizations { get; set; }
     public DbSet<MApiKey>? ApiKeys { get; set; }
     public DbSet<MRole>? Roles { get; set; }
+    public DbSet<MFileUploaded>? FileUploadeds { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         builder.Entity<MOrganization>();
         builder.Entity<MApiKey>();
         builder.Entity<MRole>();
+        builder.Entity<MFileUploaded>();
     }
 }

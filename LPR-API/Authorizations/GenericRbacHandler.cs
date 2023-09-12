@@ -1,7 +1,6 @@
 using System.Security.Claims;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Authorizations;
@@ -9,6 +8,7 @@ namespace Prom.LPR.Api.Authorizations;
 public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 {
     private readonly IRoleService service;
+    private string apiCalled = "";
 
     public GenericRbacHandler(IRoleService svc)
     {
@@ -30,6 +30,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
         var api = matches[0].Groups[3].Value;
 
         var keyword = $"{group}:{api}";
+        apiCalled = keyword;
 
         foreach (var role in roles!)
         {
@@ -71,9 +72,17 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             return Task.CompletedTask;
         }
 
-        //var uid = idClaim.Value;
+        var authMethodClaim = GetClaim(ClaimTypes.AuthenticationMethod, context.User.Claims);
+        if (authMethodClaim == null)
+        {
+            //The authentication failed earlier
+            return Task.CompletedTask;
+        }
+
+        var uid = idClaim.Value;
         var role = roleClaim.Value;
         var uri = uriClaim.Value;
+        var method = authMethodClaim.Value;
 
         var roles = service.GetRolesList("", role);
 
@@ -84,7 +93,12 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 
             var mvcContext = context.Resource as DefaultHttpContext;
             mvcContext!.HttpContext.Items["Temp-Authorized-Role"] = roleMatch;
+            mvcContext!.HttpContext.Items["Temp-API-Called"] = apiCalled;
+            mvcContext!.HttpContext.Items["Temp-Identity-Type"] = method;
+            mvcContext!.HttpContext.Items["Temp-Identity-Id"] = uid;
         }
+
+        //Console.WriteLine($"[{apiCalled}], [{method}], [{uid}]");
 
         return Task.CompletedTask;
     }

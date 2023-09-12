@@ -8,6 +8,7 @@ using System.Text.Json;
 using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authorization;
+using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -17,6 +18,7 @@ namespace Prom.LPR.Api.Controllers
     public class FileUploadController : ControllerBase
     {
         private readonly IConfiguration cfg;
+        private readonly IFileUploadedService service;
         private string lprBaseUrl = "";
         private string lprPath = "";
         private string lprAuthKey = "";
@@ -26,9 +28,11 @@ namespace Prom.LPR.Api.Controllers
         private string kafkaPort = "";
         private Producer<MKafkaMessage> producer;
 
-        public FileUploadController(IConfiguration configuration)
+        public FileUploadController(IConfiguration configuration, IFileUploadedService svc)
         {
+            service = svc;
             cfg = configuration;
+
             imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
             lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPR:lprBaseUrl");
             lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
