@@ -49,10 +49,6 @@ namespace Prom.LPR.Api.Controllers
         [Route("org/{id}/action/GetApiKeys")]
         public IActionResult GetApiKeys(string id)
         {
-            //bool t = HttpContext.Items.TryGetValue("Temp-Authorized-Role", out object? e);
-            //var role = e as string;
-            //Console.WriteLine($"#### returned [{role}] ####");
-
             var result = svc.GetApiKeys(id);
             return Ok(result);
         }

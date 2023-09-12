@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./export.bash
+. ./export-dev.bash
 FILE_TO_UPLOAD="/d/LPR/Jan_2_2020/2020-01-21/0701465008_UQ2733.jpg"
 
 REF_ID=$(date +"%s")

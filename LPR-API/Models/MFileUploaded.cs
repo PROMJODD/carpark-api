@@ -19,13 +19,13 @@ namespace Prom.LPR.Api.Models
         public string? IdentityType { get; set; }
 
         [Column("uploader_id")]
-        public Guid UploaderId { get; set; }
+        public string? UploaderId { get; set; }
 
         [Column("storage_path")]
         public string? StoragePath { get; set; }
 
         [Column("recognition_status")]
-        public string? RecognitionStation { get; set; }
+        public string? RecognitionStatus { get; set; }
 
         [Column("recognition_message")]
         public string? RecognitionMessage { get; set; }
