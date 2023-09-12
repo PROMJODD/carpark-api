@@ -11,7 +11,7 @@ namespace Prom.LPR.Api.Authentications
 {
     public abstract class BasicAuthenticationHandlerBase : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        protected abstract User? Authenticate(string orgId, string username, string password);
+        protected abstract User? Authenticate(string orgId, string username, string password, HttpRequest request);
         private static IConfiguration? cfg = null;
 
         public BasicAuthenticationHandlerBase(
@@ -69,7 +69,7 @@ namespace Prom.LPR.Api.Authentications
                 var password = credentials[1];
 
                 var orgId = GetOrgId(Request);
-                user = await Task.Run(() => Authenticate(orgId, username, password));
+                user = await Task.Run(() => Authenticate(orgId, username, password, Request));
             }
             catch (Exception e)
             {

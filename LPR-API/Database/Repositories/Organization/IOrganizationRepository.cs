@@ -1,6 +1,6 @@
 using Prom.LPR.Api.Models;
 
-namespace Prom.LPR.Api.Repositories
+namespace Prom.LPR.Api.Database.Repositories
 {
     public interface IOrganizationRepository
     {

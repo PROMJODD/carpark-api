@@ -2,10 +2,12 @@ using Serilog;
 using Prom.LPR.Api.Database;
 using Microsoft.EntityFrameworkCore;
 using Prom.LPR.Api.Services;
-using Prom.LPR.Api.Repositories;
+using Prom.LPR.Api.Database.Repositories;
 using Prom.LPR.Api.Authentications;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
+using Prom.LPR.Api.Database.Seeders;
+using Prom.LPR.Api.Authorizations;
 
 namespace Prom.LPR.Worker
 {
@@ -32,11 +34,16 @@ namespace Prom.LPR.Worker
 
             builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connStr));
             builder.Services.AddTransient<DataSeeder>();
-            builder.Services.AddScoped<IOrganizationService, OrganizationService>();
-            builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
-            builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
-            builder.Services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
 
+            builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
+            builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+            builder.Services.AddScoped<IRoleService, RoleService>();
+
+            builder.Services.AddScoped<IOrganizationRepository, OrganizationRepository>();
+            builder.Services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
+            builder.Services.AddScoped<IRoleRepository, RoleRepository>();
+            
+            builder.Services.AddTransient<IAuthorizationHandler, GenericRbacHandler>();
             builder.Services.AddScoped<IBasicAuthenticationRepo, BasicAuthenticationRepo>();
             builder.Services.AddAuthentication("Basic")
                 .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandlerDB>("Basic", null);
@@ -45,6 +52,8 @@ namespace Prom.LPR.Worker
                 var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder("Basic", "Basic");
                 defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
                 options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
+
+                options.AddPolicy("GenericRolePolicy", policy => policy.AddRequirements(new GenericRbacRequirement()));
             });
 
             var app = builder.Build();
@@ -67,7 +76,7 @@ namespace Prom.LPR.Worker
 
             app.UseHttpsRedirection();
             app.UseAuthentication();
-            //app.UseAuthorization();
+            app.UseAuthorization();
             app.MapControllers();
             app.Run();
         }

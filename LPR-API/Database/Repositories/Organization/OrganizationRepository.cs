@@ -2,7 +2,7 @@ using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Database;
 using Microsoft.EntityFrameworkCore;
 
-namespace Prom.LPR.Api.Repositories
+namespace Prom.LPR.Api.Database.Repositories
 {
     public class OrganizationRepository : BaseRepository, IOrganizationRepository
     {

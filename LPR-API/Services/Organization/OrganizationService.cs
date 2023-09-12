@@ -1,5 +1,5 @@
 using Prom.LPR.Api.Models;
-using Prom.LPR.Api.Repositories;
+using Prom.LPR.Api.Database.Repositories;
 
 namespace Prom.LPR.Api.Services
 {

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Prom.LPR.Api.ModelsViews;
 using Prom.LPR.Api.Services;
 
@@ -36,7 +37,7 @@ namespace Prom.LPR.Api.Authentications
             return null;
         }
 
-        public User? Authenticate(string orgId, string user, string password)
+        public User? Authenticate(string orgId, string user, string password, HttpRequest request)
         {
             var m = VerifyKey(orgId, user, password);
             if (m == null)
@@ -54,7 +55,16 @@ namespace Prom.LPR.Api.Authentications
                 UserName = user,
                 Password = m.ApiKey!.ApiKey,
                 UserId = m.ApiKey.KeyId,
-                AuthenType = "API-KEY"
+                Role = m.ApiKey.RolesList,
+                AuthenType = "API-KEY",
+            };
+
+            u.claims = new[] {
+                new Claim(ClaimTypes.NameIdentifier, u.UserId.ToString()!),
+                new Claim(ClaimTypes.Name, user),
+                new Claim(ClaimTypes.Role, u.Role!),
+                new Claim(ClaimTypes.AuthenticationMethod, u.AuthenType!),
+                new Claim(ClaimTypes.Uri, request.Path),
             };
 
             return u;

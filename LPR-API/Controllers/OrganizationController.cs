@@ -4,8 +4,8 @@ using Prom.LPR.Api.Services;
 
 namespace Prom.LPR.Api.Controllers
 {
-    [Authorize]
     [ApiController]
+    [Authorize(Policy = "GenericRolePolicy")]
     [Route("/api/[controller]")]
     public class OrganizationController : ControllerBase
     {

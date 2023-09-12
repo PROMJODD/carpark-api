@@ -1,6 +1,6 @@
 using Prom.LPR.Api.Database;
 
-namespace Prom.LPR.Api.Repositories
+namespace Prom.LPR.Api.Database.Repositories
 {
     public class BaseRepository
     {

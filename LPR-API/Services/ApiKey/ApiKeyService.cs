@@ -1,6 +1,6 @@
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.ModelsViews;
-using Prom.LPR.Api.Repositories;
+using Prom.LPR.Api.Database.Repositories;
 using Prom.LPR.Api.Utils;
 
 namespace Prom.LPR.Api.Services
