@@ -1,5 +1,6 @@
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Database.Repositories;
+using Prom.LPR.Api.ViewsModels;
 
 namespace Prom.LPR.Api.Services
 {
@@ -16,6 +17,14 @@ namespace Prom.LPR.Api.Services
         {
             repository!.SetCustomOrgId(orgId);
             var result = repository!.AddFileUploaded(file);
+
+            return result;
+        }
+
+        public IEnumerable<MFileUploaded> GetFilesUploaded(string orgId, VMFileUploadedQuery param)
+        {
+            repository!.SetCustomOrgId(orgId);
+            var result = repository!.GetFilesUploaded(param);
 
             return result;
         }

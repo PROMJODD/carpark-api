@@ -9,6 +9,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Services;
+using Prom.LPR.Api.ViewsModels;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -28,7 +29,8 @@ namespace Prom.LPR.Api.Controllers
         private string kafkaPort = "";
         private Producer<MKafkaMessage> producer;
 
-        public FileUploadController(IConfiguration configuration, IFileUploadedService svc)
+        public FileUploadController(IConfiguration configuration, 
+            IFileUploadedService svc)
         {
             service = svc;
             cfg = configuration;
@@ -235,6 +237,16 @@ namespace Prom.LPR.Api.Controllers
             };
 
             return Ok(resp);
+        }
+
+        [HttpGet]
+        [Route("org/{id}/action/GetVehicleImages")]
+        public IActionResult GetVehicleImages(string id, [FromQuery] VMFileUploadedQuery param)
+        {
+            param.UploadedApi = "FileUpload:UploadVehicleImage";
+
+            var result = service.GetFilesUploaded(id, param);
+            return Ok(result);
         }
     }
 }
