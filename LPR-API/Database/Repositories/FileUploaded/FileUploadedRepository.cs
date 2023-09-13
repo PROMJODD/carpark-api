@@ -25,5 +25,18 @@ namespace Prom.LPR.Api.Database.Repositories
 
             return file;
         }
+
+        public IEnumerable<MFileUploaded> GetFilesUploaded()
+        {
+            try
+            {
+                var arr = context!.FileUploadeds!.Where(x => x.OrgId!.Equals(orgId)).ToList();
+                return arr;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

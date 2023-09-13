@@ -19,5 +19,13 @@ namespace Prom.LPR.Api.Services
 
             return result;
         }
+
+        public IEnumerable<MFileUploaded> GetFilesUploaded(string orgId)
+        {
+            repository!.SetCustomOrgId(orgId);
+            var result = repository!.GetFilesUploaded();
+
+            return result;
+        }
     }
 }

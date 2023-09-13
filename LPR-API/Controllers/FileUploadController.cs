@@ -28,7 +28,8 @@ namespace Prom.LPR.Api.Controllers
         private string kafkaPort = "";
         private Producer<MKafkaMessage> producer;
 
-        public FileUploadController(IConfiguration configuration, IFileUploadedService svc)
+        public FileUploadController(IConfiguration configuration, 
+            IFileUploadedService svc)
         {
             service = svc;
             cfg = configuration;
@@ -235,6 +236,14 @@ namespace Prom.LPR.Api.Controllers
             };
 
             return Ok(resp);
+        }
+
+        [HttpGet]
+        [Route("org/{id}/action/GetVehicleImages")]
+        public IActionResult GetVehicleImages(string id)
+        {
+            var result = service.GetFilesUploaded(id);
+            return Ok(result);
         }
     }
 }
