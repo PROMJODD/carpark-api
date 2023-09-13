@@ -9,6 +9,7 @@ using Google.Apis.Auth.OAuth2;
 using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Services;
+using Prom.LPR.Api.ViewsModels;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -240,9 +241,11 @@ namespace Prom.LPR.Api.Controllers
 
         [HttpGet]
         [Route("org/{id}/action/GetVehicleImages")]
-        public IActionResult GetVehicleImages(string id)
+        public IActionResult GetVehicleImages(string id, [FromQuery] VMFileUploadedQuery param)
         {
-            var result = service.GetFilesUploaded(id);
+            param.UploadedApi = "FileUpload:UploadVehicleImage";
+
+            var result = service.GetFilesUploaded(id, param);
             return Ok(result);
         }
     }

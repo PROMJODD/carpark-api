@@ -1,11 +1,16 @@
-using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
 
 namespace Prom.LPR.Api.Models
 {
     [Table("FileUploaded")]
     [Index(nameof(StoragePath), IsUnique = true)]
+    [Index(nameof(UploadedApi), IsUnique = false)]
+    [Index(nameof(VehicleLicense), IsUnique = false)]
+    [Index(nameof(VehicleBrand), IsUnique = false)]
+    [Index(nameof(VehicleProvince), IsUnique = false)]
+    [Index(nameof(VehicleClass), IsUnique = false)]
     public class MFileUploaded
     {
         [Key]

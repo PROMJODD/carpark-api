@@ -1,4 +1,6 @@
+using LinqKit;
 using Prom.LPR.Api.Models;
+using Prom.LPR.Api.ViewsModels;
 
 namespace Prom.LPR.Api.Database.Repositories
 {
@@ -26,11 +28,37 @@ namespace Prom.LPR.Api.Database.Repositories
             return file;
         }
 
-        public IEnumerable<MFileUploaded> GetFilesUploaded()
+        private ExpressionStarter<MFileUploaded> FilesUploadedPredicate(VMFileUploadedQuery param)
+        {
+            var pd = PredicateBuilder.New<MFileUploaded>();
+
+            pd = pd.And(p => p.OrgId!.Equals(orgId));
+
+            if ((param.UploadedApi != "") && (param.UploadedApi != null))
+            {
+                pd = pd.And(p => p.UploadedApi!.Equals(param.UploadedApi));
+            }
+
+            if ((param.VehicleProvince != "") && (param.VehicleProvince != null))
+            {
+                pd = pd.And(p => p.VehicleProvince!.Equals(param.VehicleProvince));
+            }
+
+            if ((param.VehicleLicense != "") && (param.VehicleLicense != null))
+            {
+                pd = pd.And(p => p.VehicleLicense!.Equals(param.VehicleLicense));
+            }
+
+            return pd;
+        }
+
+        public IEnumerable<MFileUploaded> GetFilesUploaded(VMFileUploadedQuery param)
         {
             try
             {
-                var arr = context!.FileUploadeds!.Where(x => x.OrgId!.Equals(orgId)).ToList();
+                var predicate = FilesUploadedPredicate(param);
+                var arr = context!.FileUploadeds!.Where(predicate).ToList();
+
                 return arr;
             }
             catch (Exception)
