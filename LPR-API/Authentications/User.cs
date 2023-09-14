@@ -9,6 +9,7 @@ namespace Prom.LPR.Api.Authentications
         public string? Password {get; set;}
         public string? Role {get; set;}
         public string? AuthenType {get; set;}
+        public string? OrgId {get; set;}
         public IEnumerable<Claim>? claims = null;
     }
 }

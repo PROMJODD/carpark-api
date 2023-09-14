@@ -2,6 +2,7 @@ using System.Security.Claims;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Services;
+using Serilog;
 
 namespace Prom.LPR.Api.Authorizations;
 
@@ -9,6 +10,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 {
     private readonly IRoleService service;
     private string apiCalled = "";
+    private string adminOnlyApiPattern = @"^(.+):(Admin.+)$";
 
     public GenericRbacHandler(IRoleService svc)
     {
@@ -79,14 +81,30 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             return Task.CompletedTask;
         }
 
+        var orgIdClaim = GetClaim(ClaimTypes.GroupSid, context.User.Claims);
+        if (orgIdClaim == null)
+        {
+            //The authentication failed earlier
+            return Task.CompletedTask;
+        }
+
         var uid = idClaim.Value;
         var role = roleClaim.Value;
         var uri = uriClaim.Value;
         var method = authMethodClaim.Value;
+        var authorizeOrgId = orgIdClaim.Value;
 
         var roles = service.GetRolesList("", role);
-
         var roleMatch = IsRoleValid(roles, uri);
+
+        Match m = Regex.Match(apiCalled, adminOnlyApiPattern, RegexOptions.IgnoreCase);
+        if (m.Success && !authorizeOrgId.Equals("global"))
+        {
+            //Reject if API is match Admin(.+) but ID is not in "global" organization
+            Log.Warning($"Invoked API [{apiCalled}] for UID [{uid}] [{method}] with org [{authorizeOrgId}] is not allowed!!!");
+            return Task.CompletedTask;
+        }
+
         if (!roleMatch!.Equals(""))
         {
             context.Succeed(requirement);

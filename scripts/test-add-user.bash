@@ -11,6 +11,6 @@ cat << EOF > ${DAT_TEMPLATE}
 }
 EOF
 
-curl -s -X POST ${ENDPOINT_ADD_USER} -u ${AUTH_USER}:${AUTH_PASSWORD} \
+curl -s -X POST ${ENDPOINT_ADD_USER} -u ${AUTH_USER}:${AUTH_PASSWORD_GLB} \
     -d "@${DAT_TEMPLATE}" \
     -H "Content-Type: application/json"
