@@ -3,14 +3,32 @@ namespace Prom.LPR.Api.ViewsModels
 {
     public class VMQueryBase
     {
-        public long? Offset { get; set; }
-        public long? Limit { get; set; }
+        private const int MAX_LIMIT = 100;
+        private int limit = MAX_LIMIT;
+
+        public int Offset { get; set; }
         public DateTime? FromDate { get; set; }
         public DateTime? ToDate { get; set; }
 
         public VMQueryBase()
         {
-            Limit = 50;
+            limit = MAX_LIMIT;
+            Offset = 0;
+        }
+
+        public int Limit
+        {
+            get 
+            {
+                if (limit > MAX_LIMIT)
+                {
+                    limit = MAX_LIMIT;
+                }
+
+                return limit;
+            }
+
+            set => limit = value;
         }
     }
 }

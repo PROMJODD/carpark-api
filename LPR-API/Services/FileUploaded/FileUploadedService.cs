@@ -28,5 +28,13 @@ namespace Prom.LPR.Api.Services
 
             return result;
         }
+
+        public int GetFilesUploadedCount(string orgId, VMFileUploadedQuery param)
+        {
+            repository!.SetCustomOrgId(orgId);
+            var result = repository!.GetFilesUploadedCount(param);
+
+            return result;
+        }
     }
 }
