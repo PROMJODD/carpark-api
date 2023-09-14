@@ -9,5 +9,6 @@ namespace Prom.LPR.Api.Services
         public IEnumerable<MUser> GetUsers(string orgId);
         public bool IsEmailExist(string orgId, string email);
         public bool IsUserNameExist(string orgId, string userName);
+        public bool IsUserIdExist(string orgId, string userId);
     }
 }

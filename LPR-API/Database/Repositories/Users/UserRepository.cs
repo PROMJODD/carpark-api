@@ -62,5 +62,19 @@ namespace Prom.LPR.Api.Database.Repositories
                 throw;
             }
         }
+
+        public bool IsUserIdExist(string userId)
+        {
+            try
+            {
+                Guid id = Guid.Parse(userId);
+                var cnt = context!.Users!.Where(p => p!.UserId!.Equals(id)).Count();
+                return cnt >= 1;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
     }
 }
