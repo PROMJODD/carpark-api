@@ -16,6 +16,8 @@ public class DataContext : DbContext
     public DbSet<MApiKey>? ApiKeys { get; set; }
     public DbSet<MRole>? Roles { get; set; }
     public DbSet<MFileUploaded>? FileUploadeds { get; set; }
+    public DbSet<MUser>? Users { get; set; }
+    public DbSet<MOrganizationUser>? OrganizationUsers { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
@@ -23,5 +25,7 @@ public class DataContext : DbContext
         builder.Entity<MApiKey>();
         builder.Entity<MRole>();
         builder.Entity<MFileUploaded>();
+        builder.Entity<MUser>();
+        builder.Entity<MOrganizationUser>();
     }
 }

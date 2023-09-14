@@ -27,7 +27,6 @@ namespace Prom.LPR.Api.Authentications
             {
                 return m;
             }
-
             var g = service!.VerifyApiKey("global", password);
             if (g != null && g.Status!.Equals("OK"))
             {
@@ -57,6 +56,7 @@ namespace Prom.LPR.Api.Authentications
                 UserId = m.ApiKey.KeyId,
                 Role = m.ApiKey.RolesList,
                 AuthenType = "API-KEY",
+                OrgId = m.ApiKey.OrgId,
             };
 
             u.claims = new[] {
@@ -65,6 +65,7 @@ namespace Prom.LPR.Api.Authentications
                 new Claim(ClaimTypes.Role, u.Role!),
                 new Claim(ClaimTypes.AuthenticationMethod, u.AuthenType!),
                 new Claim(ClaimTypes.Uri, request.Path),
+                new Claim(ClaimTypes.GroupSid, u.OrgId!),
             };
 
             return u;
