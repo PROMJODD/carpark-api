@@ -7,5 +7,6 @@ namespace Prom.LPR.Api.Services
     {
         public MFileUploaded AddFileUploaded(string orgId, MFileUploaded file);
         public IEnumerable<MFileUploaded> GetFilesUploaded(string orgId, VMFileUploadedQuery param);
+        public int GetFilesUploadedCount(string orgId, VMFileUploadedQuery param);
     }
 }

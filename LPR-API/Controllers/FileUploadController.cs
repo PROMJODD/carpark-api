@@ -248,5 +248,15 @@ namespace Prom.LPR.Api.Controllers
             var result = service.GetFilesUploaded(id, param);
             return Ok(result);
         }
+
+        [HttpGet]
+        [Route("org/{id}/action/GetVehicleImagesCount")]
+        public IActionResult GetVehicleImagesCount(string id, [FromQuery] VMFileUploadedQuery param)
+        {
+            param.UploadedApi = "FileUpload:UploadVehicleImage";
+
+            var result = service.GetFilesUploadedCount(id, param);
+            return Ok(result);
+        }
     }
 }

@@ -52,12 +52,30 @@ namespace Prom.LPR.Api.Database.Repositories
             return pd;
         }
 
+        public int GetFilesUploadedCount(VMFileUploadedQuery param)
+        {
+            try
+            {
+                var predicate = FilesUploadedPredicate(param);
+                var cnt = context!.FileUploadeds!.Where(predicate).Count();
+
+                return cnt;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
         public IEnumerable<MFileUploaded> GetFilesUploaded(VMFileUploadedQuery param)
         {
             try
             {
                 var predicate = FilesUploadedPredicate(param);
-                var arr = context!.FileUploadeds!.Where(predicate).ToList();
+                var arr = context!.FileUploadeds!.Where(predicate)
+                    .Skip(param.Offset!)
+                    .Take(param.Limit!)
+                    .ToList();
 
                 return arr;
             }
