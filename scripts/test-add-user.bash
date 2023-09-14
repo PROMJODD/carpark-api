@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./export-dev.bash
+. ./export.bash
 
 DAT_TEMPLATE=template.json
 

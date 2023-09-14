@@ -71,5 +71,13 @@ namespace Prom.LPR.Api.Services
 
             return result;
         }
+
+        public bool IsUserIdExist(string orgId, string userId)
+        {
+            repository!.SetCustomOrgId(orgId);
+            var result = repository!.IsUserIdExist(userId);
+
+            return result;
+        }
     }
 }
