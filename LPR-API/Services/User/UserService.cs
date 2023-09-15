@@ -79,5 +79,13 @@ namespace Prom.LPR.Api.Services
 
             return result;
         }
+
+        public MUser GetUserByName(string orgId, string userName)
+        {
+            repository!.SetCustomOrgId(orgId);
+            var result = repository!.GetUserByName(userName);
+
+            return result;
+        }
     }
 }

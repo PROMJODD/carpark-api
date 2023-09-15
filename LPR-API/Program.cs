@@ -49,11 +49,13 @@ namespace Prom.LPR.Worker
 
             builder.Services.AddTransient<IAuthorizationHandler, GenericRbacHandler>();
             builder.Services.AddScoped<IBasicAuthenticationRepo, BasicAuthenticationRepo>();
-            builder.Services.AddAuthentication("Basic")
-                .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandlerDB>("Basic", null);
+            builder.Services.AddScoped<IBearerAuthenticationRepo, BearerAuthenticationRepo>();
+
+            builder.Services.AddAuthentication("BasicOrBearer")
+                .AddScheme<AuthenticationSchemeOptions, AuthenticationHandlerProxy>("BasicOrBearer", null);
 
             builder.Services.AddAuthorization(options => {
-                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder("Basic", "Basic");
+                var defaultAuthorizationPolicyBuilder = new AuthorizationPolicyBuilder("BasicOrBearer");
                 defaultAuthorizationPolicyBuilder = defaultAuthorizationPolicyBuilder.RequireAuthenticatedUser();
                 options.DefaultPolicy = defaultAuthorizationPolicyBuilder.Build();
 

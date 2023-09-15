@@ -1,13 +1,13 @@
 #!/bin/bash
 
-. ./export.bash
+. ./export-dev.bash
 
 DAT_TEMPLATE=template.json
 
 cat << EOF > ${DAT_TEMPLATE}
 {
-  "UserName": "seubpong.mon",
-  "UserEmail": "seubpong.mon@napbiotec.io"
+  "UserName": "supreeya",
+  "UserEmail": "supreeya.mon@napbiotec.io"
 }
 EOF
 

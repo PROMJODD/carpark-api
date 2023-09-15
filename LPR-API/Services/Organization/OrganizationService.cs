@@ -73,5 +73,44 @@ namespace Prom.LPR.Api.Services
 
             return r;
         }
+
+        public MVOrganizationUser VerifyUserInOrganization(string orgId, string userName)
+        {
+            repository!.SetCustomOrgId(orgId);
+
+            var u = userService.GetUserByName(orgId, userName);
+            if (u == null)
+            {
+                var o = new MVOrganizationUser() 
+                {
+                    Status = "NOTFOUND",
+                    Description = $"User [{userName}] not found !!!"
+                };
+
+                return o;
+            }
+
+            var m = repository!.GetUserInOrganization(userName);
+            if (m == null)
+            {
+                var o = new MVOrganizationUser() 
+                {
+                    Status = "NOTFOUND",
+                    Description = $"User [{userName}] has not been added to the organization [{orgId}] !!!",
+                };
+
+                return o;
+            }
+
+            var mv = new MVOrganizationUser() 
+            {
+                User = u,
+                OrgUser = m,
+                Status = "OK",
+                Description = "Success",
+            };
+
+            return mv;
+        }
     }
 }

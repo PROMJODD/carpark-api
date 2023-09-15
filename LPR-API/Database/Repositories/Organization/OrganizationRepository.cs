@@ -1,5 +1,4 @@
 using Prom.LPR.Api.Models;
-using Prom.LPR.Api.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Prom.LPR.Api.Database.Repositories
@@ -49,6 +48,21 @@ namespace Prom.LPR.Api.Database.Repositories
                     ).Count();
 
                 return cnt >= 1;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public MOrganizationUser GetUserInOrganization(string userName)
+        {
+            try
+            {
+                var m = context!.OrganizationUsers!.Where(
+                    p => p!.UserName!.Equals(userName) && p!.OrgCustomId!.Equals(orgId)).FirstOrDefault();
+
+                return m!;
             }
             catch (Exception)
             {

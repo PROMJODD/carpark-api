@@ -6,8 +6,8 @@ DAT_TEMPLATE=template.json
 
 cat << EOF > ${DAT_TEMPLATE}
 {
-  "UserId": "f30b956d-d44b-4111-997c-fc291a654026",
-  "UserName": "pjamenaja",
+  "UserId": "5603e669-ec83-4015-83f8-cb67c3e80954",
+  "UserName": "supreeya",
   "RolesList": "OWNER"
 }
 EOF
