@@ -76,5 +76,18 @@ namespace Prom.LPR.Api.Database.Repositories
                 return false;
             }
         }
+
+        public MUser GetUserByName(string userName)
+        {
+            try
+            {
+                var u = context!.Users!.Where(p => p!.UserName!.Equals(userName)).FirstOrDefault();
+                return u!;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
     }
 }

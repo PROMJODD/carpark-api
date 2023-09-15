@@ -8,5 +8,6 @@ namespace Prom.LPR.Api.Services
         public Task<MOrganization> GetOrganization(string orgId);
         public MVOrganizationUser AddUserToOrganization(string orgId, MOrganizationUser user);
         public bool IsUserNameExist(string orgId, string userName);
+        public MVOrganizationUser VerifyUserInOrganization(string orgId, string userName);
     }
 }

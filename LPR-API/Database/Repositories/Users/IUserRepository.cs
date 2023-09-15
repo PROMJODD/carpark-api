@@ -11,5 +11,7 @@ namespace Prom.LPR.Api.Database.Repositories
         public bool IsEmailExist(string email);
         public bool IsUserNameExist(string userName);
         public bool IsUserIdExist(string userId);
+
+        public MUser GetUserByName(string userName);
     }
 }
