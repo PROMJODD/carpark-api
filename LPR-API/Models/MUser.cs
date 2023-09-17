@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Prom.LPR.Api.Models
 {
+    [ExcludeFromCodeCoverage]
     [Table("Users")]
     [Index(nameof(UserName), IsUnique = true)]
     [Index(nameof(UserEmail), IsUnique = true)]

@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Prom.LPR.Api.Models
 {
+    [ExcludeFromCodeCoverage]
     [Table("ApiKeys")]
     [Index(nameof(ApiKey), IsUnique = true)]
     [Index(nameof(OrgId))]

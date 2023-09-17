@@ -8,9 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication;
 using Prom.LPR.Api.Database.Seeders;
 using Prom.LPR.Api.Authorizations;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Prom.LPR.Worker
 {
+    [ExcludeFromCodeCoverage]
     class Program
     {
         public static void Main(string[] args)

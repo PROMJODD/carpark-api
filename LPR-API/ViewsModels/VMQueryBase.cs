@@ -1,6 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
 
 namespace Prom.LPR.Api.ViewsModels
 {
+    [ExcludeFromCodeCoverage]
     public class VMQueryBase
     {
         private const int MAX_LIMIT = 100;

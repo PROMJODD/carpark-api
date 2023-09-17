@@ -1,5 +1,8 @@
+using System.Diagnostics.CodeAnalysis;
+
 namespace Prom.LPR.Api.ViewsModels
 {
+    [ExcludeFromCodeCoverage]
     public class VMFileUploadedQuery : VMQueryBase
     {
         public string? VehicleLicense { get; set; }

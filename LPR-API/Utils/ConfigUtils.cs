@@ -13,7 +13,7 @@ namespace Prom.LPR.Api.Utils
             if (envVar == null)
             {
                 if (cfg != null)
-                {            
+                {
                     var u = cfg[key];
                     v = String.IsNullOrWhiteSpace(u) ? "" : u;
                 }

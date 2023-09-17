@@ -8,11 +8,6 @@ namespace Prom.LPR.Api.Authentications
     {
         private static IApiKeyService? service = null;
 
-        public static void SetConfiguration(IApiKeyService svc)
-        {
-            service = svc;
-        }
-
         public BasicAuthenticationRepo(IApiKeyService svc)
         {
             service = svc;
@@ -27,11 +22,6 @@ namespace Prom.LPR.Api.Authentications
             {
                 return m;
             }
-            var g = service!.VerifyApiKey("global", password);
-            if (g != null && g.Status!.Equals("OK"))
-            {
-                return g;
-            }
 
             return null;
         }
@@ -40,11 +30,6 @@ namespace Prom.LPR.Api.Authentications
         {
             var m = VerifyKey(orgId, user, password);
             if (m == null)
-            {
-                return null;
-            }
-
-            if (!m.Status!.Equals("OK"))
             {
                 return null;
             }
