@@ -1,9 +1,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using IndexAttribute = Microsoft.EntityFrameworkCore.IndexAttribute;
+using System.Diagnostics.CodeAnalysis;
 
 namespace Prom.LPR.Api.Models
 {
+    [ExcludeFromCodeCoverage]
     [Table("Roles")]
     [Index(nameof(RoleName), IsUnique = true)]
     public class MRole

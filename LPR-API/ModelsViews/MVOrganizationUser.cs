@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Prom.LPR.Api.Models;
 
 namespace Prom.LPR.Api.ModelsViews
 {
+    [ExcludeFromCodeCoverage]
     public class MVOrganizationUser
     {
         public string? Status { get; set; }

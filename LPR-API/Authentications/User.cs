@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Claims;
 
 namespace Prom.LPR.Api.Authentications
 {
+    [ExcludeFromCodeCoverage]
     public class User
     {
         public Guid? UserId {get; set;}
