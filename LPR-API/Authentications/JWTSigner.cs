@@ -3,7 +3,7 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Prom.LPR.Api.Authentications
 {
-    public class JWTSigner
+    public class JWTSigner : IJWTSigner
     {
         private static string? signedKeyJson = null;
 

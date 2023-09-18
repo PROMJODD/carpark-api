@@ -13,7 +13,7 @@ namespace Prom.LPR.Api.Authentications
         private readonly IBasicAuthenticationRepo? basicAuthenRepo = null;
         private readonly IBearerAuthenticationRepo? bearerAuthRepo = null;
         private readonly IConfiguration config;
-        private JWTSigner signer = new JWTSigner();
+        private IJWTSigner signer = new JWTSigner();
 
         public AuthenticationHandlerProxy(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
@@ -29,7 +29,7 @@ namespace Prom.LPR.Api.Authentications
             config = cfg;
         }
 
-        public void SetJwtSigner(JWTSigner sn)
+        public void SetJwtSigner(IJWTSigner sn)
         {
             //For unit testing injection
             signer = sn;
@@ -63,10 +63,10 @@ namespace Prom.LPR.Api.Authentications
 
             SecurityToken validatedToken;
             IPrincipal principal = tokenHandler.ValidateToken(accessToken, param, out validatedToken);
-            if (principal.Identity == null || !principal.Identity.IsAuthenticated)
-            {
-                return null;
-            }
+            //if (principal.Identity == null || !principal.Identity.IsAuthenticated)
+            //{
+            //    return null;
+            //}
 
             var jwt = tokenHandler.ReadJwtToken(accessToken);
             string userName = jwt.Claims.First(c => c.Type == "preferred_username").Value;
