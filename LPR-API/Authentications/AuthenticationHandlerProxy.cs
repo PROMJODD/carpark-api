@@ -54,7 +54,7 @@ namespace Prom.LPR.Api.Authentications
             {
                 ValidIssuer = config["SSO:issuer"],
                 ValidAudience = config["SSO:audience"],
-                IssuerSigningKey = new JsonWebKey(signer.GetSignedKeyJson(config["SSO:signedKeyUrl"])),
+                IssuerSigningKey = signer.GetSignedKey(config["SSO:signedKeyUrl"]),
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,

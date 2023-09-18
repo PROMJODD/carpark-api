@@ -1,4 +1,5 @@
 using Serilog;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Prom.LPR.Api.Authentications
 {
@@ -8,6 +9,12 @@ namespace Prom.LPR.Api.Authentications
 
         public JWTSigner()
         {
+        }
+ 
+        public SecurityKey GetSignedKey(string? url)
+        {
+            signedKeyJson = GetSignedKeyJson(url);
+            return new JsonWebKey(signedKeyJson);
         }
 
         public string GetSignedKeyJson(string? url)
