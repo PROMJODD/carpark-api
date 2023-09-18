@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.1613" branch-rate="0.2968" version="1.9" timestamp="1695013030" lines-covered="177" lines-valid="1097" branches-covered="38" branches-valid="128">
+<coverage line-rate="0.2051" branch-rate="0.3593" version="1.9" timestamp="1695040363" lines-covered="225" lines-valid="1097" branches-covered="46" branches-valid="128">
   <sources>
     <source>D:\dev\projects\workspace-prom\promlpr\LPR-Services\LPR-API\</source>
   </sources>
   <packages>
-    <package name="LPR-API" line-rate="0.1613" branch-rate="0.2968" complexity="219">
+    <package name="LPR-API" line-rate="0.2051" branch-rate="0.3593" complexity="219">
       <classes>
         <class name="Prom.LPR.Api.Utils.ConfigUtils" filename="Utils\ConfigUtils.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -90,13 +90,13 @@
             </method>
             <method name="GetOrgId" signature="(Microsoft.AspNetCore.Http.HttpRequest)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="22" hits="3" branch="False" />
-                <line number="23" hits="3" branch="False" />
-                <line number="24" hits="3" branch="False" />
-                <line number="25" hits="3" branch="False" />
-                <line number="27" hits="3" branch="False" />
-                <line number="29" hits="3" branch="False" />
-                <line number="30" hits="3" branch="False" />
+                <line number="22" hits="9" branch="False" />
+                <line number="23" hits="9" branch="False" />
+                <line number="24" hits="9" branch="False" />
+                <line number="25" hits="9" branch="False" />
+                <line number="27" hits="9" branch="False" />
+                <line number="29" hits="9" branch="False" />
+                <line number="30" hits="9" branch="False" />
               </lines>
             </method>
           </methods>
@@ -109,13 +109,13 @@
             <line number="16" hits="1" branch="False" />
             <line number="17" hits="1" branch="False" />
             <line number="19" hits="2" branch="False" />
-            <line number="22" hits="3" branch="False" />
-            <line number="23" hits="3" branch="False" />
-            <line number="24" hits="3" branch="False" />
-            <line number="25" hits="3" branch="False" />
-            <line number="27" hits="3" branch="False" />
-            <line number="29" hits="3" branch="False" />
-            <line number="30" hits="3" branch="False" />
+            <line number="22" hits="9" branch="False" />
+            <line number="23" hits="9" branch="False" />
+            <line number="24" hits="9" branch="False" />
+            <line number="25" hits="9" branch="False" />
+            <line number="27" hits="9" branch="False" />
+            <line number="29" hits="9" branch="False" />
+            <line number="30" hits="9" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Services.ApiKeyService" filename="Services\ApiKey\ApiKeyService.cs" line-rate="0" branch-rate="0" complexity="17">
@@ -2810,17 +2810,17 @@
             <line number="18" hits="12" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxy" filename="Authentications\AuthenticationHandlerProxy.cs" line-rate="0" branch-rate="0" complexity="8">
+        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxy" filename="Authentications\AuthenticationHandlerProxy.cs" line-rate="0.2727" branch-rate="0" complexity="8">
           <methods>
-            <method name="AuthenticateBasic" signature="(System.String,System.Byte[],Microsoft.AspNetCore.Http.HttpRequest)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="AuthenticateBasic" signature="(System.String,System.Byte[],Microsoft.AspNetCore.Http.HttpRequest)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="34" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
-                <line number="39" hits="0" branch="False" />
-                <line number="40" hits="0" branch="False" />
-                <line number="41" hits="0" branch="False" />
+                <line number="34" hits="6" branch="False" />
+                <line number="35" hits="6" branch="False" />
+                <line number="36" hits="6" branch="False" />
+                <line number="37" hits="6" branch="False" />
+                <line number="39" hits="4" branch="False" />
+                <line number="40" hits="4" branch="False" />
+                <line number="41" hits="4" branch="False" />
               </lines>
             </method>
             <method name="GetSignedKeyJson" signature="(System.String)" line-rate="0" branch-rate="0" complexity="2">
@@ -2880,27 +2880,27 @@
                 <line number="98" hits="0" branch="False" />
               </lines>
             </method>
-            <method name=".ctor" signature="(Microsoft.Extensions.Options.IOptionsMonitor`1&lt;Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions&gt;,Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Prom.LPR.Api.Authentications.IBasicAuthenticationRepo,Prom.LPR.Api.Authentications.IBearerAuthenticationRepo,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Authentication.ISystemClock)" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Microsoft.Extensions.Options.IOptionsMonitor`1&lt;Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions&gt;,Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Prom.LPR.Api.Authentications.IBasicAuthenticationRepo,Prom.LPR.Api.Authentications.IBearerAuthenticationRepo,Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Authentication.ISystemClock)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="14" hits="0" branch="False" />
-                <line number="15" hits="0" branch="False" />
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="29" hits="0" branch="False" />
-                <line number="30" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
+                <line number="14" hits="8" branch="False" />
+                <line number="15" hits="8" branch="False" />
+                <line number="26" hits="8" branch="False" />
+                <line number="27" hits="8" branch="False" />
+                <line number="28" hits="8" branch="False" />
+                <line number="29" hits="8" branch="False" />
+                <line number="30" hits="8" branch="False" />
+                <line number="31" hits="8" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="34" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="37" hits="0" branch="False" />
-            <line number="39" hits="0" branch="False" />
-            <line number="40" hits="0" branch="False" />
-            <line number="41" hits="0" branch="False" />
+            <line number="34" hits="6" branch="False" />
+            <line number="35" hits="6" branch="False" />
+            <line number="36" hits="6" branch="False" />
+            <line number="37" hits="6" branch="False" />
+            <line number="39" hits="4" branch="False" />
+            <line number="40" hits="4" branch="False" />
+            <line number="41" hits="4" branch="False" />
             <line number="44" hits="0" branch="False" />
             <line number="45" hits="0" branch="True" condition-coverage="0% (0/2)">
               <conditions>
@@ -2950,37 +2950,37 @@
             <line number="95" hits="0" branch="False" />
             <line number="97" hits="0" branch="False" />
             <line number="98" hits="0" branch="False" />
-            <line number="14" hits="0" branch="False" />
-            <line number="15" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="29" hits="0" branch="False" />
-            <line number="30" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
+            <line number="14" hits="8" branch="False" />
+            <line number="15" hits="8" branch="False" />
+            <line number="26" hits="8" branch="False" />
+            <line number="27" hits="8" branch="False" />
+            <line number="28" hits="8" branch="False" />
+            <line number="29" hits="8" branch="False" />
+            <line number="30" hits="8" branch="False" />
+            <line number="31" hits="8" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase" filename="Authentications\AuthenticationHandlerProxyBase.cs" line-rate="0" branch-rate="1" complexity="1">
+        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase" filename="Authentications\AuthenticationHandlerProxyBase.cs" line-rate="1" branch-rate="1" complexity="1">
           <methods>
-            <method name=".ctor" signature="(Microsoft.Extensions.Options.IOptionsMonitor`1&lt;Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions&gt;,Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Microsoft.Extensions.Options.IOptionsMonitor`1&lt;Microsoft.AspNetCore.Authentication.AuthenticationSchemeOptions&gt;,Microsoft.Extensions.Logging.ILoggerFactory,System.Text.Encodings.Web.UrlEncoder,Microsoft.AspNetCore.Authentication.ISystemClock)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="20" hits="0" branch="False" />
-                <line number="21" hits="0" branch="False" />
-                <line number="22" hits="0" branch="False" />
+                <line number="20" hits="8" branch="False" />
+                <line number="21" hits="8" branch="False" />
+                <line number="22" hits="8" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="20" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="22" hits="0" branch="False" />
+            <line number="20" hits="8" branch="False" />
+            <line number="21" hits="8" branch="False" />
+            <line number="22" hits="8" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase/&lt;&gt;c__DisplayClass3_0" filename="Authentications\AuthenticationHandlerProxyBase.cs" line-rate="0" branch-rate="1" complexity="2">
+        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase/&lt;&gt;c__DisplayClass3_0" filename="Authentications\AuthenticationHandlerProxyBase.cs" line-rate="0.5" branch-rate="1" complexity="2">
           <methods>
-            <method name="&lt;HandleAuthenticateAsync&gt;b__0" signature="()" line-rate="0" branch-rate="1" complexity="1">
+            <method name="&lt;HandleAuthenticateAsync&gt;b__0" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="45" hits="0" branch="False" />
+                <line number="45" hits="12" branch="False" />
               </lines>
             </method>
             <method name="&lt;HandleAuthenticateAsync&gt;b__1" signature="()" line-rate="0" branch-rate="1" complexity="1">
@@ -2990,114 +2990,114 @@
             </method>
           </methods>
           <lines>
-            <line number="45" hits="0" branch="False" />
+            <line number="45" hits="12" branch="False" />
             <line number="50" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase/&lt;HandleAuthenticateAsync&gt;d__3" filename="Authentications\AuthenticationHandlerProxyBase.cs" line-rate="0" branch-rate="0" complexity="10">
+        <class name="Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase/&lt;HandleAuthenticateAsync&gt;d__3" filename="Authentications\AuthenticationHandlerProxyBase.cs" line-rate="0.9354" branch-rate="0.8" complexity="10">
           <methods>
-            <method name="MoveNext" signature="()" line-rate="0" branch-rate="0" complexity="10">
+            <method name="MoveNext" signature="()" line-rate="0.9354" branch-rate="0.8" complexity="10">
               <lines>
-                <line number="25" hits="0" branch="False" />
-                <line number="26" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="25" hits="8" branch="False" />
+                <line number="26" hits="8" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="50" type="jump" coverage="0%" />
+                    <condition number="50" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
-                <line number="32" hits="0" branch="True" condition-coverage="0% (0/4)">
+                <line number="27" hits="1" branch="False" />
+                <line number="28" hits="1" branch="False" />
+                <line number="31" hits="7" branch="False" />
+                <line number="32" hits="7" branch="True" condition-coverage="75% (3/4)">
                   <conditions>
-                    <condition number="132" type="jump" coverage="0%" />
-                    <condition number="163" type="jump" coverage="0%" />
+                    <condition number="132" type="jump" coverage="50%" />
+                    <condition number="163" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="33" hits="0" branch="False" />
-                <line number="34" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
-                <line number="39" hits="0" branch="False" />
-                <line number="40" hits="0" branch="False" />
-                <line number="41" hits="0" branch="False" />
-                <line number="43" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="33" hits="1" branch="False" />
+                <line number="34" hits="1" branch="False" />
+                <line number="37" hits="6" branch="False" />
+                <line number="39" hits="6" branch="False" />
+                <line number="40" hits="6" branch="False" />
+                <line number="41" hits="6" branch="False" />
+                <line number="43" hits="6" branch="True" condition-coverage="50% (1/2)">
                   <conditions>
-                    <condition number="340" type="jump" coverage="0%" />
+                    <condition number="340" type="jump" coverage="50%" />
                   </conditions>
                 </line>
-                <line number="44" hits="0" branch="False" />
-                <line number="46" hits="0" branch="False" />
+                <line number="44" hits="6" branch="False" />
+                <line number="46" hits="4" branch="False" />
                 <line number="48" hits="0" branch="False" />
                 <line number="51" hits="0" branch="False" />
-                <line number="52" hits="0" branch="False" />
-                <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-                <line number="55" hits="0" branch="False" />
-                <line number="56" hits="0" branch="False" />
-                <line number="59" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="52" hits="4" branch="False" />
+                <line number="53" hits="2" branch="False" />
+                <line number="54" hits="2" branch="False" />
+                <line number="55" hits="2" branch="False" />
+                <line number="56" hits="2" branch="False" />
+                <line number="59" hits="4" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="737" type="jump" coverage="0%" />
+                    <condition number="737" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="60" hits="0" branch="False" />
-                <line number="61" hits="0" branch="False" />
-                <line number="64" hits="0" branch="False" />
-                <line number="65" hits="0" branch="False" />
-                <line number="66" hits="0" branch="False" />
-                <line number="68" hits="0" branch="False" />
-                <line number="70" hits="0" branch="False" />
-                <line number="71" hits="0" branch="False" />
+                <line number="60" hits="2" branch="False" />
+                <line number="61" hits="2" branch="False" />
+                <line number="64" hits="2" branch="False" />
+                <line number="65" hits="2" branch="False" />
+                <line number="66" hits="2" branch="False" />
+                <line number="68" hits="2" branch="False" />
+                <line number="70" hits="2" branch="False" />
+                <line number="71" hits="8" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="25" hits="0" branch="False" />
-            <line number="26" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="25" hits="8" branch="False" />
+            <line number="26" hits="8" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="50" type="jump" coverage="0%" />
+                <condition number="50" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="32" hits="0" branch="True" condition-coverage="0% (0/4)">
+            <line number="27" hits="1" branch="False" />
+            <line number="28" hits="1" branch="False" />
+            <line number="31" hits="7" branch="False" />
+            <line number="32" hits="7" branch="True" condition-coverage="75% (3/4)">
               <conditions>
-                <condition number="132" type="jump" coverage="0%" />
-                <condition number="163" type="jump" coverage="0%" />
+                <condition number="132" type="jump" coverage="50%" />
+                <condition number="163" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="33" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
-            <line number="37" hits="0" branch="False" />
-            <line number="39" hits="0" branch="False" />
-            <line number="40" hits="0" branch="False" />
-            <line number="41" hits="0" branch="False" />
-            <line number="43" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="33" hits="1" branch="False" />
+            <line number="34" hits="1" branch="False" />
+            <line number="37" hits="6" branch="False" />
+            <line number="39" hits="6" branch="False" />
+            <line number="40" hits="6" branch="False" />
+            <line number="41" hits="6" branch="False" />
+            <line number="43" hits="6" branch="True" condition-coverage="50% (1/2)">
               <conditions>
-                <condition number="340" type="jump" coverage="0%" />
+                <condition number="340" type="jump" coverage="50%" />
               </conditions>
             </line>
-            <line number="44" hits="0" branch="False" />
-            <line number="46" hits="0" branch="False" />
+            <line number="44" hits="6" branch="False" />
+            <line number="46" hits="4" branch="False" />
             <line number="48" hits="0" branch="False" />
             <line number="51" hits="0" branch="False" />
-            <line number="52" hits="0" branch="False" />
-            <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="55" hits="0" branch="False" />
-            <line number="56" hits="0" branch="False" />
-            <line number="59" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="52" hits="4" branch="False" />
+            <line number="53" hits="2" branch="False" />
+            <line number="54" hits="2" branch="False" />
+            <line number="55" hits="2" branch="False" />
+            <line number="56" hits="2" branch="False" />
+            <line number="59" hits="4" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="737" type="jump" coverage="0%" />
+                <condition number="737" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="60" hits="0" branch="False" />
-            <line number="61" hits="0" branch="False" />
-            <line number="64" hits="0" branch="False" />
-            <line number="65" hits="0" branch="False" />
-            <line number="66" hits="0" branch="False" />
-            <line number="68" hits="0" branch="False" />
-            <line number="70" hits="0" branch="False" />
-            <line number="71" hits="0" branch="False" />
+            <line number="60" hits="2" branch="False" />
+            <line number="61" hits="2" branch="False" />
+            <line number="64" hits="2" branch="False" />
+            <line number="65" hits="2" branch="False" />
+            <line number="66" hits="2" branch="False" />
+            <line number="68" hits="2" branch="False" />
+            <line number="70" hits="2" branch="False" />
+            <line number="71" hits="8" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Authentications.BasicAuthenticationRepo" filename="Authentications\BasicAuthenticationRepo.cs" line-rate="1" branch-rate="1" complexity="7">

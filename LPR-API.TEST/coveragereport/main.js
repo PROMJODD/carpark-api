@@ -221,8 +221,8 @@ var assemblies = [
   {
     "name": "LPR-API",
     "classes": [
-      { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxy", "rp": "LPR_API_AuthenticationHandlerProxy.html", "cl": 0, "ucl": 55, "cal": 55, "tl": 100, "cb": 0, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
-      { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase", "rp": "LPR_API_AuthenticationHandlerProxyBase.html", "cl": 0, "ucl": 36, "cal": 36, "tl": 73, "cb": 0, "tb": 10, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxy", "rp": "LPR_API_AuthenticationHandlerProxy.html", "cl": 15, "ucl": 40, "cal": 55, "tl": 100, "cb": 0, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase", "rp": "LPR_API_AuthenticationHandlerProxyBase.html", "cl": 33, "ucl": 3, "cal": 36, "tl": 73, "cb": 8, "tb": 10, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authentications.BasicAuthenticationRepo", "rp": "LPR_API_BasicAuthenticationRepo.html", "cl": 35, "ucl": 0, "cal": 35, "tl": 59, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authentications.BearerAuthenticationRepo", "rp": "LPR_API_BearerAuthenticationRepo.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 60, "cb": 4, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authorizations.GenericRbacHandler", "rp": "LPR_API_GenericRbacHandler.html", "cl": 74, "ucl": 0, "cal": 74, "tl": 123, "cb": 22, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
