@@ -221,10 +221,11 @@ var assemblies = [
   {
     "name": "LPR-API",
     "classes": [
-      { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxy", "rp": "LPR_API_AuthenticationHandlerProxy.html", "cl": 15, "ucl": 40, "cal": 55, "tl": 100, "cb": 0, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxy", "rp": "LPR_API_AuthenticationHandlerProxy.html", "cl": 16, "ucl": 25, "cal": 41, "tl": 79, "cb": 0, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authentications.AuthenticationHandlerProxyBase", "rp": "LPR_API_AuthenticationHandlerProxyBase.html", "cl": 33, "ucl": 3, "cal": 36, "tl": 73, "cb": 8, "tb": 10, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authentications.BasicAuthenticationRepo", "rp": "LPR_API_BasicAuthenticationRepo.html", "cl": 35, "ucl": 0, "cal": 35, "tl": 59, "cb": 6, "tb": 6, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authentications.BearerAuthenticationRepo", "rp": "LPR_API_BearerAuthenticationRepo.html", "cl": 36, "ucl": 0, "cal": 36, "tl": 60, "cb": 4, "tb": 4, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
+      { "name": "Prom.LPR.Api.Authentications.JWTSigner", "rp": "LPR_API_JWTSigner.html", "cl": 3, "ucl": 18, "cal": 21, "tl": 39, "cb": 0, "tb": 2, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Authorizations.GenericRbacHandler", "rp": "LPR_API_GenericRbacHandler.html", "cl": 74, "ucl": 0, "cal": 74, "tl": 123, "cb": 22, "tb": 22, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Controllers.ApiKeyController", "rp": "LPR_API_ApiKeyController.html", "cl": 0, "ucl": 21, "cal": 21, "tl": 56, "cb": 0, "tb": 0, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
       { "name": "Prom.LPR.Api.Controllers.FileUploadController", "rp": "LPR_API_FileUploadController.html", "cl": 0, "ucl": 174, "cal": 174, "tl": 262, "cb": 0, "tb": 12, "cm": 0, "tm": 0, "lch": [], "bch": [], "mch": [], "hc": [], "metrics": { } },
