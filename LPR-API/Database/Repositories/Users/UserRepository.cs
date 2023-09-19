@@ -28,7 +28,8 @@ namespace Prom.LPR.Api.Database.Repositories
         {
             try
             {
-                var arr = context!.Users!.ToList();
+                //Get All, do this query below will be easier for mocked unit testing
+                var arr = context!.Users!.Where(p => !p.UserName!.Equals(null)).ToList();
                 return arr;
             }
             catch (Exception)

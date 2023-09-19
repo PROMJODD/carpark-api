@@ -8,8 +8,20 @@ public static class DbContextMock
 {
     public static DbSet<T> GetQueryableMockDbSet<T>(List<T> sourceList) where T: class 
     {
-        var addAction = sourceList.Add;
-        var addActionAsync = (T s, CancellationToken t) => { sourceList.Add(s); };
+        var addAction = (T s) => { 
+            if (s == null)
+                throw new Exception();
+
+            sourceList.Add(s); 
+        };
+
+        var addActionAsync = (T s, CancellationToken t) => {
+            if (s == null)
+                throw new Exception();
+
+            sourceList.Add(s); 
+        };
+
         var delAction = (T s) => { sourceList.Remove(s); };
 
         var queryable = sourceList.AsQueryable().BuildMock();
