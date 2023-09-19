@@ -41,6 +41,25 @@ public class RoleRepositoryTest
         Assert.Equal(returnCnt, cnt);
     }
 
+    [Theory]
+    [InlineData("VIEWER,EDITOR,OWNER", 0)]
+    [InlineData("OWNER", 0)]
+    [InlineData("", 0)]
+    public void GetRolesNotFund(string rolesList, int returnCnt)
+    {
+        var roles = new List<MRole>();
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.Roles).Returns(DbContextMock.GetQueryableMockDbSet(roles));
+
+        var repo = new RoleRepository(ctxMock.Object);
+
+        var list = repo.GetRolesList(rolesList);
+        var cnt = list.Count();
+
+        Assert.Equal(returnCnt, cnt);
+    }
+
     [Fact]
     public void GetRolesListNullParam()
     {
