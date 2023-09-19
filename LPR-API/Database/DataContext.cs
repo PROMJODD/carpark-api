@@ -2,8 +2,10 @@ namespace Prom.LPR.Api.Database;
 
 using Prom.LPR.Api.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Diagnostics.CodeAnalysis;
 
-public class DataContext : DbContext
+[ExcludeFromCodeCoverage]
+public class DataContext : DbContext, IDataContext
 {
     protected readonly IConfiguration Configuration;
 

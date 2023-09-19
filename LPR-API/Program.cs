@@ -37,6 +37,7 @@ namespace Prom.LPR.Worker
             builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connStr));
             builder.Services.AddTransient<DataSeeder>();
 
+            builder.Services.AddScoped<IDataContext, DataContext>();
             builder.Services.AddScoped<IApiKeyService, ApiKeyService>();
             builder.Services.AddScoped<IOrganizationService, OrganizationService>();
             builder.Services.AddScoped<IRoleService, RoleService>();

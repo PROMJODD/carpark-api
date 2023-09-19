@@ -1,8 +1,10 @@
 namespace Prom.LPR.Api.Database.Seeders;
 
+using System.Diagnostics.CodeAnalysis;
 using PasswordGenerator;
 using Prom.LPR.Api.Models;
 
+[ExcludeFromCodeCoverage]
 public class DataSeeder
 {
     private readonly DataContext context;

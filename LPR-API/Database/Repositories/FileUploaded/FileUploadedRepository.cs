@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.Database.Repositories
 {
     public class FileUploadedRepository : BaseRepository, IFileUploadedRepository
     {
-        public FileUploadedRepository(DataContext ctx)
+        public FileUploadedRepository(IDataContext ctx)
         {
             context = ctx;
         }

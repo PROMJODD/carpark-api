@@ -1,9 +1,5 @@
-using Moq;
 using Xunit;
-using Prom.LPR.Api.Services;
 using Prom.LPR.Api.Authentications;
-using Microsoft.AspNetCore.Http;
-using Prom.LPR.Api.ModelsViews;
 
 namespace Prom.LPR.Test.Api.Authentications;
 

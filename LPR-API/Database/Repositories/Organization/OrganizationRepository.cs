@@ -5,7 +5,7 @@ namespace Prom.LPR.Api.Database.Repositories
 {
     public class OrganizationRepository : BaseRepository, IOrganizationRepository
     {
-        public OrganizationRepository(DataContext ctx)
+        public OrganizationRepository(IDataContext ctx)
         {
             context = ctx;
         }

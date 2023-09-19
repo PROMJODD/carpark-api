@@ -4,7 +4,7 @@ namespace Prom.LPR.Api.Database.Repositories
 {
     public class UserRepository : BaseRepository, IUserRepository
     {
-        public UserRepository(DataContext ctx)
+        public UserRepository(IDataContext ctx)
         {
             context = ctx;
         }

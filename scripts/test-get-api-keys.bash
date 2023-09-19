@@ -6,7 +6,7 @@ TOKEN=eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICI4cEd1bk9aMC1vLUdCV3FTUT
 
 TOKEN_BASE64=$(echo -n ${TOKEN} | base64 -w0 )
 
-curl -s -X POST ${ENDPOINT_GET_KEYS} -H "Authorization: Bearer ${TOKEN_BASE64}"
+curl -s -X POST ${ENDPOINT_GET_KEYS} -u ${AUTH_USER}:${AUTH_PASSWORD} 
 
 #-H "Authorization: Bearer ${TOKEN_BASE64}"
 #-u ${AUTH_USER}:${AUTH_PASSWORD}
