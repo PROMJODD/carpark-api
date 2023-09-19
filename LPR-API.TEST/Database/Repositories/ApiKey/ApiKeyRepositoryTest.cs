@@ -158,4 +158,46 @@ public class ApiKeyRepositoryTest
         var ex = Record.Exception(act);
         Assert.NotNull(ex);
     }
+
+    //#### DeleteApiKeyById ####
+    [Theory]
+    [InlineData("default", 3)]
+    [InlineData("global", 2)] //Delete success
+    [InlineData("NotMatchOrg", 3)]
+    public void DeleteApiKeyByIdNoException(string orgId, int cnt)
+    {
+        var keys = new List<MApiKey>();
+        CreateKey(keys, "abbbb1", "xxxxxx", "fake");
+        CreateKey(keys, "abbbb2", "xxxxxx", "default");
+        CreateKey(keys, "key1", "xxxxxx", orgId);
+
+        var rm = keys[2];
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.ApiKeys).Returns(DbContextMock.GetQueryableMockDbSet(keys));
+
+        var repo = new ApiKeyRepository(ctxMock.Object);
+        repo.SetCustomOrgId("global");
+
+        repo.DeleteApiKeyById(rm.KeyId.ToString()!);
+        var keyCnt = keys.Count();
+
+        Assert.Equal(cnt, keyCnt);
+    }
+
+    [Fact]
+    public void DeleteApiKeyByIdException()
+    {
+        var keys = new List<MApiKey>();
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.ApiKeys).Returns(DbContextMock.GetQueryableMockDbSet(keys));
+
+        var repo = new ApiKeyRepository(ctxMock.Object);
+        repo.SetCustomOrgId("fake");
+
+        Action act = () => repo.DeleteApiKeyById("invalid-guid-format");
+        var ex = Record.Exception(act);
+        Assert.NotNull(ex);
+    }
 }

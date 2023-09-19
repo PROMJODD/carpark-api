@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.3477" branch-rate="0.4807" version="1.9" timestamp="1695123659" lines-covered="329" lines-valid="946" branches-covered="50" branches-valid="104">
+<coverage line-rate="0.3625" branch-rate="0.5" version="1.9" timestamp="1695129066" lines-covered="343" lines-valid="946" branches-covered="52" branches-valid="104">
   <sources>
     <source>D:\dev\projects\workspace-prom\promlpr\LPR-Services\LPR-API\</source>
   </sources>
   <packages>
-    <package name="LPR-API" line-rate="0.3477" branch-rate="0.4807" complexity="182">
+    <package name="LPR-API" line-rate="0.3625" branch-rate="0.5" complexity="182">
       <classes>
         <class name="Prom.LPR.Api.Utils.ConfigUtils" filename="Utils\ConfigUtils.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -816,7 +816,7 @@
             <line number="14" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Database.Repositories.ApiKeyRepository" filename="Database\Repositories\ApiKey\ApiKeyRepository.cs" line-rate="0.7021" branch-rate="0" complexity="6">
+        <class name="Prom.LPR.Api.Database.Repositories.ApiKeyRepository" filename="Database\Repositories\ApiKey\ApiKeyRepository.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
             <method name="GetApiKey" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
@@ -847,26 +847,26 @@
                 <line number="43" hits="3" branch="False" />
               </lines>
             </method>
-            <method name="DeleteApiKeyById" signature="(System.String)" line-rate="0" branch-rate="0" complexity="2">
+            <method name="DeleteApiKeyById" signature="(System.String)" line-rate="1" branch-rate="1" complexity="2">
               <lines>
-                <line number="46" hits="0" branch="False" />
-                <line number="48" hits="0" branch="False" />
-                <line number="49" hits="0" branch="False" />
-                <line number="51" hits="0" branch="False" />
-                <line number="52" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="46" hits="4" branch="False" />
+                <line number="48" hits="4" branch="False" />
+                <line number="49" hits="4" branch="False" />
+                <line number="51" hits="3" branch="False" />
+                <line number="52" hits="3" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="273" type="jump" coverage="0%" />
+                    <condition number="273" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-                <line number="55" hits="0" branch="False" />
-                <line number="56" hits="0" branch="False" />
-                <line number="58" hits="0" branch="False" />
-                <line number="60" hits="0" branch="False" />
-                <line number="61" hits="0" branch="False" />
-                <line number="62" hits="0" branch="False" />
-                <line number="64" hits="0" branch="False" />
+                <line number="53" hits="1" branch="False" />
+                <line number="54" hits="1" branch="False" />
+                <line number="55" hits="1" branch="False" />
+                <line number="56" hits="1" branch="False" />
+                <line number="58" hits="3" branch="False" />
+                <line number="60" hits="1" branch="False" />
+                <line number="61" hits="1" branch="False" />
+                <line number="62" hits="1" branch="False" />
+                <line number="64" hits="3" branch="False" />
               </lines>
             </method>
             <method name="GetApiKeys" signature="()" line-rate="1" branch-rate="1" complexity="1">
@@ -883,10 +883,10 @@
             </method>
             <method name=".ctor" signature="(Prom.LPR.Api.Database.IDataContext)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="8" hits="14" branch="False" />
-                <line number="9" hits="14" branch="False" />
-                <line number="10" hits="14" branch="False" />
-                <line number="11" hits="14" branch="False" />
+                <line number="8" hits="18" branch="False" />
+                <line number="9" hits="18" branch="False" />
+                <line number="10" hits="18" branch="False" />
+                <line number="11" hits="18" branch="False" />
               </lines>
             </method>
           </methods>
@@ -912,24 +912,24 @@
             <line number="39" hits="1" branch="False" />
             <line number="42" hits="3" branch="False" />
             <line number="43" hits="3" branch="False" />
-            <line number="46" hits="0" branch="False" />
-            <line number="48" hits="0" branch="False" />
-            <line number="49" hits="0" branch="False" />
-            <line number="51" hits="0" branch="False" />
-            <line number="52" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="46" hits="4" branch="False" />
+            <line number="48" hits="4" branch="False" />
+            <line number="49" hits="4" branch="False" />
+            <line number="51" hits="3" branch="False" />
+            <line number="52" hits="3" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="273" type="jump" coverage="0%" />
+                <condition number="273" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="55" hits="0" branch="False" />
-            <line number="56" hits="0" branch="False" />
-            <line number="58" hits="0" branch="False" />
-            <line number="60" hits="0" branch="False" />
-            <line number="61" hits="0" branch="False" />
-            <line number="62" hits="0" branch="False" />
-            <line number="64" hits="0" branch="False" />
+            <line number="53" hits="1" branch="False" />
+            <line number="54" hits="1" branch="False" />
+            <line number="55" hits="1" branch="False" />
+            <line number="56" hits="1" branch="False" />
+            <line number="58" hits="3" branch="False" />
+            <line number="60" hits="1" branch="False" />
+            <line number="61" hits="1" branch="False" />
+            <line number="62" hits="1" branch="False" />
+            <line number="64" hits="3" branch="False" />
             <line number="67" hits="4" branch="False" />
             <line number="69" hits="4" branch="False" />
             <line number="70" hits="4" branch="False" />
@@ -938,32 +938,32 @@
             <line number="74" hits="1" branch="False" />
             <line number="75" hits="1" branch="False" />
             <line number="77" hits="3" branch="False" />
-            <line number="8" hits="14" branch="False" />
-            <line number="9" hits="14" branch="False" />
-            <line number="10" hits="14" branch="False" />
-            <line number="11" hits="14" branch="False" />
+            <line number="8" hits="18" branch="False" />
+            <line number="9" hits="18" branch="False" />
+            <line number="10" hits="18" branch="False" />
+            <line number="11" hits="18" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Database.Repositories.BaseRepository" filename="Database\Repositories\BaseRepository.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
             <method name="SetCustomOrgId" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="11" hits="14" branch="False" />
-                <line number="12" hits="14" branch="False" />
-                <line number="13" hits="14" branch="False" />
+                <line number="11" hits="18" branch="False" />
+                <line number="12" hits="18" branch="False" />
+                <line number="13" hits="18" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="8" hits="21" branch="False" />
+                <line number="8" hits="25" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="11" hits="14" branch="False" />
-            <line number="12" hits="14" branch="False" />
-            <line number="13" hits="14" branch="False" />
-            <line number="8" hits="21" branch="False" />
+            <line number="11" hits="18" branch="False" />
+            <line number="12" hits="18" branch="False" />
+            <line number="13" hits="18" branch="False" />
+            <line number="8" hits="25" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Database.Repositories.FileUploadedRepository" filename="Database\Repositories\FileUploaded\FileUploadedRepository.cs" line-rate="0" branch-rate="0" complexity="16">
