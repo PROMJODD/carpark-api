@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Confluent.Kafka;
 
 namespace Prom.LPR.Api.Kafka
 {
+    [ExcludeFromCodeCoverage]
     public class Producer<T>
     {
         readonly string? kafkaHost;

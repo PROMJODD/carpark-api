@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.2425" branch-rate="0.3951" version="1.9" timestamp="1695056319" lines-covered="268" lines-valid="1105" branches-covered="49" branches-valid="124">
+<coverage line-rate="0.25730000000000003" branch-rate="0.4032" version="1.9" timestamp="1695102881" lines-covered="279" lines-valid="1084" branches-covered="50" branches-valid="124">
   <sources>
     <source>D:\dev\projects\workspace-prom\promlpr\LPR-Services\LPR-API\</source>
   </sources>
   <packages>
-    <package name="LPR-API" line-rate="0.2425" branch-rate="0.3951" complexity="219">
+    <package name="LPR-API" line-rate="0.25730000000000003" branch-rate="0.4032" complexity="215">
       <classes>
         <class name="Prom.LPR.Api.Utils.ConfigUtils" filename="Utils\ConfigUtils.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -810,92 +810,6 @@
             <line number="88" hits="0" branch="False" />
             <line number="89" hits="0" branch="False" />
             <line number="9" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-            <line number="13" hits="0" branch="False" />
-            <line number="14" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Models.MImageUploaded" filename="Models\MImageUploaded.cs" line-rate="0" branch-rate="1" complexity="1">
-          <methods>
-            <method name="get_Image" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="9" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="9" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Kafka.CustomValueSerializer`1" filename="Kafka\CustomValueSerializer.cs" line-rate="0" branch-rate="1" complexity="1">
-          <methods>
-            <method name="Serialize" signature="(T,Confluent.Kafka.SerializationContext)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="10" hits="0" branch="False" />
-                <line number="11" hits="0" branch="False" />
-                <line number="12" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="10" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Kafka.Producer`1" filename="Kafka\Producer.cs" line-rate="0" branch-rate="1" complexity="3">
-          <methods>
-            <method name="GetProducerConfig" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="21" hits="0" branch="False" />
-                <line number="22" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="Produce" signature="(T,System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="25" hits="0" branch="False" />
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="29" hits="0" branch="False" />
-                <line number="30" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
-                <line number="32" hits="0" branch="False" />
-                <line number="33" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="10" hits="0" branch="False" />
-                <line number="11" hits="0" branch="False" />
-                <line number="12" hits="0" branch="False" />
-                <line number="13" hits="0" branch="False" />
-                <line number="14" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="22" hits="0" branch="False" />
-            <line number="25" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="29" hits="0" branch="False" />
-            <line number="30" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="32" hits="0" branch="False" />
-            <line number="33" hits="0" branch="False" />
-            <line number="10" hits="0" branch="False" />
             <line number="11" hits="0" branch="False" />
             <line number="12" hits="0" branch="False" />
             <line number="13" hits="0" branch="False" />
@@ -3260,80 +3174,90 @@
             <line number="15" hits="7" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Authentications.JWTSigner" filename="Authentications\JWTSigner.cs" line-rate="0.68" branch-rate="0.5" complexity="4">
+        <class name="Prom.LPR.Api.Authentications.JWTSigner" filename="Authentications\JWTSigner.cs" line-rate="1" branch-rate="1" complexity="5">
           <methods>
-            <method name="GetSignedKey" signature="(System.String)" line-rate="0.5" branch-rate="1" complexity="1">
+            <method name="ResetSigedKeyJson" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="15" hits="1" branch="False" />
-                <line number="16" hits="1" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
+                <line number="15" hits="4" branch="False" />
+                <line number="17" hits="4" branch="False" />
+                <line number="18" hits="4" branch="False" />
               </lines>
             </method>
-            <method name="GetSignedKeyJson" signature="(System.String)" line-rate="0.6666" branch-rate="0.5" complexity="2">
+            <method name="GetSignedKey" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="21" hits="1" branch="False" />
-                <line number="22" hits="1" branch="True" condition-coverage="50% (1/2)">
+                <line number="21" hits="6" branch="False" />
+                <line number="22" hits="6" branch="False" />
+                <line number="23" hits="3" branch="False" />
+                <line number="24" hits="2" branch="False" />
+              </lines>
+            </method>
+            <method name="GetSignedKeyJson" signature="(System.String)" line-rate="1" branch-rate="1" complexity="2">
+              <lines>
+                <line number="27" hits="6" branch="False" />
+                <line number="28" hits="6" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="13" type="jump" coverage="50%" />
+                    <condition number="13" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="23" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
-                <line number="27" hits="1" branch="False" />
                 <line number="29" hits="1" branch="False" />
                 <line number="30" hits="1" branch="False" />
-                <line number="31" hits="1" branch="False" />
-                <line number="32" hits="1" branch="False" />
-                <line number="34" hits="1" branch="False" />
-                <line number="35" hits="1" branch="False" />
-                <line number="36" hits="1" branch="False" />
-                <line number="37" hits="1" branch="False" />
-                <line number="39" hits="1" branch="False" />
-                <line number="40" hits="0" branch="False" />
-                <line number="41" hits="0" branch="False" />
-                <line number="43" hits="0" branch="False" />
-                <line number="44" hits="0" branch="False" />
+                <line number="33" hits="5" branch="False" />
+                <line number="35" hits="5" branch="False" />
+                <line number="36" hits="5" branch="False" />
+                <line number="37" hits="5" branch="False" />
+                <line number="38" hits="5" branch="False" />
+                <line number="40" hits="5" branch="False" />
+                <line number="41" hits="5" branch="False" />
+                <line number="42" hits="5" branch="False" />
+                <line number="43" hits="5" branch="False" />
+                <line number="45" hits="5" branch="False" />
+                <line number="46" hits="3" branch="False" />
+                <line number="47" hits="2" branch="False" />
+                <line number="49" hits="2" branch="False" />
+                <line number="50" hits="3" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="10" hits="18" branch="False" />
-                <line number="11" hits="18" branch="False" />
-                <line number="12" hits="18" branch="False" />
+                <line number="10" hits="22" branch="False" />
+                <line number="11" hits="22" branch="False" />
+                <line number="12" hits="22" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="15" hits="1" branch="False" />
-            <line number="16" hits="1" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="21" hits="1" branch="False" />
-            <line number="22" hits="1" branch="True" condition-coverage="50% (1/2)">
+            <line number="15" hits="4" branch="False" />
+            <line number="17" hits="4" branch="False" />
+            <line number="18" hits="4" branch="False" />
+            <line number="21" hits="6" branch="False" />
+            <line number="22" hits="6" branch="False" />
+            <line number="23" hits="3" branch="False" />
+            <line number="24" hits="2" branch="False" />
+            <line number="27" hits="6" branch="False" />
+            <line number="28" hits="6" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="13" type="jump" coverage="50%" />
+                <condition number="13" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="23" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
-            <line number="27" hits="1" branch="False" />
             <line number="29" hits="1" branch="False" />
             <line number="30" hits="1" branch="False" />
-            <line number="31" hits="1" branch="False" />
-            <line number="32" hits="1" branch="False" />
-            <line number="34" hits="1" branch="False" />
-            <line number="35" hits="1" branch="False" />
-            <line number="36" hits="1" branch="False" />
-            <line number="37" hits="1" branch="False" />
-            <line number="39" hits="1" branch="False" />
-            <line number="40" hits="0" branch="False" />
-            <line number="41" hits="0" branch="False" />
-            <line number="43" hits="0" branch="False" />
-            <line number="44" hits="0" branch="False" />
-            <line number="10" hits="18" branch="False" />
-            <line number="11" hits="18" branch="False" />
-            <line number="12" hits="18" branch="False" />
+            <line number="33" hits="5" branch="False" />
+            <line number="35" hits="5" branch="False" />
+            <line number="36" hits="5" branch="False" />
+            <line number="37" hits="5" branch="False" />
+            <line number="38" hits="5" branch="False" />
+            <line number="40" hits="5" branch="False" />
+            <line number="41" hits="5" branch="False" />
+            <line number="42" hits="5" branch="False" />
+            <line number="43" hits="5" branch="False" />
+            <line number="45" hits="5" branch="False" />
+            <line number="46" hits="3" branch="False" />
+            <line number="47" hits="2" branch="False" />
+            <line number="49" hits="2" branch="False" />
+            <line number="50" hits="3" branch="False" />
+            <line number="10" hits="22" branch="False" />
+            <line number="11" hits="22" branch="False" />
+            <line number="12" hits="22" branch="False" />
           </lines>
         </class>
       </classes>

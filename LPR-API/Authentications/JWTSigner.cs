@@ -10,6 +10,12 @@ namespace Prom.LPR.Api.Authentications
         public JWTSigner()
         {
         }
+
+        public void ResetSigedKeyJson()
+        {
+            //For unit testing
+            signedKeyJson = null;
+        }
  
         public SecurityKey GetSignedKey(string? url)
         {
