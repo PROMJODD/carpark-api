@@ -78,4 +78,84 @@ public class ApiKeyRepositoryTest
         var ex = Record.Exception(act);
         Assert.NotNull(ex);
     }
+
+    //#### AddApiKey ####
+
+    [Theory]
+    [InlineData("key1", "default")]
+    [InlineData("key2", "global")]
+    [InlineData("key3", "NotMatchOrg")]
+    public void AddApiKeySuccess(string apiKey, string orgId)
+    {
+        var m = new MApiKey() { ApiKey = apiKey, KeyDescription = "", OrgId = "" };
+        var keys = new List<MApiKey>();
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.ApiKeys).Returns(DbContextMock.GetQueryableMockDbSet(keys));
+
+        var repo = new ApiKeyRepository(ctxMock.Object);
+        repo.SetCustomOrgId(orgId);
+
+        var r = repo.AddApiKey(m);
+
+        Assert.Equal(orgId, r.OrgId); // Make sure we save OrgId from SetCustomOrgId()
+        Assert.Single(keys);
+    }
+
+    [Fact]
+    public void AddApiKeyWithException()
+    {
+        var keys = new List<MApiKey>();
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.ApiKeys).Returns(DbContextMock.GetQueryableMockDbSet(keys));
+
+        var repo = new ApiKeyRepository(ctxMock.Object);
+        repo.SetCustomOrgId("fake");
+
+        Action act = () => repo.AddApiKey(null!);
+        var ex = Record.Exception(act);
+        Assert.NotNull(ex);
+    }
+
+    //#### GetApiKeys ####
+    [Theory]
+    [InlineData("key1", "default", 2)]
+    [InlineData("key2", "global", 1)]
+    [InlineData("key3", "NotMatchOrg", 1)]
+    public void GetApiKeysSuccess(string apiKey, string orgId, int cnt)
+    {
+        var keys = new List<MApiKey>();
+        CreateKey(keys, "abbbb1", "xxxxxx", "fake");
+        CreateKey(keys, "abbbb2", "xxxxxx", "default");
+        CreateKey(keys, apiKey, "xxxxxx", orgId);
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.ApiKeys).Returns(DbContextMock.GetQueryableMockDbSet(keys));
+
+        var repo = new ApiKeyRepository(ctxMock.Object);
+        repo.SetCustomOrgId(orgId);
+
+        var list = repo.GetApiKeys();
+        var keyCnt = list.Count();
+
+        Assert.Equal(cnt, keyCnt);
+    }
+
+    [Fact]
+    public void GetApiKeysWithException()
+    {
+        var keys = new List<MApiKey>();
+        CreateKey(keys, "abbbb1", "xxxxxx", null!);
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.ApiKeys).Returns(DbContextMock.GetQueryableMockDbSet(keys));
+
+        var repo = new ApiKeyRepository(ctxMock.Object);
+        repo.SetCustomOrgId("fake");
+
+        Action act = () => repo.GetApiKeys();
+        var ex = Record.Exception(act);
+        Assert.NotNull(ex);
+    }
 }
