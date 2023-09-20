@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.6285000000000001" branch-rate="0.745" version="1.9" timestamp="1695219707" lines-covered="599" lines-valid="953" branches-covered="76" branches-valid="102">
+<coverage line-rate="0.639" branch-rate="0.745" version="1.9" timestamp="1695221018" lines-covered="609" lines-valid="953" branches-covered="76" branches-valid="102">
   <sources>
     <source>D:\dev\projects\workspace-prom\promlpr\LPR-Services\LPR-API\</source>
   </sources>
   <packages>
-    <package name="LPR-API" line-rate="0.6285000000000001" branch-rate="0.745" complexity="181">
+    <package name="LPR-API" line-rate="0.639" branch-rate="0.745" complexity="181">
       <classes>
         <class name="Prom.LPR.Api.Utils.ConfigUtils" filename="Utils\ConfigUtils.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -368,16 +368,16 @@
           <methods>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="6" hits="56" branch="False" />
-                <line number="7" hits="56" branch="False" />
-                <line number="8" hits="56" branch="False" />
+                <line number="6" hits="59" branch="False" />
+                <line number="7" hits="59" branch="False" />
+                <line number="8" hits="59" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="6" hits="56" branch="False" />
-            <line number="7" hits="56" branch="False" />
-            <line number="8" hits="56" branch="False" />
+            <line number="6" hits="59" branch="False" />
+            <line number="7" hits="59" branch="False" />
+            <line number="8" hits="59" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Services.FileUploadedService" filename="Services\FileUploaded\FileUploadedService.cs" line-rate="1" branch-rate="1" complexity="4">
@@ -652,38 +652,38 @@
             <line number="16" hits="0" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Services.RoleService" filename="Services\Role\RoleService.cs" line-rate="0" branch-rate="1" complexity="2">
+        <class name="Prom.LPR.Api.Services.RoleService" filename="Services\Role\RoleService.cs" line-rate="1" branch-rate="1" complexity="2">
           <methods>
-            <method name="GetRolesList" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="GetRolesList" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="21" hits="0" branch="False" />
+                <line number="16" hits="3" branch="False" />
+                <line number="17" hits="3" branch="False" />
+                <line number="18" hits="3" branch="False" />
+                <line number="20" hits="3" branch="False" />
+                <line number="21" hits="3" branch="False" />
               </lines>
             </method>
-            <method name=".ctor" signature="(Prom.LPR.Api.Database.Repositories.IRoleRepository)" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Prom.LPR.Api.Database.Repositories.IRoleRepository)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="8" hits="0" branch="False" />
-                <line number="10" hits="0" branch="False" />
-                <line number="11" hits="0" branch="False" />
-                <line number="12" hits="0" branch="False" />
-                <line number="13" hits="0" branch="False" />
+                <line number="8" hits="3" branch="False" />
+                <line number="10" hits="3" branch="False" />
+                <line number="11" hits="3" branch="False" />
+                <line number="12" hits="3" branch="False" />
+                <line number="13" hits="3" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="8" hits="0" branch="False" />
-            <line number="10" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-            <line number="13" hits="0" branch="False" />
+            <line number="16" hits="3" branch="False" />
+            <line number="17" hits="3" branch="False" />
+            <line number="18" hits="3" branch="False" />
+            <line number="20" hits="3" branch="False" />
+            <line number="21" hits="3" branch="False" />
+            <line number="8" hits="3" branch="False" />
+            <line number="10" hits="3" branch="False" />
+            <line number="11" hits="3" branch="False" />
+            <line number="12" hits="3" branch="False" />
+            <line number="13" hits="3" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Services.UserService" filename="Services\User\UserService.cs" line-rate="0" branch-rate="0" complexity="10">
@@ -970,22 +970,22 @@
           <methods>
             <method name="SetCustomOrgId" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="11" hits="163" branch="False" />
-                <line number="12" hits="163" branch="False" />
-                <line number="13" hits="163" branch="False" />
+                <line number="11" hits="169" branch="False" />
+                <line number="12" hits="169" branch="False" />
+                <line number="13" hits="169" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="8" hits="140" branch="False" />
+                <line number="8" hits="143" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="11" hits="163" branch="False" />
-            <line number="12" hits="163" branch="False" />
-            <line number="13" hits="163" branch="False" />
-            <line number="8" hits="140" branch="False" />
+            <line number="11" hits="169" branch="False" />
+            <line number="12" hits="169" branch="False" />
+            <line number="13" hits="169" branch="False" />
+            <line number="8" hits="143" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Database.Repositories.FileUploadedRepository" filename="Database\Repositories\FileUploaded\FileUploadedRepository.cs" line-rate="1" branch-rate="1" complexity="16">
@@ -1266,40 +1266,40 @@
           <methods>
             <method name="GetRolesList" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="13" hits="7" branch="False" />
-                <line number="15" hits="7" branch="False" />
-                <line number="16" hits="7" branch="False" />
-                <line number="17" hits="6" branch="False" />
-                <line number="19" hits="6" branch="False" />
+                <line number="13" hits="10" branch="False" />
+                <line number="15" hits="10" branch="False" />
+                <line number="16" hits="10" branch="False" />
+                <line number="17" hits="9" branch="False" />
+                <line number="19" hits="9" branch="False" />
                 <line number="21" hits="1" branch="False" />
                 <line number="22" hits="1" branch="False" />
                 <line number="23" hits="1" branch="False" />
-                <line number="25" hits="6" branch="False" />
+                <line number="25" hits="9" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(Prom.LPR.Api.Database.IDataContext)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="7" hits="7" branch="False" />
-                <line number="8" hits="7" branch="False" />
-                <line number="9" hits="7" branch="False" />
-                <line number="10" hits="7" branch="False" />
+                <line number="7" hits="10" branch="False" />
+                <line number="8" hits="10" branch="False" />
+                <line number="9" hits="10" branch="False" />
+                <line number="10" hits="10" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="13" hits="7" branch="False" />
-            <line number="15" hits="7" branch="False" />
-            <line number="16" hits="7" branch="False" />
-            <line number="17" hits="6" branch="False" />
-            <line number="19" hits="6" branch="False" />
+            <line number="13" hits="10" branch="False" />
+            <line number="15" hits="10" branch="False" />
+            <line number="16" hits="10" branch="False" />
+            <line number="17" hits="9" branch="False" />
+            <line number="19" hits="9" branch="False" />
             <line number="21" hits="1" branch="False" />
             <line number="22" hits="1" branch="False" />
             <line number="23" hits="1" branch="False" />
-            <line number="25" hits="6" branch="False" />
-            <line number="7" hits="7" branch="False" />
-            <line number="8" hits="7" branch="False" />
-            <line number="9" hits="7" branch="False" />
-            <line number="10" hits="7" branch="False" />
+            <line number="25" hits="9" branch="False" />
+            <line number="7" hits="10" branch="False" />
+            <line number="8" hits="10" branch="False" />
+            <line number="9" hits="10" branch="False" />
+            <line number="10" hits="10" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Database.Repositories.UserRepository" filename="Database\Repositories\Users\UserRepository.cs" line-rate="1" branch-rate="1" complexity="7">

@@ -257,6 +257,7 @@ public class ApiKeyServiceTest
 
         Assert.NotNull(key);
         Assert.Equal("OK", key.Status);
+        Assert.Equal(loopCnt, keys.Count); //not loopCnt -1 because there is an extra API Key in the list
     }
 
     [Theory]
