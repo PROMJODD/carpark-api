@@ -25,5 +25,11 @@ namespace Prom.LPR.Api.Models
 
         [Column("org_created_date")]
         public DateTime? OrgCreatedDate { get; set; }
+
+        public MOrganization()
+        {
+            OrgId = Guid.NewGuid();
+            OrgCreatedDate = DateTime.Now;
+        }
     }
 }
