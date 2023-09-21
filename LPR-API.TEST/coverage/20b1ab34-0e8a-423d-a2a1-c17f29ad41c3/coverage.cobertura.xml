@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.639" branch-rate="0.745" version="1.9" timestamp="1695221018" lines-covered="609" lines-valid="953" branches-covered="76" branches-valid="102">
+<coverage line-rate="0.6925" branch-rate="0.7843000000000001" version="1.9" timestamp="1695304868" lines-covered="660" lines-valid="953" branches-covered="80" branches-valid="102">
   <sources>
     <source>D:\dev\projects\workspace-prom\promlpr\LPR-Services\LPR-API\</source>
   </sources>
   <packages>
-    <package name="LPR-API" line-rate="0.639" branch-rate="0.745" complexity="181">
+    <package name="LPR-API" line-rate="0.6925" branch-rate="0.7843000000000001" complexity="181">
       <classes>
         <class name="Prom.LPR.Api.Utils.ConfigUtils" filename="Utils\ConfigUtils.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -368,16 +368,16 @@
           <methods>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="6" hits="59" branch="False" />
-                <line number="7" hits="59" branch="False" />
-                <line number="8" hits="59" branch="False" />
+                <line number="6" hits="89" branch="False" />
+                <line number="7" hits="89" branch="False" />
+                <line number="8" hits="89" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="6" hits="59" branch="False" />
-            <line number="7" hits="59" branch="False" />
-            <line number="8" hits="59" branch="False" />
+            <line number="6" hits="89" branch="False" />
+            <line number="7" hits="89" branch="False" />
+            <line number="8" hits="89" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Services.FileUploadedService" filename="Services\FileUploaded\FileUploadedService.cs" line-rate="1" branch-rate="1" complexity="4">
@@ -686,156 +686,156 @@
             <line number="13" hits="3" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Services.UserService" filename="Services\User\UserService.cs" line-rate="0" branch-rate="0" complexity="10">
+        <class name="Prom.LPR.Api.Services.UserService" filename="Services\User\UserService.cs" line-rate="1" branch-rate="1" complexity="10">
           <methods>
-            <method name="AddUser" signature="(System.String,Prom.LPR.Api.Models.MUser)" line-rate="0" branch-rate="0" complexity="4">
+            <method name="AddUser" signature="(System.String,Prom.LPR.Api.Models.MUser)" line-rate="1" branch-rate="1" complexity="4">
               <lines>
-                <line number="17" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-                <line number="21" hits="0" branch="False" />
-                <line number="23" hits="0" branch="False" />
-                <line number="24" hits="0" branch="False" />
-                <line number="26" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="17" hits="4" branch="False" />
+                <line number="20" hits="4" branch="False" />
+                <line number="21" hits="4" branch="False" />
+                <line number="23" hits="4" branch="False" />
+                <line number="24" hits="4" branch="False" />
+                <line number="26" hits="4" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="53" type="jump" coverage="0%" />
+                    <condition number="53" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="29" hits="0" branch="False" />
-                <line number="31" hits="0" branch="False" />
-                <line number="34" hits="0" branch="True" condition-coverage="0% (0/2)">
+                <line number="27" hits="1" branch="False" />
+                <line number="28" hits="1" branch="False" />
+                <line number="29" hits="1" branch="False" />
+                <line number="31" hits="1" branch="False" />
+                <line number="34" hits="3" branch="True" condition-coverage="100% (2/2)">
                   <conditions>
-                    <condition number="90" type="jump" coverage="0%" />
+                    <condition number="90" type="jump" coverage="100%" />
                   </conditions>
                 </line>
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
-                <line number="39" hits="0" branch="False" />
-                <line number="42" hits="0" branch="False" />
-                <line number="44" hits="0" branch="False" />
-                <line number="45" hits="0" branch="False" />
-                <line number="46" hits="0" branch="False" />
-                <line number="48" hits="0" branch="False" />
-                <line number="49" hits="0" branch="False" />
+                <line number="35" hits="1" branch="False" />
+                <line number="36" hits="1" branch="False" />
+                <line number="37" hits="1" branch="False" />
+                <line number="39" hits="1" branch="False" />
+                <line number="42" hits="2" branch="False" />
+                <line number="44" hits="2" branch="False" />
+                <line number="45" hits="2" branch="False" />
+                <line number="46" hits="2" branch="False" />
+                <line number="48" hits="2" branch="False" />
+                <line number="49" hits="4" branch="False" />
               </lines>
             </method>
-            <method name="GetUsers" signature="(System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="GetUsers" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="52" hits="0" branch="False" />
-                <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-                <line number="56" hits="0" branch="False" />
-                <line number="57" hits="0" branch="False" />
+                <line number="52" hits="3" branch="False" />
+                <line number="53" hits="3" branch="False" />
+                <line number="54" hits="3" branch="False" />
+                <line number="56" hits="3" branch="False" />
+                <line number="57" hits="3" branch="False" />
               </lines>
             </method>
-            <method name="IsEmailExist" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="IsEmailExist" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="60" hits="0" branch="False" />
-                <line number="61" hits="0" branch="False" />
-                <line number="62" hits="0" branch="False" />
-                <line number="64" hits="0" branch="False" />
-                <line number="65" hits="0" branch="False" />
+                <line number="60" hits="9" branch="False" />
+                <line number="61" hits="9" branch="False" />
+                <line number="62" hits="9" branch="False" />
+                <line number="64" hits="9" branch="False" />
+                <line number="65" hits="9" branch="False" />
               </lines>
             </method>
-            <method name="IsUserNameExist" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="IsUserNameExist" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="68" hits="0" branch="False" />
-                <line number="69" hits="0" branch="False" />
-                <line number="70" hits="0" branch="False" />
-                <line number="72" hits="0" branch="False" />
-                <line number="73" hits="0" branch="False" />
+                <line number="68" hits="9" branch="False" />
+                <line number="69" hits="9" branch="False" />
+                <line number="70" hits="9" branch="False" />
+                <line number="72" hits="9" branch="False" />
+                <line number="73" hits="9" branch="False" />
               </lines>
             </method>
-            <method name="IsUserIdExist" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="IsUserIdExist" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="76" hits="0" branch="False" />
-                <line number="77" hits="0" branch="False" />
-                <line number="78" hits="0" branch="False" />
-                <line number="80" hits="0" branch="False" />
-                <line number="81" hits="0" branch="False" />
+                <line number="76" hits="5" branch="False" />
+                <line number="77" hits="5" branch="False" />
+                <line number="78" hits="5" branch="False" />
+                <line number="80" hits="5" branch="False" />
+                <line number="81" hits="5" branch="False" />
               </lines>
             </method>
-            <method name="GetUserByName" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
+            <method name="GetUserByName" signature="(System.String,System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="84" hits="0" branch="False" />
-                <line number="85" hits="0" branch="False" />
-                <line number="86" hits="0" branch="False" />
-                <line number="88" hits="0" branch="False" />
-                <line number="89" hits="0" branch="False" />
+                <line number="84" hits="8" branch="False" />
+                <line number="85" hits="8" branch="False" />
+                <line number="86" hits="8" branch="False" />
+                <line number="88" hits="8" branch="False" />
+                <line number="89" hits="8" branch="False" />
               </lines>
             </method>
-            <method name=".ctor" signature="(Prom.LPR.Api.Database.Repositories.IUserRepository)" line-rate="0" branch-rate="1" complexity="1">
+            <method name=".ctor" signature="(Prom.LPR.Api.Database.Repositories.IUserRepository)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="9" hits="0" branch="False" />
-                <line number="11" hits="0" branch="False" />
-                <line number="12" hits="0" branch="False" />
-                <line number="13" hits="0" branch="False" />
-                <line number="14" hits="0" branch="False" />
+                <line number="9" hits="30" branch="False" />
+                <line number="11" hits="30" branch="False" />
+                <line number="12" hits="30" branch="False" />
+                <line number="13" hits="30" branch="False" />
+                <line number="14" hits="30" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="17" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-            <line number="21" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
-            <line number="24" hits="0" branch="False" />
-            <line number="26" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="17" hits="4" branch="False" />
+            <line number="20" hits="4" branch="False" />
+            <line number="21" hits="4" branch="False" />
+            <line number="23" hits="4" branch="False" />
+            <line number="24" hits="4" branch="False" />
+            <line number="26" hits="4" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="53" type="jump" coverage="0%" />
+                <condition number="53" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="29" hits="0" branch="False" />
-            <line number="31" hits="0" branch="False" />
-            <line number="34" hits="0" branch="True" condition-coverage="0% (0/2)">
+            <line number="27" hits="1" branch="False" />
+            <line number="28" hits="1" branch="False" />
+            <line number="29" hits="1" branch="False" />
+            <line number="31" hits="1" branch="False" />
+            <line number="34" hits="3" branch="True" condition-coverage="100% (2/2)">
               <conditions>
-                <condition number="90" type="jump" coverage="0%" />
+                <condition number="90" type="jump" coverage="100%" />
               </conditions>
             </line>
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="37" hits="0" branch="False" />
-            <line number="39" hits="0" branch="False" />
-            <line number="42" hits="0" branch="False" />
-            <line number="44" hits="0" branch="False" />
-            <line number="45" hits="0" branch="False" />
-            <line number="46" hits="0" branch="False" />
-            <line number="48" hits="0" branch="False" />
-            <line number="49" hits="0" branch="False" />
-            <line number="52" hits="0" branch="False" />
-            <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="56" hits="0" branch="False" />
-            <line number="57" hits="0" branch="False" />
-            <line number="60" hits="0" branch="False" />
-            <line number="61" hits="0" branch="False" />
-            <line number="62" hits="0" branch="False" />
-            <line number="64" hits="0" branch="False" />
-            <line number="65" hits="0" branch="False" />
-            <line number="68" hits="0" branch="False" />
-            <line number="69" hits="0" branch="False" />
-            <line number="70" hits="0" branch="False" />
-            <line number="72" hits="0" branch="False" />
-            <line number="73" hits="0" branch="False" />
-            <line number="76" hits="0" branch="False" />
-            <line number="77" hits="0" branch="False" />
-            <line number="78" hits="0" branch="False" />
-            <line number="80" hits="0" branch="False" />
-            <line number="81" hits="0" branch="False" />
-            <line number="84" hits="0" branch="False" />
-            <line number="85" hits="0" branch="False" />
-            <line number="86" hits="0" branch="False" />
-            <line number="88" hits="0" branch="False" />
-            <line number="89" hits="0" branch="False" />
-            <line number="9" hits="0" branch="False" />
-            <line number="11" hits="0" branch="False" />
-            <line number="12" hits="0" branch="False" />
-            <line number="13" hits="0" branch="False" />
-            <line number="14" hits="0" branch="False" />
+            <line number="35" hits="1" branch="False" />
+            <line number="36" hits="1" branch="False" />
+            <line number="37" hits="1" branch="False" />
+            <line number="39" hits="1" branch="False" />
+            <line number="42" hits="2" branch="False" />
+            <line number="44" hits="2" branch="False" />
+            <line number="45" hits="2" branch="False" />
+            <line number="46" hits="2" branch="False" />
+            <line number="48" hits="2" branch="False" />
+            <line number="49" hits="4" branch="False" />
+            <line number="52" hits="3" branch="False" />
+            <line number="53" hits="3" branch="False" />
+            <line number="54" hits="3" branch="False" />
+            <line number="56" hits="3" branch="False" />
+            <line number="57" hits="3" branch="False" />
+            <line number="60" hits="9" branch="False" />
+            <line number="61" hits="9" branch="False" />
+            <line number="62" hits="9" branch="False" />
+            <line number="64" hits="9" branch="False" />
+            <line number="65" hits="9" branch="False" />
+            <line number="68" hits="9" branch="False" />
+            <line number="69" hits="9" branch="False" />
+            <line number="70" hits="9" branch="False" />
+            <line number="72" hits="9" branch="False" />
+            <line number="73" hits="9" branch="False" />
+            <line number="76" hits="5" branch="False" />
+            <line number="77" hits="5" branch="False" />
+            <line number="78" hits="5" branch="False" />
+            <line number="80" hits="5" branch="False" />
+            <line number="81" hits="5" branch="False" />
+            <line number="84" hits="8" branch="False" />
+            <line number="85" hits="8" branch="False" />
+            <line number="86" hits="8" branch="False" />
+            <line number="88" hits="8" branch="False" />
+            <line number="89" hits="8" branch="False" />
+            <line number="9" hits="30" branch="False" />
+            <line number="11" hits="30" branch="False" />
+            <line number="12" hits="30" branch="False" />
+            <line number="13" hits="30" branch="False" />
+            <line number="14" hits="30" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Database.Repositories.ApiKeyRepository" filename="Database\Repositories\ApiKey\ApiKeyRepository.cs" line-rate="1" branch-rate="1" complexity="6">
@@ -970,22 +970,22 @@
           <methods>
             <method name="SetCustomOrgId" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="11" hits="169" branch="False" />
-                <line number="12" hits="169" branch="False" />
-                <line number="13" hits="169" branch="False" />
+                <line number="11" hits="237" branch="False" />
+                <line number="12" hits="237" branch="False" />
+                <line number="13" hits="237" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="8" hits="143" branch="False" />
+                <line number="8" hits="173" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="11" hits="169" branch="False" />
-            <line number="12" hits="169" branch="False" />
-            <line number="13" hits="169" branch="False" />
-            <line number="8" hits="143" branch="False" />
+            <line number="11" hits="237" branch="False" />
+            <line number="12" hits="237" branch="False" />
+            <line number="13" hits="237" branch="False" />
+            <line number="8" hits="173" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Database.Repositories.FileUploadedRepository" filename="Database\Repositories\FileUploaded\FileUploadedRepository.cs" line-rate="1" branch-rate="1" complexity="16">
@@ -1306,144 +1306,144 @@
           <methods>
             <method name="AddUser" signature="(Prom.LPR.Api.Models.MUser)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="13" hits="2" branch="False" />
-                <line number="15" hits="2" branch="False" />
-                <line number="16" hits="2" branch="False" />
-                <line number="17" hits="1" branch="False" />
-                <line number="18" hits="1" branch="False" />
+                <line number="13" hits="4" branch="False" />
+                <line number="15" hits="4" branch="False" />
+                <line number="16" hits="4" branch="False" />
+                <line number="17" hits="3" branch="False" />
+                <line number="18" hits="3" branch="False" />
                 <line number="19" hits="1" branch="False" />
                 <line number="20" hits="1" branch="False" />
                 <line number="21" hits="1" branch="False" />
-                <line number="24" hits="1" branch="False" />
-                <line number="25" hits="1" branch="False" />
+                <line number="24" hits="3" branch="False" />
+                <line number="25" hits="3" branch="False" />
               </lines>
             </method>
             <method name="GetUsers" signature="()" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="28" hits="2" branch="False" />
-                <line number="30" hits="2" branch="False" />
-                <line number="32" hits="2" branch="False" />
-                <line number="33" hits="1" branch="False" />
+                <line number="28" hits="5" branch="False" />
+                <line number="30" hits="5" branch="False" />
+                <line number="32" hits="5" branch="False" />
+                <line number="33" hits="4" branch="False" />
                 <line number="35" hits="1" branch="False" />
                 <line number="36" hits="1" branch="False" />
                 <line number="37" hits="1" branch="False" />
-                <line number="39" hits="1" branch="False" />
+                <line number="39" hits="4" branch="False" />
               </lines>
             </method>
             <method name="IsEmailExist" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="42" hits="4" branch="False" />
-                <line number="44" hits="4" branch="False" />
-                <line number="45" hits="4" branch="False" />
-                <line number="46" hits="3" branch="False" />
+                <line number="42" hits="13" branch="False" />
+                <line number="44" hits="13" branch="False" />
+                <line number="45" hits="13" branch="False" />
+                <line number="46" hits="12" branch="False" />
                 <line number="48" hits="1" branch="False" />
                 <line number="49" hits="1" branch="False" />
                 <line number="50" hits="1" branch="False" />
-                <line number="52" hits="3" branch="False" />
+                <line number="52" hits="12" branch="False" />
               </lines>
             </method>
             <method name="IsUserNameExist" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="55" hits="4" branch="False" />
-                <line number="57" hits="4" branch="False" />
-                <line number="58" hits="4" branch="False" />
-                <line number="59" hits="3" branch="False" />
+                <line number="55" hits="13" branch="False" />
+                <line number="57" hits="13" branch="False" />
+                <line number="58" hits="13" branch="False" />
+                <line number="59" hits="12" branch="False" />
                 <line number="61" hits="1" branch="False" />
                 <line number="62" hits="1" branch="False" />
                 <line number="63" hits="1" branch="False" />
-                <line number="65" hits="3" branch="False" />
+                <line number="65" hits="12" branch="False" />
               </lines>
             </method>
             <method name="IsUserIdExist" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="68" hits="2" branch="False" />
-                <line number="70" hits="2" branch="False" />
-                <line number="71" hits="2" branch="False" />
-                <line number="72" hits="1" branch="False" />
-                <line number="73" hits="1" branch="False" />
-                <line number="75" hits="1" branch="False" />
-                <line number="76" hits="1" branch="False" />
-                <line number="77" hits="1" branch="False" />
-                <line number="79" hits="2" branch="False" />
+                <line number="68" hits="7" branch="False" />
+                <line number="70" hits="7" branch="False" />
+                <line number="71" hits="7" branch="False" />
+                <line number="72" hits="5" branch="False" />
+                <line number="73" hits="5" branch="False" />
+                <line number="75" hits="2" branch="False" />
+                <line number="76" hits="2" branch="False" />
+                <line number="77" hits="2" branch="False" />
+                <line number="79" hits="7" branch="False" />
               </lines>
             </method>
             <method name="GetUserByName" signature="(System.String)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="82" hits="4" branch="False" />
-                <line number="84" hits="4" branch="False" />
-                <line number="85" hits="4" branch="False" />
-                <line number="86" hits="3" branch="False" />
+                <line number="82" hits="12" branch="False" />
+                <line number="84" hits="12" branch="False" />
+                <line number="85" hits="12" branch="False" />
+                <line number="86" hits="11" branch="False" />
                 <line number="88" hits="1" branch="False" />
                 <line number="89" hits="1" branch="False" />
                 <line number="90" hits="1" branch="False" />
-                <line number="92" hits="3" branch="False" />
+                <line number="92" hits="11" branch="False" />
               </lines>
             </method>
             <method name=".ctor" signature="(Prom.LPR.Api.Database.IDataContext)" line-rate="1" branch-rate="1" complexity="1">
               <lines>
-                <line number="7" hits="18" branch="False" />
-                <line number="8" hits="18" branch="False" />
-                <line number="9" hits="18" branch="False" />
-                <line number="10" hits="18" branch="False" />
+                <line number="7" hits="48" branch="False" />
+                <line number="8" hits="48" branch="False" />
+                <line number="9" hits="48" branch="False" />
+                <line number="10" hits="48" branch="False" />
               </lines>
             </method>
           </methods>
           <lines>
-            <line number="13" hits="2" branch="False" />
-            <line number="15" hits="2" branch="False" />
-            <line number="16" hits="2" branch="False" />
-            <line number="17" hits="1" branch="False" />
-            <line number="18" hits="1" branch="False" />
+            <line number="13" hits="4" branch="False" />
+            <line number="15" hits="4" branch="False" />
+            <line number="16" hits="4" branch="False" />
+            <line number="17" hits="3" branch="False" />
+            <line number="18" hits="3" branch="False" />
             <line number="19" hits="1" branch="False" />
             <line number="20" hits="1" branch="False" />
             <line number="21" hits="1" branch="False" />
-            <line number="24" hits="1" branch="False" />
-            <line number="25" hits="1" branch="False" />
-            <line number="28" hits="2" branch="False" />
-            <line number="30" hits="2" branch="False" />
-            <line number="32" hits="2" branch="False" />
-            <line number="33" hits="1" branch="False" />
+            <line number="24" hits="3" branch="False" />
+            <line number="25" hits="3" branch="False" />
+            <line number="28" hits="5" branch="False" />
+            <line number="30" hits="5" branch="False" />
+            <line number="32" hits="5" branch="False" />
+            <line number="33" hits="4" branch="False" />
             <line number="35" hits="1" branch="False" />
             <line number="36" hits="1" branch="False" />
             <line number="37" hits="1" branch="False" />
-            <line number="39" hits="1" branch="False" />
-            <line number="42" hits="4" branch="False" />
-            <line number="44" hits="4" branch="False" />
-            <line number="45" hits="4" branch="False" />
-            <line number="46" hits="3" branch="False" />
+            <line number="39" hits="4" branch="False" />
+            <line number="42" hits="13" branch="False" />
+            <line number="44" hits="13" branch="False" />
+            <line number="45" hits="13" branch="False" />
+            <line number="46" hits="12" branch="False" />
             <line number="48" hits="1" branch="False" />
             <line number="49" hits="1" branch="False" />
             <line number="50" hits="1" branch="False" />
-            <line number="52" hits="3" branch="False" />
-            <line number="55" hits="4" branch="False" />
-            <line number="57" hits="4" branch="False" />
-            <line number="58" hits="4" branch="False" />
-            <line number="59" hits="3" branch="False" />
+            <line number="52" hits="12" branch="False" />
+            <line number="55" hits="13" branch="False" />
+            <line number="57" hits="13" branch="False" />
+            <line number="58" hits="13" branch="False" />
+            <line number="59" hits="12" branch="False" />
             <line number="61" hits="1" branch="False" />
             <line number="62" hits="1" branch="False" />
             <line number="63" hits="1" branch="False" />
-            <line number="65" hits="3" branch="False" />
-            <line number="68" hits="2" branch="False" />
-            <line number="70" hits="2" branch="False" />
-            <line number="71" hits="2" branch="False" />
-            <line number="72" hits="1" branch="False" />
-            <line number="73" hits="1" branch="False" />
-            <line number="75" hits="1" branch="False" />
-            <line number="76" hits="1" branch="False" />
-            <line number="77" hits="1" branch="False" />
-            <line number="79" hits="2" branch="False" />
-            <line number="82" hits="4" branch="False" />
-            <line number="84" hits="4" branch="False" />
-            <line number="85" hits="4" branch="False" />
-            <line number="86" hits="3" branch="False" />
+            <line number="65" hits="12" branch="False" />
+            <line number="68" hits="7" branch="False" />
+            <line number="70" hits="7" branch="False" />
+            <line number="71" hits="7" branch="False" />
+            <line number="72" hits="5" branch="False" />
+            <line number="73" hits="5" branch="False" />
+            <line number="75" hits="2" branch="False" />
+            <line number="76" hits="2" branch="False" />
+            <line number="77" hits="2" branch="False" />
+            <line number="79" hits="7" branch="False" />
+            <line number="82" hits="12" branch="False" />
+            <line number="84" hits="12" branch="False" />
+            <line number="85" hits="12" branch="False" />
+            <line number="86" hits="11" branch="False" />
             <line number="88" hits="1" branch="False" />
             <line number="89" hits="1" branch="False" />
             <line number="90" hits="1" branch="False" />
-            <line number="92" hits="3" branch="False" />
-            <line number="7" hits="18" branch="False" />
-            <line number="8" hits="18" branch="False" />
-            <line number="9" hits="18" branch="False" />
-            <line number="10" hits="18" branch="False" />
+            <line number="92" hits="11" branch="False" />
+            <line number="7" hits="48" branch="False" />
+            <line number="8" hits="48" branch="False" />
+            <line number="9" hits="48" branch="False" />
+            <line number="10" hits="48" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Controllers.ApiKeyController" filename="Controllers\ApiKeyController.cs" line-rate="0" branch-rate="1" complexity="5">
