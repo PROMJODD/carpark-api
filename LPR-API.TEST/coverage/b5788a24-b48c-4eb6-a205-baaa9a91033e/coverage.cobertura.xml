@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<coverage line-rate="0.7681" branch-rate="0.8823000000000001" version="1.9" timestamp="1695310446" lines-covered="732" lines-valid="953" branches-covered="90" branches-valid="102">
+<coverage line-rate="0.8178" branch-rate="0.8823000000000001" version="1.9" timestamp="1695310808" lines-covered="732" lines-valid="895" branches-covered="90" branches-valid="102">
   <sources>
     <source>D:\dev\projects\workspace-prom\promlpr\LPR-Services\LPR-API\</source>
   </sources>
   <packages>
-    <package name="LPR-API" line-rate="0.7681" branch-rate="0.8823000000000001" complexity="181">
+    <package name="LPR-API" line-rate="0.8178" branch-rate="0.8823000000000001" complexity="168">
       <classes>
         <class name="Prom.LPR.Api.Utils.ConfigUtils" filename="Utils\ConfigUtils.cs" line-rate="1" branch-rate="1" complexity="6">
           <methods>
@@ -1446,75 +1446,7 @@
             <line number="10" hits="66" branch="False" />
           </lines>
         </class>
-        <class name="Prom.LPR.Api.Controllers.ApiKeyController" filename="Controllers\ApiKeyController.cs" line-rate="0" branch-rate="1" complexity="5">
-          <methods>
-            <method name="VerifyApiKey" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-                <line number="29" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="AddApiKey" signature="(System.String,Prom.LPR.Api.Models.MApiKey)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="34" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-                <line number="37" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="DeleteApiKeyById" signature="(System.String,System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="42" hits="0" branch="False" />
-                <line number="43" hits="0" branch="False" />
-                <line number="44" hits="0" branch="False" />
-                <line number="45" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="GetApiKeys" signature="(System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="51" hits="0" branch="False" />
-                <line number="52" hits="0" branch="False" />
-                <line number="53" hits="0" branch="False" />
-                <line number="54" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(Prom.LPR.Api.Services.IApiKeyService,Microsoft.Extensions.Configuration.IConfiguration)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="29" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="37" hits="0" branch="False" />
-            <line number="42" hits="0" branch="False" />
-            <line number="43" hits="0" branch="False" />
-            <line number="44" hits="0" branch="False" />
-            <line number="45" hits="0" branch="False" />
-            <line number="51" hits="0" branch="False" />
-            <line number="52" hits="0" branch="False" />
-            <line number="53" hits="0" branch="False" />
-            <line number="54" hits="0" branch="False" />
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Controllers.FileUploadController" filename="Controllers\FileUploadController.cs" line-rate="0" branch-rate="0" complexity="19">
+        <class name="Prom.LPR.Api.Controllers.FileUploadController" filename="Controllers\FileUploadController.cs" line-rate="0" branch-rate="0" complexity="17">
           <methods>
             <method name="GetHttpClient" signature="()" line-rate="0" branch-rate="1" complexity="1">
               <lines>
@@ -1717,34 +1649,15 @@
                 <line number="240" hits="0" branch="False" />
               </lines>
             </method>
-            <method name="GetVehicleImages" signature="(System.String,Prom.LPR.Api.ViewsModels.VMFileUploadedQuery)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="245" hits="0" branch="False" />
-                <line number="246" hits="0" branch="False" />
-                <line number="248" hits="0" branch="False" />
-                <line number="249" hits="0" branch="False" />
-                <line number="250" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="GetVehicleImagesCount" signature="(System.String,Prom.LPR.Api.ViewsModels.VMFileUploadedQuery)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="255" hits="0" branch="False" />
-                <line number="256" hits="0" branch="False" />
-                <line number="258" hits="0" branch="False" />
-                <line number="259" hits="0" branch="False" />
-                <line number="260" hits="0" branch="False" />
-              </lines>
-            </method>
             <method name=".ctor" signature="(Microsoft.Extensions.Configuration.IConfiguration,Prom.LPR.Api.Services.IFileUploadedService)" line-rate="0" branch-rate="1" complexity="1">
               <lines>
-                <line number="23" hits="0" branch="False" />
                 <line number="24" hits="0" branch="False" />
                 <line number="25" hits="0" branch="False" />
                 <line number="26" hits="0" branch="False" />
                 <line number="27" hits="0" branch="False" />
                 <line number="28" hits="0" branch="False" />
                 <line number="29" hits="0" branch="False" />
-                <line number="32" hits="0" branch="False" />
+                <line number="30" hits="0" branch="False" />
                 <line number="33" hits="0" branch="False" />
                 <line number="34" hits="0" branch="False" />
                 <line number="35" hits="0" branch="False" />
@@ -1929,24 +1842,13 @@
             <line number="237" hits="0" branch="False" />
             <line number="239" hits="0" branch="False" />
             <line number="240" hits="0" branch="False" />
-            <line number="245" hits="0" branch="False" />
-            <line number="246" hits="0" branch="False" />
-            <line number="248" hits="0" branch="False" />
-            <line number="249" hits="0" branch="False" />
-            <line number="250" hits="0" branch="False" />
-            <line number="255" hits="0" branch="False" />
-            <line number="256" hits="0" branch="False" />
-            <line number="258" hits="0" branch="False" />
-            <line number="259" hits="0" branch="False" />
-            <line number="260" hits="0" branch="False" />
-            <line number="23" hits="0" branch="False" />
             <line number="24" hits="0" branch="False" />
             <line number="25" hits="0" branch="False" />
             <line number="26" hits="0" branch="False" />
             <line number="27" hits="0" branch="False" />
             <line number="28" hits="0" branch="False" />
             <line number="29" hits="0" branch="False" />
-            <line number="32" hits="0" branch="False" />
+            <line number="30" hits="0" branch="False" />
             <line number="33" hits="0" branch="False" />
             <line number="34" hits="0" branch="False" />
             <line number="35" hits="0" branch="False" />
@@ -1962,100 +1864,6 @@
             <line number="48" hits="0" branch="False" />
             <line number="50" hits="0" branch="False" />
             <line number="51" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Controllers.OrganizationController" filename="Controllers\OrganizationController.cs" line-rate="0" branch-rate="1" complexity="2">
-          <methods>
-            <method name="AddUserToOrganization" signature="(System.String,Prom.LPR.Api.Models.MOrganizationUser)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="33" hits="0" branch="False" />
-                <line number="34" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(Prom.LPR.Api.Services.IOrganizationService,Microsoft.Extensions.Configuration.IConfiguration)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="33" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Controllers.OrganizationController/&lt;GetOrganization&gt;d__3" filename="Controllers\OrganizationController.cs" line-rate="0" branch-rate="1" complexity="1">
-          <methods>
-            <method name="MoveNext" signature="()" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="25" hits="0" branch="False" />
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="25" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-          </lines>
-        </class>
-        <class name="Prom.LPR.Api.Controllers.UserController" filename="Controllers\UserController.cs" line-rate="0" branch-rate="1" complexity="3">
-          <methods>
-            <method name="AdminGetUsers" signature="(System.String)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="25" hits="0" branch="False" />
-                <line number="26" hits="0" branch="False" />
-                <line number="27" hits="0" branch="False" />
-                <line number="28" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name="AdminAddUser" signature="(System.String,Prom.LPR.Api.Models.MUser)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="33" hits="0" branch="False" />
-                <line number="34" hits="0" branch="False" />
-                <line number="35" hits="0" branch="False" />
-                <line number="36" hits="0" branch="False" />
-              </lines>
-            </method>
-            <method name=".ctor" signature="(Prom.LPR.Api.Services.IUserService,Microsoft.Extensions.Configuration.IConfiguration)" line-rate="0" branch-rate="1" complexity="1">
-              <lines>
-                <line number="16" hits="0" branch="False" />
-                <line number="17" hits="0" branch="False" />
-                <line number="18" hits="0" branch="False" />
-                <line number="19" hits="0" branch="False" />
-                <line number="20" hits="0" branch="False" />
-              </lines>
-            </method>
-          </methods>
-          <lines>
-            <line number="25" hits="0" branch="False" />
-            <line number="26" hits="0" branch="False" />
-            <line number="27" hits="0" branch="False" />
-            <line number="28" hits="0" branch="False" />
-            <line number="33" hits="0" branch="False" />
-            <line number="34" hits="0" branch="False" />
-            <line number="35" hits="0" branch="False" />
-            <line number="36" hits="0" branch="False" />
-            <line number="16" hits="0" branch="False" />
-            <line number="17" hits="0" branch="False" />
-            <line number="18" hits="0" branch="False" />
-            <line number="19" hits="0" branch="False" />
-            <line number="20" hits="0" branch="False" />
           </lines>
         </class>
         <class name="Prom.LPR.Api.Authorizations.GenericRbacHandler" filename="Authorizations\GenericRbacHandler.cs" line-rate="1" branch-rate="1" complexity="24">

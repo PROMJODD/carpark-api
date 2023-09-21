@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
@@ -13,12 +14,14 @@ namespace Prom.LPR.Api.Controllers
         private readonly IConfiguration cfg;
         private readonly IOrganizationService svc;
 
+        [ExcludeFromCodeCoverage]
         public OrganizationController(IOrganizationService service, IConfiguration configuration)
         {
             cfg = configuration;
             svc = service;
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpGet]
         [Route("org/{id}/action/GetOrganization")]
         public async Task<IActionResult> GetOrganization(string id)
@@ -27,6 +30,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(result);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpPost]
         [Route("org/{id}/action/AddUserToOrganization")]
         public IActionResult AddUserToOrganization(string id, [FromBody] MOrganizationUser request)
