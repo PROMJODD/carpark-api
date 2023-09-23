@@ -7,3 +7,5 @@ run.bash
 web-upload-api.bash
 cctv-upload-api.bash
 template.json
+*/coverage/*
+*/coveragereport/*
