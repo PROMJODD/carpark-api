@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.Database.Repositories
 {
     public class FileUploadedRepository : BaseRepository, IFileUploadedRepository
     {
-        public FileUploadedRepository(DataContext ctx)
+        public FileUploadedRepository(IDataContext ctx)
         {
             context = ctx;
         }
@@ -73,7 +73,7 @@ namespace Prom.LPR.Api.Database.Repositories
             {
                 var predicate = FilesUploadedPredicate(param);
                 var arr = context!.FileUploadeds!.Where(predicate)
-                    .Skip(param.Offset!)
+                    .Skip(param.Offset! - 1)
                     .Take(param.Limit!)
                     .OrderByDescending(e => e.UploadedDate)
                     .ToList();

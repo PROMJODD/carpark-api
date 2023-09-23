@@ -1,15 +1,14 @@
 using Serilog;
-using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
 using Prom.LPR.Api.Utils;
-using Prom.LPR.Api.Kafka;
-using System.Text.Json;
-using Google.Apis.Auth.OAuth2;
-using Google.Cloud.Storage.V1;
 using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Services;
 using Prom.LPR.Api.ViewsModels;
+using System.Diagnostics.CodeAnalysis;
+using Prom.LPR.Api.ExternalServices.MessageQue;
+using Prom.LPR.Api.ExternalServices.Recognition;
+using Prom.LPR.Api.ExternalServices.ObjectStorage;
 
 namespace Prom.LPR.Api.Controllers
 {
@@ -27,10 +26,11 @@ namespace Prom.LPR.Api.Controllers
         private string topic = "";
         private string kafkaHost = "";
         private string kafkaPort = "";
-        private Producer<MKafkaMessage> producer;
 
-        public FileUploadController(IConfiguration configuration, 
-            IFileUploadedService svc)
+        private IImageAnalyzer analyzer;
+        private GoogleCloudStorage gcs;
+
+        public FileUploadController(IConfiguration configuration, IFileUploadedService svc)
         {
             service = svc;
             cfg = configuration;
@@ -47,114 +47,21 @@ namespace Prom.LPR.Api.Controllers
             Log.Information($"LPR URL=[{lprBaseUrl}], LPR Path=[{lprPath}]");
             Log.Information($"Topic=[{topic}], Kafka Host=[{kafkaHost}], Kafka Port=[{kafkaPort}]");
 
-            producer = new Producer<MKafkaMessage>(kafkaHost, kafkaPort);
+            analyzer = new LPRAnalyzer(cfg);
+            gcs = new GoogleCloudStorage();
+            gcs.SetUrlSigner(GetSigner());
         }
 
-        private HttpClient GetHttpClient()
+        private GcsSigner? GetSigner()
         {
-            var client = new HttpClient();
-            Uri baseUri = new Uri(lprBaseUrl);
-            client.BaseAddress = baseUri;
-            client.Timeout = TimeSpan.FromMilliseconds(1000);
-
-            return client;
-        }
-
-        private HttpRequestMessage GetRequestMessage()
-        {
-            //Bearer Authentication
-            var requestMessage = new HttpRequestMessage(HttpMethod.Post, lprPath);
-            requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Bearer", lprAuthKey);
-            var productValue = new ProductInfoHeaderValue("lpr-api", "1.0");
-            requestMessage.Headers.UserAgent.Add(productValue);
-
-            return requestMessage;
-        }
-
-        private void PublishMessage(MKafkaMessage data)
-        {
-            producer.Produce(data, topic);
-        }
-
-        private MStorageData UploadFile(string localPath, string org, string folder) 
-        {
-            var objectName = Path.GetFileName(localPath);
-            string objectPath = $"{org}/{folder}/{objectName}";
-            string gcsPath = $"gs://{imagesBucket}/{objectPath}";
-
-            Log.Information($"Uploading file [{localPath}] to [{gcsPath}]");
-
-            StorageClient storageClient = StorageClient.Create();
-            using (var f = System.IO.File.OpenRead(localPath))
-            {
-                storageClient.UploadObject(imagesBucket, $"{objectPath}", null, f);
-            }
-
-            var url = "";
             try
             {
-                var credential = GoogleCredential.GetApplicationDefault();
-                var urlSigner = UrlSigner.FromCredential(credential);
-                url = urlSigner.Sign(imagesBucket, objectPath, TimeSpan.FromHours(1), HttpMethod.Get);
+                return new GcsSigner();
             }
-            catch (Exception e)
+            catch
             {
-                Log.Error($"Unable to sign URL - [{gcsPath}]");
-                Log.Error(e.Message);
+                return null;
             }
-
-            var storageObj = new MStorageData() 
-            {
-                StoragePath = gcsPath,
-                PreSignedUrl = url
-            };
-
-            return storageObj;
-        }
-
-        private string LPRAnalyzeFile(string imagePath)
-        {
-            var client = GetHttpClient();
-            var requestMessage = GetRequestMessage();
-
-            using var stream = System.IO.File.OpenRead(imagePath);
-            using var content = new MultipartFormDataContent
-            {
-                { new StreamContent(stream), "image", imagePath }
-            };
-
-            requestMessage.Content = content;
-            var task = client.SendAsync(requestMessage);
-            var response = task.Result;
-
-            var lprResult = "";
-            try
-            {
-                response.EnsureSuccessStatusCode();
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-
-                lprResult = responseBody;
-                Console.WriteLine($"{responseBody}");
-            }
-            catch (Exception e)
-            {
-                string responseBody = response.Content.ReadAsStringAsync().Result;
-                Log.Error(responseBody);
-                Log.Error(e.Message);
-            }
-
-            return lprResult;
-        }
-
-        private MLPRResult? GetLPRObject(string json)
-        {
-            var options = new JsonSerializerOptions
-            {
-                PropertyNameCaseInsensitive = true
-            };
-
-            var obj = JsonSerializer.Deserialize<MLPRResult>(json, options);
-            return obj;
         }
 
         private string GetContextValue(string key)
@@ -212,13 +119,10 @@ namespace Prom.LPR.Api.Controllers
             }
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
-            var msg = LPRAnalyzeFile(tmpFile);
-            var lprObj = GetLPRObject(msg);
-
+            var lprObj = analyzer.AnalyzeFile<MLPRResult>(tmpFile);
 
             var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
-            var folder = $"{dateStamp}";
-            var storageObj = UploadFile(tmpFile, id, folder);
+            var storageObj = gcs.UploadFile(tmpFile, id, imagesBucket, dateStamp);
 
             var data = new MKafkaMessage() 
             {
@@ -228,7 +132,6 @@ namespace Prom.LPR.Api.Controllers
             };
 
             AddRecord(id, data, tmpFile);
-            PublishMessage(data);
 
             var resp = new MLPRResponse() 
             {
@@ -239,6 +142,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(resp);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpGet]
         [Route("org/{id}/action/GetVehicleImages")]
         public IActionResult GetVehicleImages(string id, [FromQuery] VMFileUploadedQuery param)
@@ -249,6 +153,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(result);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpGet]
         [Route("org/{id}/action/GetVehicleImagesCount")]
         public IActionResult GetVehicleImagesCount(string id, [FromQuery] VMFileUploadedQuery param)

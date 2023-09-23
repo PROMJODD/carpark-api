@@ -95,7 +95,7 @@ namespace Prom.LPR.Api.Services
             {
                 var o = new MVOrganizationUser() 
                 {
-                    Status = "NOTFOUND",
+                    Status = "NOTFOUND_INORG",
                     Description = $"User [{userName}] has not been added to the organization [{orgId}] !!!",
                 };
 

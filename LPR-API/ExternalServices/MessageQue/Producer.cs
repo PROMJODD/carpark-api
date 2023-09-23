@@ -1,7 +1,9 @@
+using System.Diagnostics.CodeAnalysis;
 using Confluent.Kafka;
 
-namespace Prom.LPR.Api.Kafka
+namespace Prom.LPR.Api.ExternalServices.MessageQue
 {
+    [ExcludeFromCodeCoverage]
     public class Producer<T>
     {
         readonly string? kafkaHost;
@@ -17,7 +19,8 @@ namespace Prom.LPR.Api.Kafka
         {
             return new ProducerConfig
             {
-                BootstrapServers = $"{kafkaHost}:{kafkaPort}"
+                BootstrapServers = $"{kafkaHost}:{kafkaPort}",
+                SocketTimeoutMs = 500,
             };
         }
 

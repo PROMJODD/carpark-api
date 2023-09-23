@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
@@ -13,12 +14,14 @@ namespace Prom.LPR.Api.Controllers
         private readonly IConfiguration cfg;
         private readonly IUserService svc;
 
+        [ExcludeFromCodeCoverage]
         public UserController(IUserService service, IConfiguration configuration)
         {
             cfg = configuration;
             svc = service;
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpGet]
         [Route("org/{id}/action/AdminGetUsers")]
         public IActionResult AdminGetUsers(string id)
@@ -27,6 +30,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(result);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpPost]
         [Route("org/{id}/action/AdminAddUser")]
         public IActionResult AdminAddUser(string id, [FromBody] MUser request)

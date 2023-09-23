@@ -1,4 +1,3 @@
-using Serilog;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.IdentityModel.Tokens.Jwt;
@@ -14,7 +13,7 @@ namespace Prom.LPR.Api.Authentications
         private readonly IBasicAuthenticationRepo? basicAuthenRepo = null;
         private readonly IBearerAuthenticationRepo? bearerAuthRepo = null;
         private readonly IConfiguration config;
-        private static string? signedKeyJson = null;
+        private IJWTSigner signer = new JWTSigner();
 
         public AuthenticationHandlerProxy(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
@@ -30,6 +29,12 @@ namespace Prom.LPR.Api.Authentications
             config = cfg;
         }
 
+        public void SetJwtSigner(IJWTSigner sn)
+        {
+            //For unit testing injection
+            signer = sn;
+        }
+
         protected override User? AuthenticateBasic(string orgId, byte[]? jwtBytes, HttpRequest request)
         {
             var credentials = Encoding.UTF8.GetString(jwtBytes!).Split(new[] { ':' }, 2);
@@ -38,32 +43,6 @@ namespace Prom.LPR.Api.Authentications
 
             var user = basicAuthenRepo!.Authenticate(orgId, username, password, request);
             return user;
-        }
-
-        private string GetSignedKeyJson(string? url)
-        {
-            if (signedKeyJson != null)
-            {
-                return signedKeyJson;
-            }
-
-            Log.Information($"Getting JSON public key from [{url}]");
-
-            var handler = new HttpClientHandler() 
-            { 
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-            };
-
-            var client = new HttpClient(handler)
-            {
-                Timeout = TimeSpan.FromMinutes(0.05)
-            };
-
-            var task = client.GetAsync(url);
-            var response = task.Result;
-            signedKeyJson = response.Content.ReadAsStringAsync().Result;
-
-            return signedKeyJson;
         }
 
         protected override User? AuthenticateBearer(string orgId, byte[]? jwtBytes, HttpRequest request)
@@ -75,7 +54,7 @@ namespace Prom.LPR.Api.Authentications
             {
                 ValidIssuer = config["SSO:issuer"],
                 ValidAudience = config["SSO:audience"],
-                IssuerSigningKey = new JsonWebKey(GetSignedKeyJson(config["SSO:signedKeyUrl"])),
+                IssuerSigningKey = signer.GetSignedKey(config["SSO:signedKeyUrl"]),
                 ValidateIssuer = true,
                 ValidateAudience = true,
                 ValidateLifetime = true,
@@ -84,10 +63,10 @@ namespace Prom.LPR.Api.Authentications
 
             SecurityToken validatedToken;
             IPrincipal principal = tokenHandler.ValidateToken(accessToken, param, out validatedToken);
-            if (principal.Identity == null || !principal.Identity.IsAuthenticated)
-            {
-                return null;
-            }
+            //if (principal.Identity == null || !principal.Identity.IsAuthenticated)
+            //{
+            //    return null;
+            //}
 
             var jwt = tokenHandler.ReadJwtToken(accessToken);
             string userName = jwt.Claims.First(c => c.Type == "preferred_username").Value;

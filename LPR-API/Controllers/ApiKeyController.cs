@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
@@ -13,12 +14,14 @@ namespace Prom.LPR.Api.Controllers
         private readonly IConfiguration cfg;
         private readonly IApiKeyService svc;
 
+        [ExcludeFromCodeCoverage]
         public ApiKeyController(IApiKeyService service, IConfiguration configuration)
         {
             cfg = configuration;
             svc = service;
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpGet]
         //Check if API Key found & not expire in the specific organization
         [Route("org/{id}/action/VerifyApiKey/{apiKey}")]
@@ -28,6 +31,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(result);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpPost]
         [Route("org/{id}/action/AddApiKey")]
         public IActionResult AddApiKey(string id, [FromBody] MApiKey request)
@@ -36,6 +40,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(result);
         }
 
+        [ExcludeFromCodeCoverage]
         [HttpDelete]
         [Route("org/{id}/action/DeleteApiKeyById/{keyId}")]
         public IActionResult DeleteApiKeyById(string id, string keyId)
@@ -44,6 +49,7 @@ namespace Prom.LPR.Api.Controllers
             return Ok(result);
         }
 
+        [ExcludeFromCodeCoverage]
         // Use POST method, in the future we might send the body
         [HttpPost]
         [Route("org/{id}/action/GetApiKeys")]

@@ -4,7 +4,7 @@ namespace Prom.LPR.Api.Database.Repositories
 {
     public class RoleRepository : BaseRepository, IRoleRepository
     {
-        public RoleRepository(DataContext ctx)
+        public RoleRepository(IDataContext ctx)
         {
             context = ctx;
         }

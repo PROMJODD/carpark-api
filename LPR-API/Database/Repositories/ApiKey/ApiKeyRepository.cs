@@ -1,12 +1,11 @@
 using Prom.LPR.Api.Models;
-using Prom.LPR.Api.Database;
 using Microsoft.EntityFrameworkCore;
 
 namespace Prom.LPR.Api.Database.Repositories
 {
     public class ApiKeyRepository : BaseRepository, IApiKeyRepository
     {
-        public ApiKeyRepository(DataContext ctx)
+        public ApiKeyRepository(IDataContext ctx)
         {
             context = ctx;
         }

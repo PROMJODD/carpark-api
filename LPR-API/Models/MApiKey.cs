@@ -32,5 +32,11 @@ namespace Prom.LPR.Api.Models
 
         [Column("roles_list")]
         public string? RolesList { get; set; }
+
+        public MApiKey()
+        {
+            KeyId = Guid.NewGuid();
+            KeyCreatedDate = DateTime.UtcNow;
+        }
     }
 }
