@@ -6,6 +6,9 @@ using Prom.LPR.Api.Database.Repositories;
 using Prom.LPR.Api.Services;
 using Prom.LPR.Test.Database;
 using Prom.LPR.Api.ViewsModels;
+using Microsoft.Extensions.Configuration;
+using Prom.LPR.Api.ExternalServices.ObjectStorage;
+using Microsoft.AspNetCore.Http;
 
 namespace Prom.LPR.Test.Api.Services;
 
@@ -47,16 +50,31 @@ public class FileUploadedServiceTest
         CreateFileUploaded(list, "xxswww", $"lic-{cnt}", $"color-{cnt}", $"class-{cnt}", $"brand-{cnt}", $"province-{cnt}");
     }
 
+    private IConfiguration GetCofigFromDictionary(Dictionary<string, string> setting)
+    {
+        var configuration = new ConfigurationBuilder()
+            .AddInMemoryCollection(setting!)
+            .Build();
+
+        return configuration;
+    }
+
     [Theory]
     [InlineData("default")]
     [InlineData("global")]
     public void AddFilesUploadedTest(string orgId)
     {
+        var setting = new Dictionary<string, string>
+        {
+            {"LPR:bucket", "unittesting"},
+        };
+        var configuration = GetCofigFromDictionary(setting);
+
         var files = new List<MFileUploaded>();
         var repo = CreateRepository(orgId, files);
 
         var m = new MFileUploaded() { UploadedApi = "VehicleImageUpload" };
-        var svc = new FileUploadedService(repo);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, null!);
         var result = svc.AddFileUploaded(orgId, m);
 
         Assert.NotNull(result);
@@ -69,13 +87,19 @@ public class FileUploadedServiceTest
     [InlineData("global", 4)]
     public void GetFilesUploadedCountTest(string orgId, int loopCnt)
     {
+        var setting = new Dictionary<string, string>
+        {
+            {"LPR:bucket", "unittesting"},
+        };
+        var configuration = GetCofigFromDictionary(setting);
+
         var files = new List<MFileUploaded>();
         GenerateFilesUploaded(files, loopCnt, orgId);
 
         var repo = CreateRepository(orgId, files);
 
         var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload" };
-        var svc = new FileUploadedService(repo);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, null!);
         var result = svc.GetFilesUploadedCount(orgId, m);
 
         Assert.Equal(loopCnt, result);
@@ -91,15 +115,87 @@ public class FileUploadedServiceTest
     [InlineData("globalx", 4, -1, 5, 4)]
     public void GetFilesUploadedTest(string orgId, int loopCnt, int offset, int limit, int expectedCount)
     {
+        var setting = new Dictionary<string, string>
+        {
+            {"LPR:bucket", "unittesting"},
+        };
+        var configuration = GetCofigFromDictionary(setting);
+
         var files = new List<MFileUploaded>();
         GenerateFilesUploaded(files, loopCnt, orgId);
 
         var repo = CreateRepository(orgId, files);
 
         var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload", Limit = limit, Offset = offset };
-        var svc = new FileUploadedService(repo);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, null!);
         var list = svc.GetFilesUploaded(orgId, m);
 
         Assert.Equal(expectedCount, list.Count());
+    }
+
+    private IFileUploadedService GetFileUploadSvc(string orgId)
+    {
+        var setting = new Dictionary<string, string>
+        {
+            {"LPR:bucket", "unittesting"},
+            {"LPR:lprPath", "/service"},
+            {"LPR:lprBaseUrl", "https://localhost"},
+            {"LPR:lprAuthKey", "thisisauthkey"}
+        };
+        var configuration = GetCofigFromDictionary(setting);
+        var analyzer = new LPRAnalyzerMocked();
+
+        var sc = new Mock<IGcsClient>();
+        var dat = new Google.Apis.Storage.v1.Data.Object();
+        sc.Setup(x => x.UploadObject(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Stream>())).Returns(dat);
+        var gcs = new GoogleCloudStorage();
+        gcs.SetStorageClient(sc.Object);
+
+        var files = new List<MFileUploaded>();
+        var repo = CreateRepository(orgId, files);
+        var svc = new FileUploadedService(repo, gcs, configuration, analyzer);
+
+        return svc;
+    }
+
+    [Theory]
+    [InlineData("default")]
+    public void UploadFileNotFoundTest(string orgId)
+    {        
+        var svc = GetFileUploadSvc(orgId);
+
+        var f = new MImageUploaded();
+        var context = new DefaultHttpContext();
+        var result = svc.UploadFile(orgId, f, context);
+
+        Assert.NotNull(result);
+        Assert.Equal("NOTFOUND", result.Status);
+    }
+
+    [Theory]
+    [InlineData("default")]
+    public void UploadFileTest(string orgId)
+    {
+        var localPath = "/tmp/abcde.jpg";
+        File.Create(localPath).Dispose();
+
+        var svc = GetFileUploadSvc(orgId);
+
+        var f = new MImageUploaded();
+        using var stream = new MemoryStream(File.ReadAllBytes(localPath).ToArray());
+        var formFile = new FormFile(stream, 0, stream.Length, "image", "abcde.jpg");
+        f.Image = formFile;
+
+        var context = new DefaultHttpContext();
+        context.Items.Add("Temp-Identity-Type", "unit-testing");
+        var result = svc.UploadFile(orgId, f, context);
+
+        Assert.NotNull(result);
+        Assert.NotNull(result.LprData);
+        Assert.NotNull(result.LprData.Data);
+        Assert.Equal("OK", result.Status);
+        Assert.Equal("Bangkok", result.LprData.Data.Province);
+
+        File.Delete(localPath);
     }
 }

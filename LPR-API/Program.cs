@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication;
 using Prom.LPR.Api.Database.Seeders;
 using Prom.LPR.Api.Authorizations;
 using System.Diagnostics.CodeAnalysis;
+using Prom.LPR.Api.ExternalServices.ObjectStorage;
+using Prom.LPR.Api.ExternalServices.Recognition;
 
 namespace Prom.LPR.Worker
 {
@@ -53,6 +55,8 @@ namespace Prom.LPR.Worker
             builder.Services.AddTransient<IAuthorizationHandler, GenericRbacHandler>();
             builder.Services.AddScoped<IBasicAuthenticationRepo, BasicAuthenticationRepo>();
             builder.Services.AddScoped<IBearerAuthenticationRepo, BearerAuthenticationRepo>();
+            builder.Services.AddScoped<IObjectStorage, GoogleCloudStorage>();
+            builder.Services.AddScoped<IImageAnalyzer, LPRAnalyzer>();
 
             builder.Services.AddAuthentication("BasicOrBearer")
                 .AddScheme<AuthenticationSchemeOptions, AuthenticationHandlerProxy>("BasicOrBearer", null);

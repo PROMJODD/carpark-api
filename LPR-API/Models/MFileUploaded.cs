@@ -53,7 +53,7 @@ namespace Prom.LPR.Api.Models
         public string? VehicleColor { get; set; }
 
         [Column("quota_left")]
-        public long? QuotaLeft { get; set; }
+        public int? QuotaLeft { get; set; }
 
         [Column("uploaded_date")]
         public DateTime? UploadedDate { get; set; }
