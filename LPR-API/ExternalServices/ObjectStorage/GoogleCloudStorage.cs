@@ -18,7 +18,7 @@ namespace Prom.LPR.Api.ExternalServices.ObjectStorage
             storageClient = sc;
         }
 
-        public void SetUrlSigner(IGcsSigner sn)
+        public void SetUrlSigner(IGcsSigner? sn)
         {
             //For unit testing injection - new GcsSigner()
             urlSigner = sn;
