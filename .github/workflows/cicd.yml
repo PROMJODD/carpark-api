@@ -48,7 +48,7 @@ jobs:
       with:
         status: ${{ job.status }}
         fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Done unit testing [LPR]"
+        text: "Done unit testing [LPR] with status [${{job.status}}]"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
 
