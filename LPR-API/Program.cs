@@ -11,6 +11,7 @@ using Prom.LPR.Api.Authorizations;
 using System.Diagnostics.CodeAnalysis;
 using Prom.LPR.Api.ExternalServices.ObjectStorage;
 using Prom.LPR.Api.ExternalServices.Recognition;
+using Microsoft.OpenApi.Models;
 
 namespace Prom.LPR.Worker
 {
