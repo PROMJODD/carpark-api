@@ -33,8 +33,7 @@ namespace Prom.LPR.Api.Authentications
             Log.Information($"Getting JSON public key from [{url}]");
 
             var handler = new HttpClientHandler() 
-            { 
-                ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
+            {
             };
 
             var client = new HttpClient(handler)
