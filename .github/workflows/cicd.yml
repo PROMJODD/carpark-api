@@ -136,16 +136,13 @@ jobs:
   
     - name: Test with the dotnet CLI
       run: |
-        echo ${{ secrets.GCR_KEY }} > /tmp/sa.json
-        export GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa.json
-        dotnet test LPR-API.TEST
+        echo ${{ secrets.GCR_KEY }} > /tmp/sa.json ; export GOOGLE_APPLICATION_CREDENTIALS=/tmp/sa.json ; dotnet test LPR-API.TEST
 
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v1
     
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v1
-
 
     - name: GCR Authen
       run: |
