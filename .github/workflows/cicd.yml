@@ -128,11 +128,11 @@ jobs:
       with:
         dotnet-version: '7.0.x'
   
-    - name: Activate GCP service account
-      uses: google-github-actions/setup-gcloud@v0.2.1
-      with:
-        service_account_email: ${{ secrets.GCR_EMAIL }}
-        service_account_key: ${{ secrets.GCR_KEY }}
+#    - name: Activate GCP service account
+#      uses: google-github-actions/setup-gcloud@v0.2.1
+#      with:
+#        service_account_email: ${{ secrets.GCR_EMAIL }}
+#        service_account_key: ${{ secrets.GCR_KEY }}
   
     - id: 'auth'
       name: 'Authenticate to Google Cloud'
