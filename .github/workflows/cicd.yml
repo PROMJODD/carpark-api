@@ -77,7 +77,7 @@ jobs:
         dotnet-version: '7.0.x'
 
     - name: Test with the dotnet CLI
-      run: dotnet test
+      run: dotnet test LPR-API.TEST
 
     - name: Prepare
       id: prep
