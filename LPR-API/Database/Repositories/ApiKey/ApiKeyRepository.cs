@@ -22,7 +22,7 @@ namespace Prom.LPR.Api.Database.Repositories
             apiKey.KeyCreatedDate = DateTime.UtcNow;
             apiKey.OrgId = orgId;
 
-            context!.ApiKeys!.AddAsync(apiKey);
+            context!.ApiKeys!.Add(apiKey);
             context.SaveChanges();
 
             return apiKey;

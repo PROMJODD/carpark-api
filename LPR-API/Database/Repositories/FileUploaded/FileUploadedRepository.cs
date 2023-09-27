@@ -15,7 +15,7 @@ namespace Prom.LPR.Api.Database.Repositories
         {
             file.OrgId = orgId;
 
-            context!.FileUploadeds!.AddAsync(file);
+            context!.FileUploadeds!.Add(file);
             context.SaveChanges();
 
             return file;
