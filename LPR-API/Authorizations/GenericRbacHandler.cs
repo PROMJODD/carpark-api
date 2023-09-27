@@ -14,7 +14,6 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 
     public GenericRbacHandler(IRoleService svc)
     {
-        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(100));
         service = svc;
     }
 
@@ -26,10 +25,8 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 
     private string? IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
     {
-        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(100));
-
         var uriPattern = @"^\/api\/(.+)\/org\/(.+)\/action\/(.+)$";
-        var matches = Regex.Matches(uri, uriPattern);
+        var matches = Regex.Matches(uri, uriPattern, RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
         var group = matches[0].Groups[1].Value;
         var api = matches[0].Groups[3].Value;
@@ -42,7 +39,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             var patterns = role.RoleDefinition!.Split(',').ToList();
             foreach (var pattern in patterns!)
             {
-                Match m = Regex.Match(keyword, pattern, RegexOptions.IgnoreCase);
+                Match m = Regex.Match(keyword, pattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                 if (m.Success)
                 {
                     //Console.WriteLine($"### [{role.RoleName}] [{pattern}] [{keyword}] ###");
@@ -100,7 +97,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
         var roles = service.GetRolesList("", role);
         var roleMatch = IsRoleValid(roles, uri);
 
-        Match m = Regex.Match(apiCalled, adminOnlyApiPattern, RegexOptions.IgnoreCase);
+        Match m = Regex.Match(apiCalled, adminOnlyApiPattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
         if (m.Success && !authorizeOrgId.Equals("global"))
         {
             //Reject if API is match Admin(.+) but ID is not in "global" organization
