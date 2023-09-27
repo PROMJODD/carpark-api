@@ -42,7 +42,6 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
                 Match m = Regex.Match(keyword, pattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                 if (m.Success)
                 {
-                    //Console.WriteLine($"### [{role.RoleName}] [{pattern}] [{keyword}] ###");
                     return role.RoleName;
                 }
             }
@@ -115,8 +114,6 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             mvcContext!.HttpContext.Items["Temp-Identity-Type"] = method;
             mvcContext!.HttpContext.Items["Temp-Identity-Id"] = uid;
         }
-
-        //Console.WriteLine($"[{apiCalled}], [{method}], [{uid}]");
 
         return Task.CompletedTask;
     }

@@ -13,17 +13,10 @@ namespace Prom.LPR.Api.Database.Repositories
 
         public MFileUploaded AddFileUploaded(MFileUploaded file)
         {
-            try
-            {
-                file.OrgId = orgId;
+            file.OrgId = orgId;
 
-                context!.FileUploadeds!.AddAsync(file);
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            context!.FileUploadeds!.AddAsync(file);
+            context.SaveChanges();
 
             return file;
         }
@@ -54,36 +47,22 @@ namespace Prom.LPR.Api.Database.Repositories
 
         public int GetFilesUploadedCount(VMFileUploadedQuery param)
         {
-            try
-            {
-                var predicate = FilesUploadedPredicate(param);
-                var cnt = context!.FileUploadeds!.Where(predicate).Count();
+            var predicate = FilesUploadedPredicate(param);
+            var cnt = context!.FileUploadeds!.Where(predicate).Count();
 
-                return cnt;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return cnt;
         }
 
         public IEnumerable<MFileUploaded> GetFilesUploaded(VMFileUploadedQuery param)
         {
-            try
-            {
-                var predicate = FilesUploadedPredicate(param);
-                var arr = context!.FileUploadeds!.Where(predicate)
-                    .Skip(param.Offset! - 1)
-                    .Take(param.Limit!)
-                    .OrderByDescending(e => e.UploadedDate)
-                    .ToList();
+            var predicate = FilesUploadedPredicate(param);
+            var arr = context!.FileUploadeds!.Where(predicate)
+                .Skip(param.Offset! - 1)
+                .Take(param.Limit!)
+                .OrderByDescending(e => e.UploadedDate)
+                .ToList();
 
-                return arr;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return arr;
         }
     }
 }
