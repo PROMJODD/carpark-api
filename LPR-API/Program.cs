@@ -19,8 +19,6 @@ namespace Prom.LPR.Worker
     {
         public static void Main(string[] args)
         {
-            AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(100));
-
             var log = new LoggerConfiguration()
                 .WriteTo.Console()
                 .CreateLogger();

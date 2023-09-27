@@ -4,7 +4,6 @@ using System.IdentityModel.Tokens.Jwt;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Principal;
 
 namespace Prom.LPR.Api.Authentications
 {
@@ -13,7 +12,7 @@ namespace Prom.LPR.Api.Authentications
         private readonly IBasicAuthenticationRepo? basicAuthenRepo = null;
         private readonly IBearerAuthenticationRepo? bearerAuthRepo = null;
         private readonly IConfiguration config;
-        private IJWTSigner signer = new JWTSigner();
+        private IJwtSigner signer = new JwtSigner();
 
         public AuthenticationHandlerProxy(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
@@ -29,7 +28,7 @@ namespace Prom.LPR.Api.Authentications
             config = cfg;
         }
 
-        public void SetJwtSigner(IJWTSigner sn)
+        public void SetJwtSigner(IJwtSigner sn)
         {
             //For unit testing injection
             signer = sn;
@@ -62,11 +61,7 @@ namespace Prom.LPR.Api.Authentications
             };
 
             SecurityToken validatedToken;
-            IPrincipal principal = tokenHandler.ValidateToken(accessToken, param, out validatedToken);
-            //if (principal.Identity == null || !principal.Identity.IsAuthenticated)
-            //{
-            //    return null;
-            //}
+            tokenHandler.ValidateToken(accessToken, param, out validatedToken);
 
             var jwt = tokenHandler.ReadJwtToken(accessToken);
             string userName = jwt.Claims.First(c => c.Type == "preferred_username").Value;

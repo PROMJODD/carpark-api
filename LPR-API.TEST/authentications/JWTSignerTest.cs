@@ -3,7 +3,7 @@ using Prom.LPR.Api.Authentications;
 
 namespace Prom.LPR.Test.Api.Authentications;
 
-public class JWTSignerTest
+public class JwtSignerTest
 {
 
     [Theory]
@@ -11,8 +11,8 @@ public class JWTSignerTest
     [InlineData("")]
     public void ExceptionWhenUrlNotValid(string url)
     {
-        var sn = new JWTSigner();
-        sn.ResetSigedKeyJson();
+        var sn = new JwtSigner();
+        JwtSigner.ResetSigedKeyJson();
 
         Action act = () => sn.GetSignedKey(url);
 
@@ -24,8 +24,8 @@ public class JWTSignerTest
     [InlineData("https://google.com")]
     public void ExceptionWhenUrlNotForOauth(string url)
     {
-        var sn = new JWTSigner();
-        sn.ResetSigedKeyJson();
+        var sn = new JwtSigner();
+        JwtSigner.ResetSigedKeyJson();
 
         Action act = () => sn.GetSignedKey(url);
 
@@ -37,9 +37,9 @@ public class JWTSignerTest
     [InlineData("https://keycloak.promid.prom.co.th/auth/realms/promid/protocol/openid-connect/certs")]
     public void SuccessWhenUrlValidForOauth(string url)
     {
-        var sn = new JWTSigner();
+        var sn = new JwtSigner();
 
-        sn.ResetSigedKeyJson();
+        JwtSigner.ResetSigedKeyJson();
         var key1 = sn.GetSignedKey(url);
         var key2 = sn.GetSignedKey(url); //The 2nd calll to get the one from static field
 

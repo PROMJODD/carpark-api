@@ -14,6 +14,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 
     public GenericRbacHandler(IRoleService svc)
     {
+        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(100));
         service = svc;
     }
 
@@ -25,6 +26,8 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 
     private string? IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
     {
+        AppDomain.CurrentDomain.SetData("REGEX_DEFAULT_MATCH_TIMEOUT", TimeSpan.FromMilliseconds(100));
+
         var uriPattern = @"^\/api\/(.+)\/org\/(.+)\/action\/(.+)$";
         var matches = Regex.Matches(uri, uriPattern);
 

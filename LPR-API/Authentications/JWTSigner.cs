@@ -3,15 +3,15 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Prom.LPR.Api.Authentications
 {
-    public class JWTSigner : IJWTSigner
+    public class JwtSigner : IJwtSigner
     {
         private static string? signedKeyJson = null;
 
-        public JWTSigner()
+        public JwtSigner()
         {
         }
 
-        public void ResetSigedKeyJson()
+        public static void ResetSigedKeyJson()
         {
             //For unit testing
             signedKeyJson = null;

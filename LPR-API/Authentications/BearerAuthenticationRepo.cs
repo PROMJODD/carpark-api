@@ -7,7 +7,7 @@ namespace Prom.LPR.Api.Authentications
 {
     public class BearerAuthenticationRepo : IBearerAuthenticationRepo
     {
-        private static IOrganizationService? service = null;
+        private IOrganizationService? service = null;
 
         public BearerAuthenticationRepo(IOrganizationService svc)
         {

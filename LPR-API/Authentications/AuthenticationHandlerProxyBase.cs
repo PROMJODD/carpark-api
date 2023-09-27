@@ -13,7 +13,7 @@ namespace Prom.LPR.Api.Authentications
         protected abstract User? AuthenticateBasic(string orgId, byte[]? jwtBytes, HttpRequest request);
         protected abstract User? AuthenticateBearer(string orgId, byte[]? jwtBytes, HttpRequest request);
 
-        public AuthenticationHandlerProxyBase(
+        protected AuthenticationHandlerProxyBase(
             IOptionsMonitor<AuthenticationSchemeOptions> options, 
             ILoggerFactory logger,
             UrlEncoder encoder,
