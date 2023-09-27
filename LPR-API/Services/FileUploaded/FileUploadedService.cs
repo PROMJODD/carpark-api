@@ -115,8 +115,7 @@ namespace Prom.LPR.Api.Services
                 return resp;
             }
 
-            var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
-            var tmpFile = $"/tmp/{ts}.{image.FileName}";
+            var tmpFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             using (var fileStream = new FileStream(tmpFile, FileMode.Create))
             {
                 image.CopyTo(fileStream);

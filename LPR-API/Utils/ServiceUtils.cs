@@ -22,7 +22,7 @@ namespace Prom.LPR.Api.Utils
         {
             var pattern = @"^\/api\/(.+)\/org\/(.+)\/action\/(.+)$";
             var path = request.Path;
-            MatchCollection matches = Regex.Matches(path, pattern);
+            MatchCollection matches = Regex.Matches(path, pattern, RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
             var orgId = matches[0].Groups[2].Value;
 
