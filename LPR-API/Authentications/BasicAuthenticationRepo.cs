@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.Authentications
 {
     public class BasicAuthenticationRepo : IBasicAuthenticationRepo
     {
-        private IApiKeyService? service = null;
+        private readonly IApiKeyService? service = null;
 
         public BasicAuthenticationRepo(IApiKeyService svc)
         {

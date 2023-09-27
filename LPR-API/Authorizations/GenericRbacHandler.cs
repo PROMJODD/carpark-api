@@ -10,14 +10,14 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 {
     private readonly IRoleService service;
     private string apiCalled = "";
-    private string adminOnlyApiPattern = @"^(.+):(Admin.+)$";
+    private readonly string adminOnlyApiPattern = @"^(.+):(Admin.+)$";
 
     public GenericRbacHandler(IRoleService svc)
     {
         service = svc;
     }
 
-    private Claim? GetClaim(string type, IEnumerable<Claim> claims)
+    private static Claim? GetClaim(string type, IEnumerable<Claim> claims)
     {
         var claim = claims.FirstOrDefault(x => x.Type == type);
         return claim;

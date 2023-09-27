@@ -11,13 +11,11 @@ namespace Prom.LPR.Api.Controllers
     [Route("/api/[controller]")]
     public class OrganizationController : ControllerBase
     {
-        private readonly IConfiguration cfg;
         private readonly IOrganizationService svc;
 
         [ExcludeFromCodeCoverage]
-        public OrganizationController(IOrganizationService service, IConfiguration configuration)
+        public OrganizationController(IOrganizationService service)
         {
-            cfg = configuration;
             svc = service;
         }
 

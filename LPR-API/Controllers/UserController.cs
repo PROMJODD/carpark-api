@@ -11,13 +11,11 @@ namespace Prom.LPR.Api.Controllers
     [Route("/api/[controller]")]
     public class UserController : ControllerBase
     {
-        private readonly IConfiguration cfg;
         private readonly IUserService svc;
 
         [ExcludeFromCodeCoverage]
-        public UserController(IUserService service, IConfiguration configuration)
+        public UserController(IUserService service)
         {
-            cfg = configuration;
             svc = service;
         }
 
