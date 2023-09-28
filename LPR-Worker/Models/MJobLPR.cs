@@ -1,7 +1,7 @@
 
 namespace Prom.LPR.Worker.Models
 {
-    public class MJobLPR : MJob
+    public class MJobLpr : MJob
     {
         public string? JobType { get; set; }
         public string? BranchId { get; set; }

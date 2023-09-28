@@ -8,11 +8,11 @@ namespace Prom.LPR.Worker.Executors
         {
             if (type.Equals("LPR"))
             {
-                return new LPRExecutor(cfg);
+                return new LprExecutor(cfg);
             }
 
             //Can be other Executor in the future
-            return new LPRExecutor(cfg);
+            return new LprExecutor(cfg);
         }
     }
 }

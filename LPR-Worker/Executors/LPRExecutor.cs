@@ -8,17 +8,17 @@ using System.Net.Http.Headers;
 
 namespace Prom.LPR.Worker.Executors
 {
-    public class LPRExecutor : BaseExecutor
+    public class LprExecutor : BaseExecutor
     {
         private readonly IConfiguration? configuration;
-        private MJobLPR? lprJob = new MJobLPR() { Message = "", JobType = "LPR" };
+        private MJobLpr? lprJob = new MJobLpr() { Message = "", JobType = "LPR" };
 
         private string bucket = "";
         private string lprBaseUrl = "";
         private string lprPath = "";
         private string lprAuthKey = "";
 
-        public LPRExecutor(IConfiguration? cfg)
+        public LprExecutor(IConfiguration? cfg)
         {
             if (cfg == null)
             {
@@ -44,7 +44,7 @@ namespace Prom.LPR.Worker.Executors
 
             try
             {
-                lprJob = JsonSerializer.Deserialize<MJobLPR>(jobParam.Message, options);
+                lprJob = JsonSerializer.Deserialize<MJobLpr>(jobParam.Message, options);
                 if (lprJob != null)
                 {
                     lprJob.JobId = lprJob.RefId;

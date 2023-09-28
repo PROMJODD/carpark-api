@@ -103,9 +103,9 @@ namespace Prom.LPR.Api.Services
             AddFileUploaded(id, m);
         }
 
-        public MLPRResponse UploadFile(string orgId, MImageUploaded data, HttpContext context)
+        public MLprResponse UploadFile(string orgId, MImageUploaded data, HttpContext context)
         {
-            var resp = new MLPRResponse() { Status = "OK", Description = "Success" };
+            var resp = new MLprResponse() { Status = "OK", Description = "Success" };
 
             var image = data.Image;
             if (image == null)
@@ -122,7 +122,7 @@ namespace Prom.LPR.Api.Services
             }
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
-            var lprObj = analyzer!.AnalyzeFile<MLPRResult>(tmpFile);
+            var lprObj = analyzer!.AnalyzeFile<MLprResult>(tmpFile);
 
             var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
             var storageObj = gcs!.UploadFile(tmpFile, orgId, imagesBucket, dateStamp);
