@@ -15,7 +15,7 @@ namespace Prom.LPR.Api.Services
 
         public MVUser? AddUser(string orgId, MUser user)
         {
-            //Future(validation) : Added validation here
+            //Improvement(validation) : Added validation here
 
             repository!.SetCustomOrgId(orgId);
             var r = new MVUser();

@@ -97,7 +97,7 @@ public class AuthenticationHandlerProxyTest
         Assert.NotNull(ticket);
         Assert.NotNull(ticket.Principal);
 
-        //Future : Check the returned claims values
+        //Improvement : Check the returned claims values
     }
 
     [Theory]

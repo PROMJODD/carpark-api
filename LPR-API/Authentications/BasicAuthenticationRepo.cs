@@ -15,7 +15,7 @@ namespace Prom.LPR.Api.Authentications
 
         private MVApiKey? VerifyKey(string orgId, string password)
         {
-            //Future(caching) : Added chaching mechanism here
+            //Improvement(caching) : Added chaching mechanism here
 
             var m = service!.VerifyApiKey(orgId, password);
             if (m != null && m.Status!.Equals("OK"))
