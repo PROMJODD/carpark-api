@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <SonarQubeSetting Include="sonar.exclusions">
-      <Value>**/*</Value>
+      <Value>*</Value>
     </SonarQubeSetting>
   </ItemGroup>
 </Project>
