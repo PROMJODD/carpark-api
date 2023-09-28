@@ -5,9 +5,9 @@ namespace Prom.LPR.Api.ExternalServices.Recognition
 {
     public class LprAnalyzer : ImageAnalyzerHttpBase
     {
-        private readonly string lprBaseUrl = "";
-        private readonly string lprPath = "";
-        private readonly string lprAuthKey = "";
+        private readonly string lprBaseUrl;
+        private readonly string lprPath;
+        private readonly string lprAuthKey;
 
         public LprAnalyzer(IConfiguration cfg)
         {

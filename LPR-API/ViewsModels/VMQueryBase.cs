@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.ViewsModels
     public class VMQueryBase
     {
         private const int MAX_LIMIT = 100;
-        private int limit = MAX_LIMIT;
+        private int limit;
 
         public int Offset { get; set; }
         public DateTime? FromDate { get; set; }

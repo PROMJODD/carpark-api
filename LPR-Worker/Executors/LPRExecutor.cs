@@ -13,10 +13,10 @@ namespace Prom.LPR.Worker.Executors
         private readonly IConfiguration? configuration;
         private MJobLpr? lprJob = new MJobLpr() { Message = "", JobType = "LPR" };
 
-        private readonly string bucket = "";
-        private readonly string lprBaseUrl = "";
-        private readonly string lprPath = "";
-        private readonly string lprAuthKey = "";
+        private readonly string bucket;
+        private readonly string lprBaseUrl;
+        private readonly string lprPath;
+        private readonly string lprAuthKey;
 
         public LprExecutor(IConfiguration? cfg)
         {
@@ -24,6 +24,11 @@ namespace Prom.LPR.Worker.Executors
             {
                 Log.Error("Configuration variable is null in [LPRExector]");
             }
+
+            bucket = "";
+            lprBaseUrl = "";
+            lprPath = "";
+            lprAuthKey = "";     
 
             if (cfg != null)
             {

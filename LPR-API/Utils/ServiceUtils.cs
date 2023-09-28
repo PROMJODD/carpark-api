@@ -9,7 +9,7 @@ namespace Prom.LPR.Api.Utils
         {
             try
             {
-                Guid id = Guid.Parse(guid);
+                Guid.Parse(guid);
                 return true;
             }
             catch
