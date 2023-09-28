@@ -7,7 +7,7 @@ namespace Prom.LPR.Api.Services
 {
     public class ApiKeyService : BaseService, IApiKeyService
     {
-        private IApiKeyRepository? repository = null;
+        private readonly IApiKeyRepository? repository = null;
         private DateTime compareDate = DateTime.Now;
 
         public ApiKeyService(IApiKeyRepository repo) : base()
@@ -42,13 +42,10 @@ namespace Prom.LPR.Api.Services
                 status = "NOTFOUND";
                 description = $"API key not found for the organization [{orgId}]";
             }
-            else if (m.KeyExpiredDate != null)
+            else if ((m.KeyExpiredDate != null) && (DateTime.Compare(compareDate, (DateTime) m.KeyExpiredDate!) > 0))
             {
-                if (DateTime.Compare(compareDate, (DateTime) m.KeyExpiredDate!) > 0)
-                {
-                    status = "EXPIRED";
-                    description = $"API key for the organization is expire [{orgId}] since [{m.KeyExpiredDate}]";
-                }
+                status = "EXPIRED";
+                description = $"API key for the organization is expire [{orgId}] since [{m.KeyExpiredDate}]";
             }
 
             var mv = new MVApiKey() 
