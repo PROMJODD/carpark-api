@@ -37,7 +37,7 @@
 
   <ItemGroup>
     <SonarQubeSetting Include="sonar.exclusions">
-      <Value>LPR-API.TEST/*,*</Value>
+      <Value>**/*.cs</Value>
     </SonarQubeSetting>
    </ItemGroup>
 </Project>
