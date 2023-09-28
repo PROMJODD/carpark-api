@@ -115,7 +115,10 @@ namespace Prom.LPR.Api.Services
                 return resp;
             }
 
+            string ext = Path.GetExtension(image.FileName);
             var tmpFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            tmpFile = $"{tmpFile}{ext}";
+
             using (var fileStream = new FileStream(tmpFile, FileMode.Create))
             {
                 image.CopyTo(fileStream);
