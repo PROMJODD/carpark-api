@@ -16,7 +16,7 @@ namespace Prom.LPR.Api.Authentications
 
         private MVOrganizationUser? VerifyUser(string orgId, string user)
         {
-            //TODO : Added chaching mechanism here
+            //TODO(caching) : Added chaching mechanism here
             var m = service!.VerifyUserInOrganization(orgId, user);
             return m;
         }

@@ -33,7 +33,7 @@ namespace Prom.LPR.Api.Services
 
         public MVOrganizationUser AddUserToOrganization(string orgId, MOrganizationUser user)
         {
-            //TODO : Added validation here
+            //TODO(validation) : Added validation here
 
             repository!.SetCustomOrgId(orgId);
             var r = new MVOrganizationUser();
