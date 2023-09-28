@@ -153,7 +153,7 @@ namespace Prom.LPR.Worker.Executors
 
                 /* Replace "/ftp" with "gs://<bucket>/<user>" */
                 var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
-                var objectName = ftpPath?.Replace("/ftp", lprJob?.UploadUser);
+                var objectName = ftpPath?.Replace("/ftp", lprJob!.UploadUser);
 
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
