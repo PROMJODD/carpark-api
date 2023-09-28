@@ -7,7 +7,7 @@ namespace Prom.LPR.Api.ExternalServices.ObjectStorage
     [ExcludeFromCodeCoverage]
     public class GcsSigner : IGcsSigner
     {
-        private UrlSigner urlSigner;
+        private readonly UrlSigner urlSigner;
 
         public GcsSigner()
         {

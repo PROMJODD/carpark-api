@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Services;
 using Prom.LPR.Api.ViewsModels;
 using System.Diagnostics.CodeAnalysis;
-using Prom.LPR.Api.ExternalServices.Recognition;
 using Prom.LPR.Api.ExternalServices.ObjectStorage;
 
 namespace Prom.LPR.Api.Controllers
@@ -17,47 +16,17 @@ namespace Prom.LPR.Api.Controllers
     [Route("/api/[controller]")]
     public class FileUploadController : ControllerBase
     {
-        private readonly IConfiguration cfg;
         private readonly IFileUploadedService service;
-        private string lprBaseUrl = "";
-        private string lprPath = "";
-        private string topic = "";
-        private string kafkaHost = "";
-        private string kafkaPort = "";
-
-        private IImageAnalyzer analyzer;
-        private GoogleCloudStorage gcs;
 
         public FileUploadController(IConfiguration configuration, IFileUploadedService svc)
         {
             service = svc;
-            cfg = configuration;
+            var cfg = configuration;
 
-            lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPR:lprBaseUrl");
-            lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
-
-            topic = ConfigUtils.GetConfig(cfg, "Kafka:topic");
-            kafkaHost = ConfigUtils.GetConfig(cfg, "Kafka:host");
-            kafkaPort = ConfigUtils.GetConfig(cfg, "Kafka:port");
+            var lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPR:lprBaseUrl");
+            var lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");
 
             Log.Information($"LPR URL=[{lprBaseUrl}], LPR Path=[{lprPath}]");
-            Log.Information($"Topic=[{topic}], Kafka Host=[{kafkaHost}], Kafka Port=[{kafkaPort}]");
-
-            analyzer = new LPRAnalyzer(cfg);
-            gcs = new GoogleCloudStorage();
-            gcs.SetUrlSigner(GetSigner());
-        }
-
-        private GcsSigner? GetSigner()
-        {
-            try
-            {
-                return new GcsSigner();
-            }
-            catch
-            {
-                return null;
-            }
         }
 
         [HttpPost]

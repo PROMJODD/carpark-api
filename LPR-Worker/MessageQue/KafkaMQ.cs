@@ -6,23 +6,19 @@ namespace Prom.LPR.Worker.MessageQue
 {
     public class KafkaMQ : BaseMessageQue
     {
-        private Queue<MJob> queue = new Queue<MJob>();
-        private ConsumerConfig? consumerCfg = null;
-        private readonly string topic = "";
-        private readonly string groupId = "";
-        private readonly string host = "";
-        private readonly int port = 3333;
+        private readonly Queue<MJob> queue = new Queue<MJob>();
+        private readonly ConsumerConfig? consumerCfg;
+        private readonly string topic;
+        private readonly string groupId;
 
         public KafkaMQ(string topic, string group, string host, int port)
         {
             this.topic = topic;
-            this.host = host;
-            this.port = port;
             this.groupId = group;
 
             consumerCfg = new ConsumerConfig 
             {
-                BootstrapServers = this.host,
+                BootstrapServers = host,
                 AutoOffsetReset = AutoOffsetReset.Latest,
                 ClientId = "",
                 GroupId = this.groupId,
@@ -75,6 +71,7 @@ namespace Prom.LPR.Worker.MessageQue
             }
             catch
             {
+                //Do nothing here
             }
 
             return m;

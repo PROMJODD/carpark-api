@@ -10,10 +10,10 @@ namespace Prom.LPR.Api.Services
 {
     public class FileUploadedService : BaseService, IFileUploadedService
     {
-        private IFileUploadedRepository? repository = null;
-        private IImageAnalyzer? analyzer;
-        private IObjectStorage? gcs;
-        private string imagesBucket;
+        private readonly IFileUploadedRepository? repository = null;
+        private readonly IImageAnalyzer? analyzer;
+        private readonly IObjectStorage? gcs;
+        private readonly string imagesBucket;
 
         public FileUploadedService(
             IFileUploadedRepository repo,
@@ -29,7 +29,7 @@ namespace Prom.LPR.Api.Services
             imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
         }
 
-        private GcsSigner? GetSigner()
+        private static GcsSigner? GetSigner()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Prom.LPR.Api.Services
             return result;
         }
 
-        private string GetContextValue(HttpContext context, string key)
+        private static string GetContextValue(HttpContext context, string key)
         {
             bool t = context.Items.TryGetValue(key, out object? e);
             if (t)
@@ -103,9 +103,9 @@ namespace Prom.LPR.Api.Services
             AddFileUploaded(id, m);
         }
 
-        public MLPRResponse UploadFile(string orgId, MImageUploaded data, HttpContext context)
+        public MLprResponse UploadFile(string orgId, MImageUploaded data, HttpContext context)
         {
-            var resp = new MLPRResponse() { Status = "OK", Description = "Success" };
+            var resp = new MLprResponse() { Status = "OK", Description = "Success" };
 
             var image = data.Image;
             if (image == null)
@@ -115,15 +115,14 @@ namespace Prom.LPR.Api.Services
                 return resp;
             }
 
-            var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
-            var tmpFile = $"/tmp/{ts}.{image.FileName}";
+            var tmpFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             using (var fileStream = new FileStream(tmpFile, FileMode.Create))
             {
                 image.CopyTo(fileStream);
             }
 
             Log.Information($"Uploaded file [{image.FileName}], saved to [{tmpFile}]");
-            var lprObj = analyzer!.AnalyzeFile<MLPRResult>(tmpFile);
+            var lprObj = analyzer!.AnalyzeFile<MLprResult>(tmpFile);
 
             var dateStamp = DateTime.Now.ToString("yyyyMMddhh");
             var storageObj = gcs!.UploadFile(tmpFile, orgId, imagesBucket, dateStamp);

@@ -21,13 +21,13 @@ public class DataContext : DbContext, IDataContext
     public DbSet<MUser>? Users { get; set; }
     public DbSet<MOrganizationUser>? OrganizationUsers { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        builder.Entity<MOrganization>();
-        builder.Entity<MApiKey>();
-        builder.Entity<MRole>();
-        builder.Entity<MFileUploaded>();
-        builder.Entity<MUser>();
-        builder.Entity<MOrganizationUser>();
+        modelBuilder.Entity<MOrganization>();
+        modelBuilder.Entity<MApiKey>();
+        modelBuilder.Entity<MRole>();
+        modelBuilder.Entity<MFileUploaded>();
+        modelBuilder.Entity<MUser>();
+        modelBuilder.Entity<MOrganizationUser>();
     }
 }

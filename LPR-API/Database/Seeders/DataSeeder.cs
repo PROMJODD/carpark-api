@@ -1,5 +1,6 @@
 namespace Prom.LPR.Api.Database.Seeders;
 
+using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using PasswordGenerator;
 using Prom.LPR.Api.Models;
@@ -8,7 +9,7 @@ using Prom.LPR.Api.Models;
 public class DataSeeder
 {
     private readonly DataContext context;
-    private Password pwd = new Password(32);
+    private readonly Password pwd = new Password(32);
 
     public DataSeeder(DataContext ctx)
     {
@@ -103,20 +104,14 @@ public class DataSeeder
             return;
         }
 
-        try
+        var query = context.Organizations!.Where(x => x.OrgName!.Equals("DEFAULT")).FirstOrDefault();
+        if (query == null)
         {
-            var query = context.Organizations!.Where(x => x.OrgName!.Equals("DEFAULT")).FirstOrDefault();
-            if (query == null)
-            {
-                throw new Exception("Default organization 'DEFAULT' not found!!!");
-            }
-            query.OrgCustomId = "default";
-            context.SaveChanges();
+            Log.Error("Default organization 'DEFAULT' not found!!!");
+            return;
         }
-        catch (Exception)
-        {
-            throw;
-        }
+        query.OrgCustomId = "default";
+        context.SaveChanges();
     }
 
     private void AddRole(string name, string definition, string level, string desc)

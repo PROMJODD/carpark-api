@@ -176,7 +176,7 @@ public class FileUploadedServiceTest
     [InlineData("default")]
     public void UploadFileTest(string orgId)
     {
-        var localPath = "/tmp/abcde.jpg";
+        var localPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         File.Create(localPath).Dispose();
 
         var svc = GetFileUploadSvc(orgId);

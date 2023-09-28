@@ -6,8 +6,8 @@ namespace Prom.LPR.Api.Services
 {
     public class OrganizationService : BaseService, IOrganizationService
     {
-        private IOrganizationRepository? repository = null;
-        private IUserService userService;
+        private readonly IOrganizationRepository? repository = null;
+        private readonly IUserService userService;
 
         public OrganizationService(IOrganizationRepository repo, IUserService userSvc) : base()
         {
@@ -33,7 +33,7 @@ namespace Prom.LPR.Api.Services
 
         public MVOrganizationUser AddUserToOrganization(string orgId, MOrganizationUser user)
         {
-            //TODO : Added validation here
+            //Improvement(validation) : Added validation here
 
             repository!.SetCustomOrgId(orgId);
             var r = new MVOrganizationUser();

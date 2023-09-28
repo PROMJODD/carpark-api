@@ -12,62 +12,34 @@ namespace Prom.LPR.Api.Database.Repositories
 
         public Task<MOrganization> GetOrganization()
         {
-            try
-            {
-                var result = context!.Organizations!.Where(x => x.OrgCustomId!.Equals(orgId)).FirstOrDefaultAsync();
-                return result!;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var result = context!.Organizations!.Where(x => x.OrgCustomId!.Equals(orgId)).FirstOrDefaultAsync();
+            return result!;
         }
 
         public MOrganizationUser AddUserToOrganization(MOrganizationUser user)
         {
-            try
-            {
-                user.OrgCustomId = orgId;
-                context!.OrganizationUsers!.AddAsync(user);
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            user.OrgCustomId = orgId;
+            context!.OrganizationUsers!.Add(user);
+            context.SaveChanges();
 
             return user;
         }
 
         public bool IsUserNameExist(string userName)
         {
-            try
-            {
-                var cnt = context!.OrganizationUsers!.Where(
-                        p => p!.UserName!.Equals(userName) && p!.OrgCustomId!.Equals(orgId)
-                    ).Count();
+            var cnt = context!.OrganizationUsers!.Where(
+                    p => p!.UserName!.Equals(userName) && p!.OrgCustomId!.Equals(orgId)
+                ).Count();
 
-                return cnt >= 1;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return cnt >= 1;
         }
 
         public MOrganizationUser GetUserInOrganization(string userName)
         {
-            try
-            {
-                var m = context!.OrganizationUsers!.Where(
-                    p => p!.UserName!.Equals(userName) && p!.OrgCustomId!.Equals(orgId)).FirstOrDefault();
+            var m = context!.OrganizationUsers!.Where(
+                p => p!.UserName!.Equals(userName) && p!.OrgCustomId!.Equals(orgId)).FirstOrDefault();
 
-                return m!;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            return m!;
         }
     }
 }

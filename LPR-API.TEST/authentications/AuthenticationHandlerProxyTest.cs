@@ -97,7 +97,7 @@ public class AuthenticationHandlerProxyTest
         Assert.NotNull(ticket);
         Assert.NotNull(ticket.Principal);
 
-        //TODO : Check the returned claims values
+        //Improvement : Check the returned claims values
     }
 
     [Theory]
@@ -230,7 +230,7 @@ public class AuthenticationHandlerProxyTest
         bearerRepo.Setup(x => x.Authenticate(orgId, user, "", It.IsAny<HttpRequest>())).Returns(authenUser);
 
         SecurityKey securityKey = new RsaSecurityKey(key.Rsa.ExportParameters(false));
-        var jwtSigner = new Mock<IJWTSigner>();
+        var jwtSigner = new Mock<IJwtSigner>();
         jwtSigner.Setup(x => x.GetSignedKey(It.IsAny<string>())).Returns(securityKey);
 
         cfg = GetCofigFromDictionary(setting);
@@ -278,7 +278,7 @@ public class AuthenticationHandlerProxyTest
         bearerRepo.Setup(x => x.Authenticate(orgId, user, "", It.IsAny<HttpRequest>())).Returns(authenUser);
 
         SecurityKey securityKey = new RsaSecurityKey(key.Rsa.ExportParameters(false));
-        var jwtSigner = new Mock<IJWTSigner>();
+        var jwtSigner = new Mock<IJwtSigner>();
         jwtSigner.Setup(x => x.GetSignedKey(It.IsAny<string>())).Returns(securityKey);
 
         cfg = GetCofigFromDictionary(setting);
@@ -325,7 +325,7 @@ public class AuthenticationHandlerProxyTest
         bearerRepo.Setup(x => x.Authenticate(orgId, user, "", It.IsAny<HttpRequest>())).Returns(authenUser);
 
         SecurityKey securityKey = new RsaSecurityKey(keyUntrusted.Rsa.ExportParameters(false));
-        var jwtSigner = new Mock<IJWTSigner>();
+        var jwtSigner = new Mock<IJwtSigner>();
         jwtSigner.Setup(x => x.GetSignedKey(It.IsAny<string>())).Returns(securityKey);
 
         cfg = GetCofigFromDictionary(setting);
@@ -373,7 +373,7 @@ public class AuthenticationHandlerProxyTest
         bearerRepo.Setup(x => x.Authenticate(orgId, user, "", It.IsAny<HttpRequest>())).Returns(authenUser);
 
         SecurityKey securityKey = new RsaSecurityKey(keyUntrusted.Rsa.ExportParameters(false));
-        var jwtSigner = new Mock<IJWTSigner>();
+        var jwtSigner = new Mock<IJwtSigner>();
         jwtSigner.Setup(x => x.GetSignedKey(It.IsAny<string>())).Returns(securityKey);
 
         cfg = GetCofigFromDictionary(setting);

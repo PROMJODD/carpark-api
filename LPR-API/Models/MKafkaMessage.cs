@@ -8,6 +8,6 @@ namespace Prom.LPR.Api.Models
     {
         public IHeaderDictionary? HttpRequestHeader { get; set; }
         public MStorageData? StorageData { get; set; }
-        public MLPRResult? LprData { get; set; }
+        public MLprResult? LprData { get; set; }
     }
 }

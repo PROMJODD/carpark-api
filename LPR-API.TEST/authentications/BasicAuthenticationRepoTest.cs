@@ -56,19 +56,19 @@ public class BasicAuthenticationRepoTest
         var u = repo.Authenticate(orgId, user, password, req.Object);
 
         Assert.NotNull(u);
-        Assert.NotNull(u.claims);
+        Assert.NotNull(u.Claims!);
         Assert.Equal("API-KEY", u.AuthenType);
         Assert.Equal(role, u.Role);
         Assert.Equal(orgId, u.OrgId);
         Assert.Equal(user, u.UserName);
 
-        var idClaim = GetClaim(ClaimTypes.NameIdentifier, u.claims);
+        var idClaim = GetClaim(ClaimTypes.NameIdentifier, u.Claims!);
         Assert.Equal(u.UserId.ToString(), idClaim!.Value);
 
-        var roleClaim = GetClaim(ClaimTypes.Role, u.claims);
+        var roleClaim = GetClaim(ClaimTypes.Role, u.Claims!);
         Assert.Equal(role, roleClaim!.Value);
 
-        var uriClaim = GetClaim(ClaimTypes.Uri, u.claims);
+        var uriClaim = GetClaim(ClaimTypes.Uri, u.Claims!);
         Assert.Equal(path, uriClaim!.Value);
     }
 
@@ -94,19 +94,19 @@ public class BasicAuthenticationRepoTest
         var u = repo.Authenticate(orgId, user, password, req.Object);
 
         Assert.NotNull(u);
-        Assert.NotNull(u.claims);
+        Assert.NotNull(u.Claims!);
         Assert.Equal("API-KEY", u.AuthenType);
         Assert.Equal(role, u.Role);
         Assert.Equal(orgId, u.OrgId);
         Assert.Equal(user, u.UserName);
 
-        var idClaim = GetClaim(ClaimTypes.NameIdentifier, u.claims);
+        var idClaim = GetClaim(ClaimTypes.NameIdentifier, u.Claims!);
         Assert.Equal(u.UserId.ToString(), idClaim!.Value);
 
-        var roleClaim = GetClaim(ClaimTypes.Role, u.claims);
+        var roleClaim = GetClaim(ClaimTypes.Role, u.Claims!);
         Assert.Equal(role, roleClaim!.Value);
 
-        var uriClaim = GetClaim(ClaimTypes.Uri, u.claims);
+        var uriClaim = GetClaim(ClaimTypes.Uri, u.Claims!);
         Assert.Equal(path, uriClaim!.Value);
     }
 }

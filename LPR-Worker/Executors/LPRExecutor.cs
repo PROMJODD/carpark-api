@@ -8,30 +8,33 @@ using System.Net.Http.Headers;
 
 namespace Prom.LPR.Worker.Executors
 {
-    public class LPRExecutor : BaseExecutor
+    public class LprExecutor : BaseExecutor
     {
-        private readonly IConfiguration? configuration;
-        private MJobLPR? lprJob = new MJobLPR() { Message = "", JobType = "LPR" };
+        private MJobLpr? lprJob = new MJobLpr() { Message = "", JobType = "LPR" };
 
-        private string bucket = "";
-        private string lprBaseUrl = "";
-        private string lprPath = "";
-        private string lprAuthKey = "";
+        private readonly string bucket;
+        private readonly string lprBaseUrl;
+        private readonly string lprPath;
+        private readonly string lprAuthKey;
 
-        public LPRExecutor(IConfiguration? cfg)
+        public LprExecutor(IConfiguration? cfg)
         {
             if (cfg == null)
             {
                 Log.Error("Configuration variable is null in [LPRExector]");
             }
 
+            bucket = "";
+            lprBaseUrl = "";
+            lprPath = "";
+            lprAuthKey = "";
+
             if (cfg != null)
             {
-                configuration = cfg;
-                bucket = ConfigUtils.GetConfig(configuration, "LPRExecutor:bucket");
-                lprBaseUrl = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprBaseUrl");
-                lprPath = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprPath");
-                lprAuthKey = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprAuthKey");
+                bucket = ConfigUtils.GetConfig(cfg, "LPRExecutor:bucket");
+                lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPRExecutor:lprBaseUrl");
+                lprPath = ConfigUtils.GetConfig(cfg, "LPRExecutor:lprPath");
+                lprAuthKey = ConfigUtils.GetConfig(cfg, "LPRExecutor:lprAuthKey");
             }
         }
 
@@ -44,7 +47,7 @@ namespace Prom.LPR.Worker.Executors
 
             try
             {
-                lprJob = JsonSerializer.Deserialize<MJobLPR>(jobParam.Message, options);
+                lprJob = JsonSerializer.Deserialize<MJobLpr>(jobParam.Message, options);
                 if (lprJob != null)
                 {
                     lprJob.JobId = lprJob.RefId;
@@ -72,10 +75,10 @@ namespace Prom.LPR.Worker.Executors
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Finished LPR job");
         }
 
-        private string DownloadFile(string? gcsPath, string? objectName, string? refId) 
+        private string DownloadFile(string? gcsPath, string? objectName) 
         {
-            var ts = DateTime.Now.ToString("yyyyMMddhhmmss");
-            var localPath = $"/tmp/{ts}.{refId}.jpg"; // Important to use .jpg extension, LPR needs this
+            var tmpFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+            var localPath = $"{tmpFile}.jpg";
 
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading file [{gcsPath}] to [{localPath}]");
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Downloading object [{objectName}] to [{localPath}]");
@@ -150,7 +153,7 @@ namespace Prom.LPR.Worker.Executors
 
                 /* Replace "/ftp" with "gs://<bucket>/<user>" */
                 var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
-                var objectName = ftpPath?.Replace("/ftp", $"{lprJob?.UploadUser}");
+                var objectName = ftpPath?.Replace("/ftp", lprJob!.UploadUser);
 
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
@@ -158,7 +161,7 @@ namespace Prom.LPR.Worker.Executors
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - FTP Path=[{lprJob?.UploadPath}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
 
-                var localFile = DownloadFile(gcsPath, objectName, lprJob?.JobId);
+                var localFile = DownloadFile(gcsPath, objectName);
                 LPRAnalyzeFile(localFile);
             }
             catch (Exception e)

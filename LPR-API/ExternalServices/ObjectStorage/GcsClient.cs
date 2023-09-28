@@ -7,7 +7,7 @@ namespace Prom.LPR.Api.ExternalServices.ObjectStorage
     [ExcludeFromCodeCoverage]
     public class GcsClient : IGcsClient
     {
-        private StorageClient storageClient = StorageClient.Create();
+        private readonly StorageClient storageClient = StorageClient.Create();
 
         public GcsClient()
         {

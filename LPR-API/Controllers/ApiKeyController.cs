@@ -11,13 +11,11 @@ namespace Prom.LPR.Api.Controllers
     [Route("/api/[controller]")]
     public class ApiKeyController : ControllerBase
     {
-        private readonly IConfiguration cfg;
         private readonly IApiKeyService svc;
 
         [ExcludeFromCodeCoverage]
-        public ApiKeyController(IApiKeyService service, IConfiguration configuration)
+        public ApiKeyController(IApiKeyService service)
         {
-            cfg = configuration;
             svc = service;
         }
 

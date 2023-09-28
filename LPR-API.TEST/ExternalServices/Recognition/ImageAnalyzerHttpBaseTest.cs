@@ -18,7 +18,7 @@ public class ImageAnalyzerHttpBaseTest
     [Fact]
     public void ImageAnalyzerHttpBaseStringTest()
     {
-        var path = "/tmp/test.tmp";
+        var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         File.Create(path).Dispose();
 
         var m = new LPRAnalyzerMocked();
@@ -32,7 +32,7 @@ public class ImageAnalyzerHttpBaseTest
     [Fact]
     public void ImageAnalyzerHttpBaseObjTest()
     {
-        var path = "/tmp/test.tmp";
+        var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         File.Create(path).Dispose();
 
         var m = new LPRAnalyzerMocked();
@@ -55,10 +55,10 @@ public class ImageAnalyzerHttpBaseTest
         };
         var configuration = GetCofigFromDictionary(setting);
     
-        var path = "/tmp/test.tmp";
+        var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         File.Create(path).Dispose();
 
-        var m = new LPRAnalyzer(configuration);
+        var m = new LprAnalyzer(configuration);
         var result = m.AnalyzeFile(path);
 
         Assert.Equal("", result);

@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Prom.LPR.Worker.Utils
 {
-    public class ConfigUtils
+    public static class ConfigUtils
     {
         public static string GetConfig(IConfiguration cfg, string key)
         {

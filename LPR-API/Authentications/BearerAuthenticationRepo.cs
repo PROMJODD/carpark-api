@@ -7,7 +7,7 @@ namespace Prom.LPR.Api.Authentications
 {
     public class BearerAuthenticationRepo : IBearerAuthenticationRepo
     {
-        private static IOrganizationService? service = null;
+        private readonly IOrganizationService? service = null;
 
         public BearerAuthenticationRepo(IOrganizationService svc)
         {
@@ -16,7 +16,7 @@ namespace Prom.LPR.Api.Authentications
 
         private MVOrganizationUser? VerifyUser(string orgId, string user)
         {
-            //TODO : Added chaching mechanism here
+            //Improvement(caching) : Added chaching mechanism here
             var m = service!.VerifyUserInOrganization(orgId, user);
             return m;
         }
@@ -45,7 +45,7 @@ namespace Prom.LPR.Api.Authentications
                 OrgId = m.OrgUser.OrgCustomId,
             };
 
-            u.claims = new[] {
+            u.Claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, u.UserId.ToString()!),
                 new Claim(ClaimTypes.Name, user),
                 new Claim(ClaimTypes.Role, u.Role!),

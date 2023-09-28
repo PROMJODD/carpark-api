@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.Services
 {
     public class UserService : BaseService, IUserService
     {
-        private IUserRepository? repository = null;
+        private readonly IUserRepository? repository = null;
 
         public UserService(IUserRepository repo) : base()
         {
@@ -15,7 +15,7 @@ namespace Prom.LPR.Api.Services
 
         public MVUser? AddUser(string orgId, MUser user)
         {
-            //TODO : Added validation here
+            //Improvement(validation) : Added validation here
 
             repository!.SetCustomOrgId(orgId);
             var r = new MVUser();

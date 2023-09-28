@@ -3,13 +3,13 @@ using Prom.LPR.Api.Utils;
 
 namespace Prom.LPR.Api.ExternalServices.Recognition
 {
-    public class LPRAnalyzer : ImageAnalyzerHttpBase
+    public class LprAnalyzer : ImageAnalyzerHttpBase
     {
-        private string lprBaseUrl = "";
-        private string lprPath = "";
-        private string lprAuthKey = "";
+        private readonly string lprBaseUrl;
+        private readonly string lprPath;
+        private readonly string lprAuthKey;
 
-        public LPRAnalyzer(IConfiguration cfg)
+        public LprAnalyzer(IConfiguration cfg)
         {
             lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPR:lprBaseUrl");
             lprPath = ConfigUtils.GetConfig(cfg, "LPR:lprPath");

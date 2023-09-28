@@ -8,6 +8,6 @@ namespace Prom.LPR.Api.Services
         public MFileUploaded AddFileUploaded(string orgId, MFileUploaded file);
         public IEnumerable<MFileUploaded> GetFilesUploaded(string orgId, VMFileUploadedQuery param);
         public int GetFilesUploadedCount(string orgId, VMFileUploadedQuery param);
-        public MLPRResponse UploadFile(string orgId, MImageUploaded data, HttpContext context);
+        public MLprResponse UploadFile(string orgId, MImageUploaded data, HttpContext context);
     }
 }

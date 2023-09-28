@@ -1,7 +1,7 @@
 
 namespace Prom.LPR.Api.Utils
 {
-    public class ConfigUtils
+    public static class ConfigUtils
     {
         public static string GetConfig(IConfiguration cfg, string key)
         {
@@ -15,7 +15,7 @@ namespace Prom.LPR.Api.Utils
                 if (cfg != null)
                 {
                     var u = cfg[key];
-                    v = String.IsNullOrWhiteSpace(u) ? "" : u;
+                    v = string.IsNullOrWhiteSpace(u) ? "" : u;
                 }
             }
             else

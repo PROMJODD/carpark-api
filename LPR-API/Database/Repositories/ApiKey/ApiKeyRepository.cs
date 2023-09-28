@@ -12,68 +12,40 @@ namespace Prom.LPR.Api.Database.Repositories
 
         public Task<MApiKey> GetApiKey(string apiKey)
         {
-            try
-            {
-                var result = context!.ApiKeys!.Where(x => x.OrgId!.Equals(orgId) && x.ApiKey!.Equals(apiKey)).FirstOrDefaultAsync();
-                return result!;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var result = context!.ApiKeys!.Where(x => x.OrgId!.Equals(orgId) && x.ApiKey!.Equals(apiKey)).FirstOrDefaultAsync();
+            return result!;
         }
 
         public MApiKey AddApiKey(MApiKey apiKey)
         {
-            try
-            {
-                apiKey.KeyId = Guid.NewGuid();
-                apiKey.KeyCreatedDate = DateTime.UtcNow;
-                apiKey.OrgId = orgId;
+            apiKey.KeyId = Guid.NewGuid();
+            apiKey.KeyCreatedDate = DateTime.UtcNow;
+            apiKey.OrgId = orgId;
 
-                context!.ApiKeys!.AddAsync(apiKey);
-                context.SaveChanges();
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            context!.ApiKeys!.Add(apiKey);
+            context.SaveChanges();
 
             return apiKey;
         }
 
         public MApiKey? DeleteApiKeyById(string keyId)
         {
-            try
-            {
-                Guid id = Guid.Parse(keyId);
+            Guid id = Guid.Parse(keyId);
 
-                var r = context!.ApiKeys!.Where(x => x.OrgId!.Equals(orgId) && x.KeyId.Equals(id)).FirstOrDefault();
-                if (r != null)
-                {
-                    context!.ApiKeys!.Remove(r);
-                    context.SaveChanges();
-                }
-
-                return r;
-            }
-            catch (Exception)
+            var r = context!.ApiKeys!.Where(x => x.OrgId!.Equals(orgId) && x.KeyId.Equals(id)).FirstOrDefault();
+            if (r != null)
             {
-                throw;
+                context!.ApiKeys!.Remove(r);
+                context.SaveChanges();
             }
+
+            return r;
         }
 
         public IEnumerable<MApiKey> GetApiKeys()
         {
-            try
-            {
-                var arr = context!.ApiKeys!.Where(x => x.OrgId!.Equals(orgId)).ToList();
-                return arr;
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            var arr = context!.ApiKeys!.Where(x => x.OrgId!.Equals(orgId)).ToList();
+            return arr;
         }
     }
 }

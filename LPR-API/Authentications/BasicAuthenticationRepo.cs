@@ -6,16 +6,16 @@ namespace Prom.LPR.Api.Authentications
 {
     public class BasicAuthenticationRepo : IBasicAuthenticationRepo
     {
-        private static IApiKeyService? service = null;
+        private readonly IApiKeyService? service = null;
 
         public BasicAuthenticationRepo(IApiKeyService svc)
         {
             service = svc;
         }
 
-        private MVApiKey? VerifyKey(string orgId, string user, string password)
+        private MVApiKey? VerifyKey(string orgId, string password)
         {
-            //TODO : Added chaching mechanism here
+            //Improvement(caching) : Added chaching mechanism here
 
             var m = service!.VerifyApiKey(orgId, password);
             if (m != null && m.Status!.Equals("OK"))
@@ -28,7 +28,7 @@ namespace Prom.LPR.Api.Authentications
 
         public User? Authenticate(string orgId, string user, string password, HttpRequest request)
         {
-            var m = VerifyKey(orgId, user, password);
+            var m = VerifyKey(orgId, password);
             if (m == null)
             {
                 return null;
@@ -44,7 +44,7 @@ namespace Prom.LPR.Api.Authentications
                 OrgId = m.ApiKey.OrgId,
             };
 
-            u.claims = new[] {
+            u.Claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, u.UserId.ToString()!),
                 new Claim(ClaimTypes.Name, user),
                 new Claim(ClaimTypes.Role, u.Role!),

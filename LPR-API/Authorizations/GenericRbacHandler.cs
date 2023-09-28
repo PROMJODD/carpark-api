@@ -10,14 +10,14 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
 {
     private readonly IRoleService service;
     private string apiCalled = "";
-    private string adminOnlyApiPattern = @"^(.+):(Admin.+)$";
+    private readonly string adminOnlyApiPattern = @"^(.+):(Admin.+)$";
 
     public GenericRbacHandler(IRoleService svc)
     {
         service = svc;
     }
 
-    private Claim? GetClaim(string type, IEnumerable<Claim> claims)
+    private static Claim? GetClaim(string type, IEnumerable<Claim> claims)
     {
         var claim = claims.FirstOrDefault(x => x.Type == type);
         return claim;
@@ -26,7 +26,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
     private string? IsRoleValid(IEnumerable<Models.MRole>? roles, string uri)
     {
         var uriPattern = @"^\/api\/(.+)\/org\/(.+)\/action\/(.+)$";
-        var matches = Regex.Matches(uri, uriPattern);
+        var matches = Regex.Matches(uri, uriPattern, RegexOptions.None, TimeSpan.FromMilliseconds(100));
 
         var group = matches[0].Groups[1].Value;
         var api = matches[0].Groups[3].Value;
@@ -39,10 +39,9 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             var patterns = role.RoleDefinition!.Split(',').ToList();
             foreach (var pattern in patterns!)
             {
-                Match m = Regex.Match(keyword, pattern, RegexOptions.IgnoreCase);
+                Match m = Regex.Match(keyword, pattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
                 if (m.Success)
                 {
-                    //Console.WriteLine($"### [{role.RoleName}] [{pattern}] [{keyword}] ###");
                     return role.RoleName;
                 }
             }
@@ -97,7 +96,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
         var roles = service.GetRolesList("", role);
         var roleMatch = IsRoleValid(roles, uri);
 
-        Match m = Regex.Match(apiCalled, adminOnlyApiPattern, RegexOptions.IgnoreCase);
+        Match m = Regex.Match(apiCalled, adminOnlyApiPattern, RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(100));
         if (m.Success && !authorizeOrgId.Equals("global"))
         {
             //Reject if API is match Admin(.+) but ID is not in "global" organization
@@ -115,8 +114,6 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             mvcContext!.HttpContext.Items["Temp-Identity-Type"] = method;
             mvcContext!.HttpContext.Items["Temp-Identity-Id"] = uid;
         }
-
-        //Console.WriteLine($"[{apiCalled}], [{method}], [{uid}]");
 
         return Task.CompletedTask;
     }
