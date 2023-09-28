@@ -61,7 +61,7 @@ namespace Prom.LPR.Api.Authentications
                 return AuthenticateResult.Fail($"Invalid username or password for [{authHeader.Scheme}]");
             }
 
-            var identity = new ClaimsIdentity(user.claims, Scheme.Name);
+            var identity = new ClaimsIdentity(user.Claims, Scheme.Name);
             var principal = new ClaimsPrincipal(identity);
             var ticket = new AuthenticationTicket(principal, Scheme.Name);
 

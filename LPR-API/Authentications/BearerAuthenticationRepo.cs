@@ -45,7 +45,7 @@ namespace Prom.LPR.Api.Authentications
                 OrgId = m.OrgUser.OrgCustomId,
             };
 
-            u.claims = new[] {
+            u.Claims = new[] {
                 new Claim(ClaimTypes.NameIdentifier, u.UserId.ToString()!),
                 new Claim(ClaimTypes.Name, user),
                 new Claim(ClaimTypes.Role, u.Role!),

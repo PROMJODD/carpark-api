@@ -12,6 +12,11 @@ namespace Prom.LPR.Api.Authentications
         public string? Role {get; set;}
         public string? AuthenType {get; set;}
         public string? OrgId {get; set;}
-        public IEnumerable<Claim>? claims = null;
+        public IEnumerable<Claim>? Claims {get; set;}
+
+        public User()
+        {
+            UserId = Guid.NewGuid();
+        }
     }
 }
