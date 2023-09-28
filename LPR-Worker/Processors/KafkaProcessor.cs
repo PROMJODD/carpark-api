@@ -11,7 +11,7 @@ namespace Prom.LPR.Worker.Processors
     public class KafkaProcessor : BaseProcessor
     {
         private readonly IConfiguration configuration;
-        private Hashtable threadMap = new Hashtable();
+        private readonly Hashtable threadMap = new Hashtable();
         private int maxThread = 1;
 
         protected IMessageQue messageQue = new KafkaMQ("", "", "", 9999);
@@ -49,12 +49,9 @@ namespace Prom.LPR.Worker.Processors
             foreach (int key in threadMap.Keys)
             {
                 Thread? t = (Thread?) threadMap[key];
-                if (t != null)
+                if ((t != null) && t.ThreadState.Equals(ThreadState.Stopped))
                 {
-                    if (t.ThreadState.Equals(ThreadState.Stopped))
-                    {                    
-                        arr.Add(key);
-                    }
+                    arr.Add(key);
                 }
             }
 
