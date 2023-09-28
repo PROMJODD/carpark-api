@@ -193,8 +193,11 @@ public class FileUploadedServiceTest
         Assert.NotNull(result);
         Assert.NotNull(result.LprData);
         Assert.NotNull(result.LprData.Data);
+        Assert.NotNull(result.StorageData);
+        Assert.NotNull(result.StorageData.StoragePath);
         Assert.Equal("OK", result.Status);
         Assert.Equal("Bangkok", result.LprData.Data.Province);
+        Assert.EndsWith("jpg", result.StorageData.StoragePath);
 
         File.Delete(localPath);
     }
