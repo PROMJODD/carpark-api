@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.ExternalServices.MessageQue
     [ExcludeFromCodeCoverage]
     public class MessageQueKafka<T> : IMessageQue<T>
     {
-        private Producer<T> producer;
+        private readonly Producer<T> producer;
 
         public MessageQueKafka(string host, string port)
         {

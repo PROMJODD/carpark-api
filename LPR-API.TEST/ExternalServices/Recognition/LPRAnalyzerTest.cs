@@ -27,7 +27,7 @@ public class LPRAnalyzerTest
         };
 
         var configuration = GetCofigFromDictionary(setting);
-        var m = new LPRAnalyzer(configuration);
+        var m = new LprAnalyzer(configuration);
 
         var uploadKey = m.GetFormUploadKey();
         var http = m.GetHttpClient();

@@ -1,5 +1,6 @@
 namespace Prom.LPR.Api.Database.Seeders;
 
+using Serilog;
 using System.Diagnostics.CodeAnalysis;
 using PasswordGenerator;
 using Prom.LPR.Api.Models;
@@ -106,7 +107,8 @@ public class DataSeeder
         var query = context.Organizations!.Where(x => x.OrgName!.Equals("DEFAULT")).FirstOrDefault();
         if (query == null)
         {
-            throw new Exception("Default organization 'DEFAULT' not found!!!");
+            Log.Error("Default organization 'DEFAULT' not found!!!");
+            return;
         }
         query.OrgCustomId = "default";
         context.SaveChanges();

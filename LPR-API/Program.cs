@@ -56,7 +56,7 @@ namespace Prom.LPR.Worker
             builder.Services.AddScoped<IBasicAuthenticationRepo, BasicAuthenticationRepo>();
             builder.Services.AddScoped<IBearerAuthenticationRepo, BearerAuthenticationRepo>();
             builder.Services.AddScoped<IObjectStorage, GoogleCloudStorage>();
-            builder.Services.AddScoped<IImageAnalyzer, LPRAnalyzer>();
+            builder.Services.AddScoped<IImageAnalyzer, LprAnalyzer>();
 
             builder.Services.AddAuthentication("BasicOrBearer")
                 .AddScheme<AuthenticationSchemeOptions, AuthenticationHandlerProxy>("BasicOrBearer", null);
