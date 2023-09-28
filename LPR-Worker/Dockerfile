@@ -18,5 +18,13 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY ["LPR-Worker/Properties/appsettings.json", "Properties/"]
-USER nonroot
+
+RUN addgroup --group dotnet --gid 2000 \
+&& adduser \    
+    --uid 1000 \
+    --gid 2000 \
+    "dotnet"
+RUN chown dotnet:dotnet /app
+USER dotnet:dotnet 
+
 ENTRYPOINT ["dotnet", "LPR-Worker.dll"]
