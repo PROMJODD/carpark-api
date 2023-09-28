@@ -10,7 +10,6 @@ namespace Prom.LPR.Worker.Executors
 {
     public class LprExecutor : BaseExecutor
     {
-        private readonly IConfiguration? configuration;
         private MJobLpr? lprJob = new MJobLpr() { Message = "", JobType = "LPR" };
 
         private readonly string bucket;
@@ -28,15 +27,14 @@ namespace Prom.LPR.Worker.Executors
             bucket = "";
             lprBaseUrl = "";
             lprPath = "";
-            lprAuthKey = "";     
+            lprAuthKey = "";
 
             if (cfg != null)
             {
-                configuration = cfg;
-                bucket = ConfigUtils.GetConfig(configuration, "LPRExecutor:bucket");
-                lprBaseUrl = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprBaseUrl");
-                lprPath = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprPath");
-                lprAuthKey = ConfigUtils.GetConfig(configuration, "LPRExecutor:lprAuthKey");
+                bucket = ConfigUtils.GetConfig(cfg, "LPRExecutor:bucket");
+                lprBaseUrl = ConfigUtils.GetConfig(cfg, "LPRExecutor:lprBaseUrl");
+                lprPath = ConfigUtils.GetConfig(cfg, "LPRExecutor:lprPath");
+                lprAuthKey = ConfigUtils.GetConfig(cfg, "LPRExecutor:lprAuthKey");
             }
         }
 
@@ -155,7 +153,7 @@ namespace Prom.LPR.Worker.Executors
 
                 /* Replace "/ftp" with "gs://<bucket>/<user>" */
                 var gcsPath = ftpPath?.Replace("/ftp", gcsBasePath);
-                var objectName = ftpPath?.Replace("/ftp", $"{lprJob?.UploadUser}");
+                var objectName = ftpPath?.Replace("/ftp", lprJob?.UploadUser);
 
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Company=[{lprJob?.CompanyId}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Branch=[{lprJob?.BranchId}]");
