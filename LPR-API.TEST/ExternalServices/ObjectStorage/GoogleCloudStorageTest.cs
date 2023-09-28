@@ -7,7 +7,7 @@ namespace Prom.LPR.Test.Api.ExternalServices.ObjectStorage;
 public class GoogleCloudStorageTest
 {
     [Theory]
-    [InlineData("/tmp/abc.jpg", "default", "bucket", "abcde/0001", "gs://bucket/default/abcde/0001/abc.jpg")]
+    [InlineData("abc.jpg", "default", "bucket", "abcde/0001", "gs://bucket/default/abcde/0001/abc.jpg")]
     [InlineData("xxxxxabc.jpg", "default", "bucket", "abcde/0001", "gs://bucket/default/abcde/0001/xxxxxabc.jpg")]
     [InlineData("xxxxxabc.jpg", "global1", "bucket", "xxx/abcde/0001", "gs://bucket/global1/xxx/abcde/0001/xxxxxabc.jpg")]
     public void UploadFileNoSignerTest(string localPath, string org, string bucket, string folder, string expectedResult)
@@ -29,7 +29,7 @@ public class GoogleCloudStorageTest
     }
 
     [Theory]
-    [InlineData("/tmp/abc.jpg", "default", "bucket", "abcde/0001", "gs://bucket/default/abcde/0001/abc.jpg")]
+    [InlineData("abc.jpg", "default", "bucket", "abcde/0001", "gs://bucket/default/abcde/0001/abc.jpg")]
     [InlineData("xxxxxabc.jpg", "default", "bucket", "abcde/0001", "gs://bucket/default/abcde/0001/xxxxxabc.jpg")]
     [InlineData("xxxxxabc.jpg", "global1", "bucket", "xxx/abcde/0001", "gs://bucket/global1/xxx/abcde/0001/xxxxxabc.jpg")]
     public void UploadFileWithSignerTest(string localPath, string org, string bucket, string folder, string expectedResult)
