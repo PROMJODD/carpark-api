@@ -26,7 +26,14 @@ WORKDIR /app
 COPY --from=build /app .
 RUN ls -lrt
 
+RUN addgroup --group dotnet --gid 2000 \
+&& adduser \    
+    --uid 1000 \
+    --gid 2000 \
+    "dotnet"
+RUN chown dotnet:dotnet /app
+USER dotnet:dotnet 
+
 EXPOSE 8080
 ENV ASPNETCORE_URLS="http://*:8080"
-USER nonroot
 ENTRYPOINT ["dotnet", "LPR-API.dll"]
