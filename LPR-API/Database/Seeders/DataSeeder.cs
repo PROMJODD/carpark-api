@@ -8,7 +8,7 @@ using Prom.LPR.Api.Models;
 public class DataSeeder
 {
     private readonly DataContext context;
-    private Password pwd = new Password(32);
+    private readonly Password pwd = new Password(32);
 
     public DataSeeder(DataContext ctx)
     {
@@ -103,20 +103,13 @@ public class DataSeeder
             return;
         }
 
-        try
+        var query = context.Organizations!.Where(x => x.OrgName!.Equals("DEFAULT")).FirstOrDefault();
+        if (query == null)
         {
-            var query = context.Organizations!.Where(x => x.OrgName!.Equals("DEFAULT")).FirstOrDefault();
-            if (query == null)
-            {
-                throw new Exception("Default organization 'DEFAULT' not found!!!");
-            }
-            query.OrgCustomId = "default";
-            context.SaveChanges();
+            throw new Exception("Default organization 'DEFAULT' not found!!!");
         }
-        catch (Exception)
-        {
-            throw;
-        }
+        query.OrgCustomId = "default";
+        context.SaveChanges();
     }
 
     private void AddRole(string name, string definition, string level, string desc)
