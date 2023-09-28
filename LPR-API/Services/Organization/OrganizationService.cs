@@ -6,8 +6,8 @@ namespace Prom.LPR.Api.Services
 {
     public class OrganizationService : BaseService, IOrganizationService
     {
-        private IOrganizationRepository? repository = null;
-        private IUserService userService;
+        private readonly IOrganizationRepository? repository = null;
+        private readonly IUserService userService;
 
         public OrganizationService(IOrganizationRepository repo, IUserService userSvc) : base()
         {

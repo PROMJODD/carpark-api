@@ -10,10 +10,10 @@ namespace Prom.LPR.Api.Services
 {
     public class FileUploadedService : BaseService, IFileUploadedService
     {
-        private IFileUploadedRepository? repository = null;
-        private IImageAnalyzer? analyzer;
-        private IObjectStorage? gcs;
-        private string imagesBucket;
+        private readonly IFileUploadedRepository? repository = null;
+        private readonly IImageAnalyzer? analyzer;
+        private readonly IObjectStorage? gcs;
+        private readonly string imagesBucket;
 
         public FileUploadedService(
             IFileUploadedRepository repo,
@@ -29,7 +29,7 @@ namespace Prom.LPR.Api.Services
             imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
         }
 
-        private GcsSigner? GetSigner()
+        private static GcsSigner? GetSigner()
         {
             try
             {
@@ -65,7 +65,7 @@ namespace Prom.LPR.Api.Services
             return result;
         }
 
-        private string GetContextValue(HttpContext context, string key)
+        private static string GetContextValue(HttpContext context, string key)
         {
             bool t = context.Items.TryGetValue(key, out object? e);
             if (t)

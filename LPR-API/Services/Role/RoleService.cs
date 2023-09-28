@@ -5,7 +5,7 @@ namespace Prom.LPR.Api.Services
 {
     public class RoleService : BaseService, IRoleService
     {
-        private IRoleRepository? repository = null;
+        private readonly IRoleRepository? repository = null;
 
         public RoleService(IRoleRepository repo) : base()
         {

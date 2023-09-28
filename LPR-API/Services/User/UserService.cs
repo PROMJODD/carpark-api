@@ -6,7 +6,7 @@ namespace Prom.LPR.Api.Services
 {
     public class UserService : BaseService, IUserService
     {
-        private IUserRepository? repository = null;
+        private readonly IUserRepository? repository = null;
 
         public UserService(IUserRepository repo) : base()
         {
