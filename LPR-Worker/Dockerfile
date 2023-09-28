@@ -18,4 +18,5 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 COPY ["LPR-Worker/Properties/appsettings.json", "Properties/"]
+USER nonroot
 ENTRYPOINT ["dotnet", "LPR-Worker.dll"]
