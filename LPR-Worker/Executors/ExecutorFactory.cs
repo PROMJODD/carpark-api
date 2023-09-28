@@ -2,7 +2,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace Prom.LPR.Worker.Executors
 {
-    public class ExecutorFactory
+    public static class ExecutorFactory
     {
         public static IExecutor GetExecutor(string type, IConfiguration cfg)
         {

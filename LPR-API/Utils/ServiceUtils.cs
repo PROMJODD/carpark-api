@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Prom.LPR.Api.Utils
 {
-    public class ServiceUtils
+    public static class ServiceUtils
     {
         public static bool IsGuidValid(string guid)
         {

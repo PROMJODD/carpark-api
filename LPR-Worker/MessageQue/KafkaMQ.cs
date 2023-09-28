@@ -11,13 +11,11 @@ namespace Prom.LPR.Worker.MessageQue
         private readonly string topic = "";
         private readonly string groupId = "";
         private readonly string host = "";
-        private readonly int port = 3333;
 
         public KafkaMQ(string topic, string group, string host, int port)
         {
             this.topic = topic;
             this.host = host;
-            this.port = port;
             this.groupId = group;
 
             consumerCfg = new ConsumerConfig 

@@ -13,10 +13,10 @@ namespace Prom.LPR.Worker.Executors
         private readonly IConfiguration? configuration;
         private MJobLpr? lprJob = new MJobLpr() { Message = "", JobType = "LPR" };
 
-        private string bucket = "";
-        private string lprBaseUrl = "";
-        private string lprPath = "";
-        private string lprAuthKey = "";
+        private readonly string bucket = "";
+        private readonly string lprBaseUrl = "";
+        private readonly string lprPath = "";
+        private readonly string lprAuthKey = "";
 
         public LprExecutor(IConfiguration? cfg)
         {
@@ -72,7 +72,7 @@ namespace Prom.LPR.Worker.Executors
             Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - Finished LPR job");
         }
 
-        private string DownloadFile(string? gcsPath, string? objectName, string? refId) 
+        private string DownloadFile(string? gcsPath, string? objectName) 
         {
             var tmpFile = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
             var localPath = $"{tmpFile}.jpg";
@@ -158,7 +158,7 @@ namespace Prom.LPR.Worker.Executors
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - FTP Path=[{lprJob?.UploadPath}]");
                 Log.Information($"[{lprJob?.JobType}:{lprJob?.JobId}] - GCS Path=[{gcsPath}]");
 
-                var localFile = DownloadFile(gcsPath, objectName, lprJob?.JobId);
+                var localFile = DownloadFile(gcsPath, objectName);
                 LPRAnalyzeFile(localFile);
             }
             catch (Exception e)
