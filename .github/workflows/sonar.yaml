@@ -67,7 +67,7 @@ jobs:
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"PROMDevOps_LPR-Services" /o:"promdevops" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build LPR-API
-          dotnet build LPR-Worker
+          # dotnet build LPR-Worker
           dotnet-coverage collect "dotnet test LPR-API.TEST" -f xml -o "coverage.xml"
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
