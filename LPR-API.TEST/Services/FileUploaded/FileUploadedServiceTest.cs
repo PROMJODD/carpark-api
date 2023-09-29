@@ -74,7 +74,7 @@ public class FileUploadedServiceTest
         var repo = CreateRepository(orgId, files);
 
         var m = new MFileUploaded() { UploadedApi = "VehicleImageUpload" };
-        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, null!);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!);
         var result = svc.AddFileUploaded(orgId, m);
 
         Assert.NotNull(result);
@@ -99,7 +99,7 @@ public class FileUploadedServiceTest
         var repo = CreateRepository(orgId, files);
 
         var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload" };
-        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, null!);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!);
         var result = svc.GetFilesUploadedCount(orgId, m);
 
         Assert.Equal(loopCnt, result);
@@ -127,13 +127,13 @@ public class FileUploadedServiceTest
         var repo = CreateRepository(orgId, files);
 
         var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload", Limit = limit, Offset = offset };
-        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, null!);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!);
         var list = svc.GetFilesUploaded(orgId, m);
 
         Assert.Equal(expectedCount, list.Count());
     }
 
-    private IFileUploadedService GetFileUploadSvc(string orgId)
+    private IFileUploadedService GetFileUploadSvc(string orgId, IGcsSigner signer)
     {
         var setting = new Dictionary<string, string>
         {
@@ -153,7 +153,7 @@ public class FileUploadedServiceTest
 
         var files = new List<MFileUploaded>();
         var repo = CreateRepository(orgId, files);
-        var svc = new FileUploadedService(repo, gcs, configuration, analyzer);
+        var svc = new FileUploadedService(repo, gcs, configuration, signer, analyzer);
 
         return svc;
     }
@@ -162,7 +162,7 @@ public class FileUploadedServiceTest
     [InlineData("default")]
     public void UploadFileNotFoundTest(string orgId)
     {        
-        var svc = GetFileUploadSvc(orgId);
+        var svc = GetFileUploadSvc(orgId, new GcsSignerMocked());
 
         var f = new MImageUploaded();
         var context = new DefaultHttpContext();
@@ -179,7 +179,7 @@ public class FileUploadedServiceTest
         var localPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         File.Create(localPath).Dispose();
 
-        var svc = GetFileUploadSvc(orgId);
+        var svc = GetFileUploadSvc(orgId, new GcsSignerMocked());
 
         var f = new MImageUploaded();
         using var stream = new MemoryStream(File.ReadAllBytes(localPath).ToArray());

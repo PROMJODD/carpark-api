@@ -8,6 +8,7 @@
 
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <SonarQubeExclude>true</SonarQubeExclude>
   </PropertyGroup>
 
   <ItemGroup>
@@ -35,4 +36,9 @@
     <ProjectReference Include="..\LPR-API\LPR-API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <SonarQubeSetting Include="sonar.exclusions">
+      <Value>**/*.cs</Value>
+    </SonarQubeSetting>
+   </ItemGroup>
 </Project>

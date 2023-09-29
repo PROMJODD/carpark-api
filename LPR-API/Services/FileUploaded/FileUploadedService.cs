@@ -19,26 +19,15 @@ namespace Prom.LPR.Api.Services
             IFileUploadedRepository repo,
             IObjectStorage objStorage,
             IConfiguration cfg,
+            IGcsSigner signer,
             IImageAnalyzer anlzr) : base()
         {
             repository = repo;
             analyzer = anlzr;
 
             gcs = objStorage;
-            gcs.SetUrlSigner(GetSigner());
+            gcs.SetUrlSigner(signer);
             imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
-        }
-
-        private static GcsSigner? GetSigner()
-        {
-            try
-            {
-                return new GcsSigner();
-            }
-            catch
-            {
-                return null;
-            }
         }
 
         public MFileUploaded AddFileUploaded(string orgId, MFileUploaded file)
