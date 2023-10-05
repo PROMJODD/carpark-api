@@ -38,7 +38,12 @@ namespace Prom.LPR.Api.Services
 
                 return r;
             }
-
+/*
+            if (r == null)
+            {
+                return r;
+            }
+*/
             var result = repository!.AddUser(user);
 
             r.Status = "OK";
