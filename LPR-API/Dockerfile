@@ -32,7 +32,7 @@ RUN addgroup --group dotnet --gid 2000 \
     --gid 2000 \
     "dotnet"
 RUN chown dotnet:dotnet /app
-#USER dotnet:dotnet 
+USER dotnet:dotnet 
 
 EXPOSE 8080
 ENV ASPNETCORE_URLS="http://*:8080"
