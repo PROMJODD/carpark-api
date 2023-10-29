@@ -34,12 +34,29 @@ namespace Prom.LPR.Api.Database.Repositories
             return cnt >= 1;
         }
 
+        public bool IsCustomOrgIdExist(string orgCustomId)
+        {
+            var cnt = context!.Organizations!.Where(
+                    p => p!.OrgCustomId!.Equals(orgCustomId)
+                ).Count();
+
+            return cnt >= 1;
+        }
+
         public MOrganizationUser GetUserInOrganization(string userName)
         {
             var m = context!.OrganizationUsers!.Where(
                 p => p!.UserName!.Equals(userName) && p!.OrgCustomId!.Equals(orgId)).FirstOrDefault();
 
             return m!;
+        }
+
+        public MOrganization AddOrganization(MOrganization org)
+        {
+            context!.Organizations!.Add(org);
+            context.SaveChanges();
+
+            return org;
         }
     }
 }

@@ -197,4 +197,50 @@ public class OrganizationRepositoryTest
         var ex = Record.Exception(act);
         Assert.NotNull(ex);
     }
+
+    [Theory]
+    [InlineData("default", false)]
+    [InlineData("abcde", true)]
+    [InlineData("global", true)]
+    public void IsOrganizationExistTest(string customOrgId, bool isExist)
+    {
+        var orgs = new List<MOrganization>();
+        CreateOrg(orgs, "abcde", "abcde");
+        CreateOrg(orgs, "global", "global");
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.Organizations).Returns(DbContextMock.GetQueryableMockDbSet(orgs));
+
+        var repo = new OrganizationRepository(ctxMock.Object);
+        repo.SetCustomOrgId(customOrgId);
+
+        var found = repo.IsCustomOrgIdExist(customOrgId);
+
+        Assert.Equal(isExist, found);
+    }
+
+    [Theory]
+    [InlineData("abcdef")]
+    public void AddOrganizationSuccess(string customOrgId)
+    {
+        var orgs = new List<MOrganization>();
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.Organizations).Returns(DbContextMock.GetQueryableMockDbSet(orgs));
+
+        var repo = new OrganizationRepository(ctxMock.Object);
+        repo.SetCustomOrgId("global");
+
+        var o = new MOrganization() 
+        { 
+            OrgName = customOrgId, 
+            OrgCustomId = customOrgId,
+            OrgDescription = "",
+        };
+        var retOrg = repo.AddOrganization(o);
+        var cnt = orgs.Count();
+
+        Assert.Equal(1, cnt);
+        Assert.Equal(o.OrgCustomId, retOrg.OrgCustomId);
+    }
 }
