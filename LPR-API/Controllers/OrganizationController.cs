@@ -36,5 +36,25 @@ namespace Prom.LPR.Api.Controllers
             var result = svc.AddUserToOrganization(id, request);
             return Ok(result);
         }
+
+        [ExcludeFromCodeCoverage]
+        [HttpPost]
+        [Route("org/{id}/action/AdminAddOrganization")]
+        public IActionResult AdminAddOrganization(string id, [FromBody] MOrganization request)
+        {
+            // 'id' must be 'global' to use Admin* API
+            var result = svc.AddOrganization(id, request);
+            return Ok(result);
+        }
+
+        [ExcludeFromCodeCoverage]
+        [HttpPost]
+        [Route("org/{id}/action/AdminAddUserToOrganization")]
+        public IActionResult AdminAddUserToOrganization(string id, [FromBody] MOrganizationUser request)
+        {
+            var userOrgId = request.OrgCustomId;
+            var result = svc.AddUserToOrganization(userOrgId!, request);
+            return Ok(result);
+        }
     }
 }

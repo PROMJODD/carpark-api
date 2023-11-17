@@ -1,11 +1,12 @@
 ARG version
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
+ARG version
 
 WORKDIR /install
 
-RUN apt-get -y update
-RUN apt-get -y install --no-install-recommends curl
-RUN apt-get -y install --no-install-recommends unzip
+RUN apt-get -y update \
+    && apt-get -y install --no-install-recommends curl unzip \
+    && apt-get clean
 
 WORKDIR /source
 
@@ -19,8 +20,9 @@ RUN dotnet publish LPR-API/LPR-API.csproj -c release -o /app --no-restore -p:Pac
 ##### final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 
-RUN apt-get -y update
-RUN apt-get -y install --no-install-recommends curl
+RUN apt-get -y update \
+    && apt-get -y install --no-install-recommends curl \
+    && apt-get clean
 
 WORKDIR /app
 COPY --from=build /app .

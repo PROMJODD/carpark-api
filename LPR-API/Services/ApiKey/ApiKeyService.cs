@@ -109,12 +109,7 @@ namespace Prom.LPR.Api.Services
                 r.Status = "NOTFOUND";
                 r.Description = $"Key ID [{keyId}] not found for the organization [{orgId}]";
             }
-/*
-if (r.ApiKey?.ApiKey == "hello")
-{
-    var v = 1;
-}
-*/
+
             return r;
         }
 

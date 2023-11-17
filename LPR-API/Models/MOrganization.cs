@@ -29,7 +29,7 @@ namespace Prom.LPR.Api.Models
         public MOrganization()
         {
             OrgId = Guid.NewGuid();
-            OrgCreatedDate = DateTime.Now;
+            OrgCreatedDate = DateTime.UtcNow;
         }
     }
 }

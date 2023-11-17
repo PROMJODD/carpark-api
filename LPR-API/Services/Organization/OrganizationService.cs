@@ -15,6 +15,30 @@ namespace Prom.LPR.Api.Services
             userService = userSvc;
         }
 
+        public MVOrganization AddOrganization(string orgId, MOrganization org)
+        {
+            var customOrgId = org.OrgCustomId;
+            var r = new MVOrganization();
+
+            var isExist = repository!.IsCustomOrgIdExist(customOrgId!);
+            if (isExist)
+            {
+                r.Status = "ORGANIZATION_DUPLICATE";
+                r.Description = $"Organization ID is duplicate [{customOrgId}] !!!";
+
+                return r;
+            }
+
+            repository!.SetCustomOrgId(customOrgId!);
+            var result = repository!.AddOrganization(org);
+
+            r.Status = "OK";
+            r.Description = "Success";
+            r.Organization = result;
+
+            return r;
+        }
+
         public Task<MOrganization> GetOrganization(string orgId)
         {
             repository!.SetCustomOrgId(orgId);

@@ -220,4 +220,33 @@ public class OrganizationServiceTest
 
         Assert.Equal(expectedResult, mv.Status);
     }
+
+    [Theory]
+    [InlineData("default", 5, "OK")]
+    [InlineData("abcdef", 1, "OK")]
+    [InlineData("org-id-1", 3, "ORGANIZATION_DUPLICATE")]
+    public void AddOrganizationTest(string orgId, int loopCnt, string expectedResult)
+    {
+        var orgs = new List<MOrganization>();
+        GenerateOrganizations(orgs, loopCnt);
+
+        var orgUsers = new List<MOrganizationUser>();
+        var users = new List<MUser>();
+
+        var orgRepo = CreateOrgRepository("", orgs, orgUsers, users);
+        var userRepo = CreateUserRepository("", users);
+
+        var userSvc = new UserService(userRepo);
+        var svc = new OrganizationService(orgRepo, userSvc);
+
+        var o = new MOrganization() 
+        {
+            OrgName = orgId,
+            OrgCustomId = orgId,
+            OrgDescription = "" 
+        };
+        var mv = svc.AddOrganization("global", o);
+
+        Assert.Equal(expectedResult, mv.Status);
+    }
 }

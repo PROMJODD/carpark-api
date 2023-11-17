@@ -189,7 +189,7 @@ jobs:
         push: true
         load: false
         tags: ${{ steps.prep.outputs.gcr_tags }}
-        build-args: version=${{ steps.prep.outputs.version }}
+        build-args: version=0.0.1
 
     - name: Slack notification end
       if: always()
