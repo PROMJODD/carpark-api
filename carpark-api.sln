@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carpark-worker", "carpark-worker\carpark-worker.csproj", "{434A1514-97EF-4C32-B303-54C3EE5C693F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "carpark-api", "carpark-api\carpark-api.csproj", "{5249CE77-A367-422A-BB05-145E5DC4107F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{434A1514-97EF-4C32-B303-54C3EE5C693F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{434A1514-97EF-4C32-B303-54C3EE5C693F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{434A1514-97EF-4C32-B303-54C3EE5C693F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{434A1514-97EF-4C32-B303-54C3EE5C693F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5249CE77-A367-422A-BB05-145E5DC4107F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5249CE77-A367-422A-BB05-145E5DC4107F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5249CE77-A367-422A-BB05-145E5DC4107F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5249CE77-A367-422A-BB05-145E5DC4107F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
