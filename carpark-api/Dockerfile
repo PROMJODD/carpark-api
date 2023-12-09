@@ -12,7 +12,7 @@ WORKDIR /source
 
 # copy csproj and restore as distinct layers
 COPY carpark-api/* ./carpark-api/
-COPY LPR-Services.sln .
+COPY carpark.sln .
 
 RUN dotnet restore carpark-api/carpark-api.csproj
 RUN dotnet publish carpark-api/carpark-api.csproj -c release -o /app --no-restore -p:PackageVersion=${version}
