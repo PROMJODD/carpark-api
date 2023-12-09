@@ -1,4 +1,4 @@
-name: LPR-Services
+name: Carpark-Services
 permissions:
   contents: read
   actions: read
@@ -86,7 +86,9 @@ jobs:
         sed -i "s#<<image-tag>>#${IMAGE_TAG1}#g" ${VALUE_FILE}
         ls -lrt
         cat ${VALUE_FILE}
-        git add ${VALUE_FILE}; git commit --m "Update image tag by auto deploy script"; git push
+
+        # WILL FIX SOON
+        # git add ${VALUE_FILE}; git commit --m "Update image tag by auto deploy script"; git push
 
     - name: Slack notification end
       if: always()
@@ -94,7 +96,7 @@ jobs:
       with:
         status: ${{ job.status }}
         fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Done deploying [LPR] [${{ needs.build1.outputs.imageTag }}] to [${{ needs.build1.outputs.autoDeployEnv }}]"
+        text: "Done deploying [carpark] [${{ needs.build1.outputs.imageTag }}] to [${{ needs.build1.outputs.autoDeployEnv }}]"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
 
@@ -103,7 +105,7 @@ jobs:
     needs: [ unittest ]
     strategy:
       matrix:
-        service: [ "lpr-worker", "lpr-api" ]
+        service: [ "carpark-worker", "carpark-api" ]
     outputs:
       imageTag: ${{ steps.prep.outputs.version }}
       autoDeployEnv: ${{ steps.prep.outputs.deployEnv }}
@@ -116,7 +118,7 @@ jobs:
       id: prep
       run: |
         DOCKER_IMAGE=promid/${{matrix.service}}
-        GCR_IMAGE=asia-southeast1-docker.pkg.dev/promrub-personal-use/promlpr/${{matrix.service}}
+        GCR_IMAGE=asia-southeast1-docker.pkg.dev/promrub-personal-use/promjodd/${{matrix.service}}
         VERSION=latest
         GIT_HASH=$(git rev-parse --short "$GITHUB_SHA")
         ENV=dev
