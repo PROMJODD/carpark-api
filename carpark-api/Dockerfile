@@ -11,11 +11,11 @@ RUN apt-get -y update \
 WORKDIR /source
 
 # copy csproj and restore as distinct layers
-COPY LPR-API/* ./LPR-API/
-COPY LPR-Services.sln .
+COPY carpark-api/* ./carpark-api/
+COPY carpark.sln .
 
-RUN dotnet restore LPR-API/LPR-API.csproj
-RUN dotnet publish LPR-API/LPR-API.csproj -c release -o /app --no-restore -p:PackageVersion=${version}
+RUN dotnet restore carpark-api/carpark-api.csproj
+RUN dotnet publish carpark-api/carpark-api.csproj -c release -o /app --no-restore -p:PackageVersion=${version}
 
 ##### final stage/image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
@@ -38,4 +38,4 @@ USER dotnet:dotnet
 
 EXPOSE 8080
 ENV ASPNETCORE_URLS="http://*:8080"
-ENTRYPOINT ["dotnet", "LPR-API.dll"]
+ENTRYPOINT ["dotnet", "carpark-api.dll"]

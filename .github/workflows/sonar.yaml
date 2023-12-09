@@ -20,7 +20,7 @@ jobs:
         with:
             status: ${{ job.status }}
             fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-            text: "Start Sonar scan [LPR]"
+            text: "Start Sonar scan [carpark-api]"
         env:
             SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
 
@@ -66,9 +66,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           ./.sonar/scanner/dotnet-sonarscanner begin /k:"PROMDevOps_LPR-Services" /o:"promdevops" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet build LPR-API
+          dotnet build carpark-api
           # dotnet build LPR-Worker
-          dotnet-coverage collect "dotnet test LPR-API.TEST" -f xml -o "coverage.xml"
+          dotnet-coverage collect "dotnet test carpark-api.test" -f xml -o "coverage.xml"
           ./.sonar/scanner/dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
       - name: Slack notification end
@@ -77,6 +77,6 @@ jobs:
         with:
           status: ${{ job.status }}
           fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-          text: "Done Sonar scan [LPR] with status [${{job.status}}]"
+          text: "Done Sonar scan [carpark-api] with status [${{job.status}}]"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required

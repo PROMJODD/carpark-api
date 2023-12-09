@@ -24,7 +24,7 @@ jobs:
       with:
         status: ${{ job.status }}
         fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Start unit testing [LPR]"
+        text: "Start unit testing carpark"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
 
@@ -40,7 +40,7 @@ jobs:
         credentials_json: '${{ secrets.GCR_KEY }}'
 
     - name: Test with the dotnet CLI
-      run: dotnet test LPR-API.TEST
+      run: dotnet test carpark-api.test
 
     - name: Slack notification end
       if: always()
@@ -48,7 +48,7 @@ jobs:
       with:
         status: ${{ job.status }}
         fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Done unit testing [LPR] with status [${{job.status}}]"
+        text: "Done unit testing [carpark] with status [${{job.status}}]"
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
 
@@ -63,7 +63,7 @@ jobs:
       with:
         status: ${{ job.status }}
         fields: repo,message,commit,author,ref,workflow # selectable (default: repo,message)
-        text: "Start deploying [LPR] [${{ needs.build1.outputs.imageTag }}] to [${{ needs.build1.outputs.autoDeployEnv }}]..."
+        text: "Start deploying [carpark] [${{ needs.build1.outputs.imageTag }}] to [${{ needs.build1.outputs.autoDeployEnv }}]..."
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
 
@@ -145,9 +145,9 @@ jobs:
           TAGS="$TAGS,${DOCKER_IMAGE}:sha-${GITHUB_SHA::8}"
         fi
 
-        DOCKERFILE=LPR-Worker/Dockerfile
-        if [[ $SERVICE == "lpr-api" ]]; then
-          DOCKERFILE=LPR-API/Dockerfile
+        DOCKERFILE=carpark-worker/Dockerfile
+        if [[ $SERVICE == "carpark-api" ]]; then
+          DOCKERFILE=carpark-api/Dockerfile
         fi
 
         echo ::set-output name=tags::${TAGS}

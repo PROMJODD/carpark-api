@@ -33,7 +33,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\LPR-API\LPR-API.csproj" />
+    <ProjectReference Include="..\carpark-api\carpark-api.csproj" />
   </ItemGroup>
 
   <ItemGroup>
