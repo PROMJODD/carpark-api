@@ -18,8 +18,18 @@ namespace Prom.LPR.Api.ExternalServices.Recognition
                 PropertyNameCaseInsensitive = true
             };
 
-            var obj = JsonSerializer.Deserialize<T>(json, options);
-            return obj;
+            try
+            {
+                var obj = JsonSerializer.Deserialize<T>(json, options);
+                return obj;
+            }
+            catch (Exception e)
+            {
+                Log.Error("Data seem to be not JSON : [{0}]", json);
+                Log.Error(e.Message);
+            }
+
+            return default;
         }
 
         public string AnalyzeFile(string imagePath)
