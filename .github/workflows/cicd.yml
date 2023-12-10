@@ -73,13 +73,13 @@ jobs:
       run: |
         export ENVIRONMENT=${{ needs.build1.outputs.autoDeployEnv }}
         export ARGOCD_BRANCH=${{ needs.build1.outputs.autoDeployBranch }}
-        export VALUE_FILE_DIR="promftp-common"
+        export VALUE_FILE_DIR="promjodd-v2-common"
         export VALUE_FILE=${VALUE_FILE_DIR}/values-tags-${ARGOCD_BRANCH}.yaml
         export IMAGE_TAG1=${{ needs.build1.outputs.imageTag }}
         git config --global user.email "cicd-auto@prom.co.th"
         git config --global user.name "CICD"
 
-        git clone "https://cicd-token:${GH_TOKEN}@github.com/PROMDevOps/PROMFTP-Deployment.git" deployment
+        git clone "https://cicd-token:${GH_TOKEN}@github.com/PROMDevOps/PROMJODD-V2-Deployment.git" deployment
         cd deployment
         git checkout ${ARGOCD_BRANCH}
         cp ${VALUE_FILE_DIR}/values-template.yaml ${VALUE_FILE}
@@ -87,8 +87,7 @@ jobs:
         ls -lrt
         cat ${VALUE_FILE}
 
-        # WILL FIX SOON
-        # git add ${VALUE_FILE}; git commit --m "Update image tag by auto deploy script"; git push
+        git add ${VALUE_FILE}; git commit --m "Update image tag by auto deploy script"; git push
 
     - name: Slack notification end
       if: always()
