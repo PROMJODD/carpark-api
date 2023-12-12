@@ -87,11 +87,19 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             return Task.CompletedTask;
         }
 
+        var userNameClaim = GetClaim(ClaimTypes.Name, context.User.Claims);
+        if (userNameClaim == null)
+        {
+            //The authentication failed earlier
+            return Task.CompletedTask;
+        }
+
         var uid = idClaim.Value;
         var role = roleClaim.Value;
         var uri = uriClaim.Value;
         var method = authMethodClaim.Value;
         var authorizeOrgId = orgIdClaim.Value;
+        var userName = userNameClaim.Value;
 
         var roles = service.GetRolesList("", role);
         var roleMatch = IsRoleValid(roles, uri);
@@ -113,6 +121,7 @@ public class GenericRbacHandler : AuthorizationHandler<GenericRbacRequirement>
             mvcContext!.HttpContext.Items["Temp-API-Called"] = apiCalled;
             mvcContext!.HttpContext.Items["Temp-Identity-Type"] = method;
             mvcContext!.HttpContext.Items["Temp-Identity-Id"] = uid;
+            mvcContext!.HttpContext.Items["Temp-Identity-Name"] = userName;
         }
 
         return Task.CompletedTask;

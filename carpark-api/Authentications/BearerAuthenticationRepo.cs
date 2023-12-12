@@ -2,6 +2,7 @@ using Serilog;
 using System.Security.Claims;
 using Prom.LPR.Api.ModelsViews;
 using Prom.LPR.Api.Services;
+using System.Text.RegularExpressions;
 
 namespace Prom.LPR.Api.Authentications
 {

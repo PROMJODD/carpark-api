@@ -10,5 +10,6 @@ namespace Prom.LPR.Api.Services
         public bool IsUserNameExist(string orgId, string userName);
         public MVOrganizationUser VerifyUserInOrganization(string orgId, string userName);
         public MVOrganization AddOrganization(string orgId, MOrganization org);
+        public IEnumerable<MOrganizationUser> GetUserAllowedOrganization(string userName);
     }
 }

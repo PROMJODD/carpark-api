@@ -152,6 +152,12 @@ public class DataSeeder
         context.SaveChanges();
     }
 
+    private void SeedDefaultRoles2()
+    {
+        AddRole("USER_ORGS_VIEWER", "Organization:AdminGetUserAllowedOrganization", "ADMIN", "Allow only for AdminGetUserAllowedOrganization");
+        context.SaveChanges();
+    }
+
     public void Seed()
     {
         SeedDefaultOrganization();
@@ -160,5 +166,6 @@ public class DataSeeder
         SeedGlobalOrganization();
         SeedDefaultRoles();
         UpdateApiKeyRole();
+        SeedDefaultRoles2();
     }
 }
