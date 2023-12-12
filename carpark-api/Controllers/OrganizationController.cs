@@ -1,4 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
+using Confluent.Kafka;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Prom.LPR.Api.Models;
@@ -25,6 +26,15 @@ namespace Prom.LPR.Api.Controllers
         public async Task<IActionResult> GetOrganization(string id)
         {
             var result = await svc.GetOrganization(id);
+            return Ok(result);
+        }
+
+        [ExcludeFromCodeCoverage]
+        [HttpGet]
+        [Route("org/{id}/action/AdminGetUserAllowedOrganization/{userName}")]
+        public IActionResult AdminGetUserAllowedOrganization(string userName)
+        {
+            var result = svc.GetUserAllowedOrganization(userName!);
             return Ok(result);
         }
 

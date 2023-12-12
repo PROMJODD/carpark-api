@@ -25,6 +25,16 @@ namespace Prom.LPR.Api.Database.Repositories
             return user;
         }
 
+        public IEnumerable<MOrganizationUser> GetUserAllowedOrganization(string userName)
+        {
+            var m = context!.OrganizationUsers!.Where(
+                p => p!.UserName!.Equals(userName))
+                .OrderByDescending(e => e.OrgCustomId)
+                .ToList();
+
+            return m!;
+        }
+
         public bool IsUserNameExist(string userName)
         {
             var cnt = context!.OrganizationUsers!.Where(

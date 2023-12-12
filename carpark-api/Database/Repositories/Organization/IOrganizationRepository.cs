@@ -11,5 +11,6 @@ namespace Prom.LPR.Api.Database.Repositories
         public bool IsCustomOrgIdExist(string orgCustomId);
         public MOrganizationUser GetUserInOrganization(string userName);
         public MOrganization AddOrganization(MOrganization org);
+        public IEnumerable<MOrganizationUser> GetUserAllowedOrganization(string userName);
     }
 }

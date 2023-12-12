@@ -47,6 +47,12 @@ namespace Prom.LPR.Api.Services
             return result;
         }
 
+        public IEnumerable<MOrganizationUser> GetUserAllowedOrganization(string userName)
+        {
+            var result = repository!.GetUserAllowedOrganization(userName);
+            return result;
+        }
+
         public bool IsUserNameExist(string orgId, string userName)
         {
             repository!.SetCustomOrgId(orgId);
@@ -117,6 +123,7 @@ namespace Prom.LPR.Api.Services
             var m = repository!.GetUserInOrganization(userName);
             if (m == null)
             {
+
                 var o = new MVOrganizationUser() 
                 {
                     Status = "NOTFOUND_INORG",
