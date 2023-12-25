@@ -243,4 +243,29 @@ public class OrganizationRepositoryTest
         Assert.Equal(1, cnt);
         Assert.Equal(o.OrgCustomId, retOrg.OrgCustomId);
     }
+
+
+    //#### GetUserAllowedOrganization ####
+    [Theory]
+    [InlineData("user3", 2)]
+    [InlineData("user1", 1)]
+    [InlineData("user5", 0)]
+    public void GetUserAllowedOrganizationTest(string userName, int orgCnt)
+    {
+        var orgUsers = new List<MOrganizationUser>();
+        CreateOrgUser(orgUsers, "user1", "aaaaa");
+        CreateOrgUser(orgUsers, "user2", "ccccc");
+        CreateOrgUser(orgUsers, "user3", "bbbbb");
+        CreateOrgUser(orgUsers, "user3", "ccccc");
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.OrganizationUsers).Returns(DbContextMock.GetQueryableMockDbSet(orgUsers));
+
+        var repo = new OrganizationRepository(ctxMock.Object);
+        repo.SetCustomOrgId("dummy");
+
+        var arr = repo.GetUserAllowedOrganization(userName);
+
+        Assert.Equal(orgCnt, arr.Count());
+    }
 }

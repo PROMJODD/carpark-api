@@ -65,7 +65,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          ./.sonar/scanner/dotnet-sonarscanner begin /k:"PROMDevOps_LPR-Services" /o:"promdevops" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          ./.sonar/scanner/dotnet-sonarscanner begin /k:"PROMJODD_carpark-api" /o:"promjodd" /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build carpark-api
           # dotnet build LPR-Worker
           dotnet-coverage collect "dotnet test carpark-api.test" -f xml -o "coverage.xml"
@@ -80,3 +80,4 @@ jobs:
           text: "Done Sonar scan [carpark-api] with status [${{job.status}}]"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
+

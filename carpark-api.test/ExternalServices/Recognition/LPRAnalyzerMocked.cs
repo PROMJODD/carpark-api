@@ -2,11 +2,19 @@ using Moq;
 using Moq.Protected;
 using System.Net;
 using Prom.LPR.Api.ExternalServices.Recognition;
+using System.Net.Mime;
 
 namespace Prom.LPR.Test.Api.ExternalServices.Recognition
 {
     public class LPRAnalyzerMocked : ImageAnalyzerHttpBase
     {
+        private bool isReturnEmpty = false;
+
+        public LPRAnalyzerMocked(bool returnEmpty)
+        {
+            isReturnEmpty = returnEmpty;
+        }
+
         public LPRAnalyzerMocked()
         {
         }
@@ -18,6 +26,12 @@ namespace Prom.LPR.Test.Api.ExternalServices.Recognition
 
         public override HttpClient GetHttpClient()
         {
+            var content = new StringContent("");
+            if (!isReturnEmpty)
+            {
+                content = new StringContent("{\"field\":\"value\"}");
+            }
+
             var handlerMock = new Mock<HttpMessageHandler>(MockBehavior.Strict);
             handlerMock
             .Protected()
@@ -31,7 +45,7 @@ namespace Prom.LPR.Test.Api.ExternalServices.Recognition
             .ReturnsAsync(new HttpResponseMessage()
             {
                 StatusCode = HttpStatusCode.OK,
-                Content = new StringContent("{\"field\":\"value\"}"),
+                Content = content,
             })
             .Verifiable();
 

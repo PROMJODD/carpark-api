@@ -249,4 +249,33 @@ public class OrganizationServiceTest
 
         Assert.Equal(expectedResult, mv.Status);
     }
+
+    [Theory]
+    [InlineData("name1", 2)]
+    [InlineData("name2", 1)]
+    public void GetUserAllowedOrganizationTest(string userName, int orgCnt)
+    {
+        var orgs = new List<MOrganization>();
+        CreateOrganization(orgs, "org1", "org-name-1");
+        CreateOrganization(orgs, "org2", "org-name-2");
+
+        var users = new List<MUser>();
+        CreateUser(users, "name1", "name1@gmail.com");
+        CreateUser(users, "name2", "name2@gmail.com");
+
+        var orgUsers = new List<MOrganizationUser>();
+        CreateOrgUser(orgUsers, "name1", "name1@gmail.com", "org1", "ROLE1");
+        CreateOrgUser(orgUsers, "name1", "name1@gmail.com", "org2", "ROLE1");
+        CreateOrgUser(orgUsers, "name2", "name2@gmail.com", "org2", "ROLE2");
+
+        var orgRepo = CreateOrgRepository("", orgs, orgUsers, users);
+        var userRepo = CreateUserRepository("", users);
+
+        var userSvc = new UserService(userRepo);
+        var svc = new OrganizationService(orgRepo, userSvc);
+
+        var allowedOrgs = svc.GetUserAllowedOrganization(userName);
+
+        Assert.Equal(orgCnt, allowedOrgs.Count());
+    }
 }
