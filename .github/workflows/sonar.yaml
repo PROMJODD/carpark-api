@@ -80,3 +80,4 @@ jobs:
           text: "Done Sonar scan [carpark-api] with status [${{job.status}}]"
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_URL }} # required
+
