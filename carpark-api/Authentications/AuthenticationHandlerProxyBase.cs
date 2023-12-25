@@ -23,12 +23,12 @@ namespace Prom.LPR.Api.Authentications
 
         protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
         {
-            if (!Request.Headers.ContainsKey("Authorization"))
+            if (!Request.Headers.TryGetValue("Authorization", out var authData))
             {
                 return AuthenticateResult.Fail("No Authorization header found");
             }
 
-            var authHeader = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            var authHeader = AuthenticationHeaderValue.Parse(authData);
             if (!authHeader.Scheme.Equals("Bearer") && !authHeader.Scheme.Equals("Basic"))
             {
                 return AuthenticateResult.Fail($"Unknown scheme [{authHeader.Scheme}]");
