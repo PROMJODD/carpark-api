@@ -45,6 +45,8 @@ public class ConfigUtilsTest
 
         var value = ConfigUtils.GetConfig(configuration, cfgKey);
         Assert.Equal(expectedValue, value);
+
+        Environment.SetEnvironmentVariable(envKey, "");
     }
 
     [Theory]
@@ -56,16 +58,17 @@ public class ConfigUtilsTest
 
         var value = ConfigUtils.GetConfig(null!, cfgKey);
         Assert.Equal(expectedValue, value);
+
+        Environment.SetEnvironmentVariable(envKey, "");
     }
 
     [Theory]
-    [InlineData("Key1:Abc", "")]
-    [InlineData("Key1", "")]
+    // Please make sure the data test MUST not duplicate with other test cases
+    [InlineData("KeyJ:Abc", "")]
+    [InlineData("KeyJ", "")]
     public void ReturnValueWithoutEnvAndConfigNull(string cfgKey, string expectedValue)
     {
-        // WILL FIX later
-
-        //var value = ConfigUtils.GetConfig(null!, cfgKey);
-        //Assert.Equal(expectedValue, value);
+        var value = ConfigUtils.GetConfig(null!, cfgKey);
+        Assert.Equal(expectedValue, value);
     }
 }

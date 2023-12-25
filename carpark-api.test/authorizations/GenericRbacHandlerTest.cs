@@ -30,13 +30,14 @@ public class GenericRbacHandlerTest
     }
 
     [Theory]
-    [InlineData("", "", "", "", "")]
-    [InlineData("name1", "role1", "/api/ApiGroup/org/default/action/GetSomething", "method1", "ID1")]
-    [InlineData("test2", "", "/api/ApiGroup/org/default/action/GetSomething", "", "")]
-    [InlineData("test2", "role2", "", "", "")]
-    [InlineData("test2", "role2", "/api/ApiGroup/org/default/action/GetSomething", "", "")]
-    [InlineData("test2", "role2", "/api/ApiGroup/org/default/action/GetSomething", "method1", "")]
-    public void TaskCompleteIfNoClaimData(string name, string role, string uri, string method, string groupSid)
+    [InlineData("", "", "", "", "", "")]
+    [InlineData("name1", "role1", "/api/ApiGroup/org/default/action/GetSomething", "method1", "ID1", "zzz")]
+    [InlineData("test2", "", "/api/ApiGroup/org/default/action/GetSomething", "", "", "zzz")]
+    [InlineData("test2", "role2", "", "", "", "zzz")]
+    [InlineData("test2", "role2", "/api/ApiGroup/org/default/action/GetSomething", "", "", "zzz")]
+    [InlineData("test2", "role2", "/api/ApiGroup/org/default/action/GetSomething", "method1", "", "zzz")]
+    [InlineData("", "role2", "/api/ApiGroup/org/default/action/GetSomething", "method1", "aaaa", "zzz")]
+    public void TaskCompleteIfNoClaimData(string name, string role, string uri, string method, string groupSid, string nameId)
     {
         var m = new Mock<IRoleService>();
         var h = new GenericRbacHandlerChild(m.Object);
@@ -46,7 +47,7 @@ public class GenericRbacHandlerTest
 
         var claims = new List<Claim>();
 
-        AppendClaim(claims, ClaimTypes.NameIdentifier, name);
+        AppendClaim(claims, ClaimTypes.NameIdentifier, nameId);
         AppendClaim(claims, ClaimTypes.Name, name);
         AppendClaim(claims, ClaimTypes.Role, role);
         AppendClaim(claims, ClaimTypes.AuthenticationMethod, method);

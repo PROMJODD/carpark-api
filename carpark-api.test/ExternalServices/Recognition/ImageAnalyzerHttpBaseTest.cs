@@ -65,4 +65,18 @@ public class ImageAnalyzerHttpBaseTest
 
         File.Delete(path);
     }
+
+    [Fact]
+    public void AnalyzeFileWithEmptyJsonTest()
+    {
+        var path = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+        File.Create(path).Dispose();
+
+        var m = new LPRAnalyzerMocked(true);
+        var o = m.AnalyzeFile<MResult>(path);
+
+        File.Delete(path);
+
+        Assert.Null(o);
+    }
 }
