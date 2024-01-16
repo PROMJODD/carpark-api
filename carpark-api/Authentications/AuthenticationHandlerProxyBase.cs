@@ -40,6 +40,8 @@ namespace Prom.LPR.Api.Authentications
                 var orgId = ServiceUtils.GetOrgId(Request);
                 var credentialBytes = Convert.FromBase64String(authHeader.Parameter!);
 
+Console.WriteLine($"DEBUG JWT --> [{authHeader.Parameter}]");
+
                 if (authHeader.Scheme.Equals("Basic"))
                 {
                     user = await Task.Run(() => AuthenticateBasic(orgId, credentialBytes, Request));
