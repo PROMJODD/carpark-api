@@ -42,6 +42,10 @@ namespace Prom.LPR.Api.Controllers
         public IActionResult GetVehicleImages(string id, [FromQuery] VMFileUploadedQuery param)
         {
             param.UploadedApi = "FileUpload:UploadVehicleImage";
+            if (param.Limit <= 0)
+            {
+                param.Limit = 100;
+            }
 
             var result = service.GetFilesUploaded(id, param);
             return Ok(result);
@@ -52,6 +56,10 @@ namespace Prom.LPR.Api.Controllers
         public IActionResult GetVehicleImagesCount(string id, [FromQuery] VMFileUploadedQuery param)
         {
             param.UploadedApi = "FileUpload:UploadVehicleImage";
+            if (param.Limit <= 0)
+            {
+                param.Limit = 100;
+            }
 
             var result = service.GetFilesUploadedCount(id, param);
             return Ok(result);
