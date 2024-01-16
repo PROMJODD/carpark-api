@@ -2,7 +2,8 @@
 
 . ./export-dev.bash
 
-BASE64_AUTH_JWT=$(echo ${AUTH_JWT} | base64 -w0)
+# Must use echo -n to remove new line !!!
+BASE64_AUTH_JWT=$(echo -n ${AUTH_JWT} | base64 -w0)
 
 curl -v -X GET "${ENDPOINT_GET_FILES}" \
     -H "Authorization: Bearer ${BASE64_AUTH_JWT}"
