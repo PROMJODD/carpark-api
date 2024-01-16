@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Authorization;
 using Prom.LPR.Api.Services;
 using Prom.LPR.Api.ViewsModels;
 using System.Diagnostics.CodeAnalysis;
-using Prom.LPR.Api.ExternalServices.ObjectStorage;
 
 namespace Prom.LPR.Api.Controllers
 {
