@@ -2,7 +2,7 @@
 
 FILE_TO_UPLOAD="/d/LPR/Feb_2_2020/2020-02-18/0715327008_1R2005.jpg"
 
-. ./export-prod.bash
+. ./export-dev.bash
 
 if [[ ${FILE_TO_UPLOAD} == "" ]]; 
 then

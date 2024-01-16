@@ -55,10 +55,24 @@ namespace Prom.LPR.Api.Database.Repositories
 
         public IEnumerable<MFileUploaded> GetFilesUploaded(VMFileUploadedQuery param)
         {
-            var predicate = FilesUploadedPredicate(param);
+            var limit = 0;
+            var offset = 0;
+
+            if ((param != null) && (param.Offset > 0))
+            {
+                //Convert to zero base
+                offset = param.Offset-1;
+            }
+
+            if ((param != null) && (param.Limit > 0))
+            {
+                limit = param.Limit;
+            }
+
+            var predicate = FilesUploadedPredicate(param!);
             var arr = context!.FileUploadeds!.Where(predicate)
-                .Skip(param.Offset! - 1)
-                .Take(param.Limit!)
+                .Skip(offset)
+                .Take(limit)
                 .OrderByDescending(e => e.UploadedDate)
                 .ToList();
 
