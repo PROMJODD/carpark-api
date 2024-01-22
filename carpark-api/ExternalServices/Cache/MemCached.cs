@@ -13,6 +13,7 @@ public class MemCached : ICache
 
     public MemCached(IConfiguration cfg)
     {
+/*        
         var config = new MemcachedClientConfiguration(null, new MemcachedClientOptions());
 
         var host = ConfigUtils.GetConfig(cfg, "Memcached:host");
@@ -20,6 +21,7 @@ public class MemCached : ICache
 
         config.AddServer(host, portStr.ToInt());
         cacheClient = new MemcachedClient(null, config);
+*/
     }
 
     public T? GetValue<T>(string domain, string key)
