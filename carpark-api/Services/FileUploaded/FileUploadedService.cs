@@ -47,12 +47,25 @@ namespace Prom.LPR.Api.Services
             repository!.SetCustomOrgId(orgId);
             var result = repository!.GetFilesUploaded(param);
 
-            var signer = gcs!.GetUrlSigner(); 
+            var signer = gcs!.GetUrlSigner();
+            var domain = "gcs_uploaded_file";
+
             foreach (var f in result)
             {
-                //Expire every 25 hours, cached will expire on every 24 hours
-                //TODO : Add cache logic here. Also, check if cache is null
-                f.PresignedUrl = signer!.Sign(f.StoragePath, 25);
+                if ((f.StoragePath != null) && !f.StoragePath.Equals(""))
+                {
+                    var presignedUrl = cached.GetValue<string>(domain, f.StoragePath);
+                    if (presignedUrl == null)
+                    {
+                        //Not found in cache
+                        //Expire every 25 hours but cached will expire on every 24 hours
+
+                        presignedUrl = signer!.Sign(f.StoragePath, 25);
+                        cached.SetValue(domain, f.StoragePath, presignedUrl, 24 * 60);
+                    }
+
+                    f.PresignedUrl = presignedUrl;
+                }
             }
 
             return result;
