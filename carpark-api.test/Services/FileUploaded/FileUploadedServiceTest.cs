@@ -74,7 +74,7 @@ public class FileUploadedServiceTest
         var repo = CreateRepository(orgId, files);
 
         var m = new MFileUploaded() { UploadedApi = "VehicleImageUpload" };
-        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!, null!);
         var result = svc.AddFileUploaded(orgId, m);
 
         Assert.NotNull(result);
@@ -99,7 +99,7 @@ public class FileUploadedServiceTest
         var repo = CreateRepository(orgId, files);
 
         var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload" };
-        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!, null!);
         var result = svc.GetFilesUploadedCount(orgId, m);
 
         Assert.Equal(loopCnt, result);
@@ -127,7 +127,7 @@ public class FileUploadedServiceTest
         var repo = CreateRepository(orgId, files);
 
         var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload", Limit = limit, Offset = offset };
-        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!);
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), null!, null!);
         var list = svc.GetFilesUploaded(orgId, m);
 
         Assert.Equal(expectedCount, list.Count());
@@ -153,7 +153,7 @@ public class FileUploadedServiceTest
 
         var files = new List<MFileUploaded>();
         var repo = CreateRepository(orgId, files);
-        var svc = new FileUploadedService(repo, gcs, configuration, signer, analyzer);
+        var svc = new FileUploadedService(repo, gcs, configuration, signer, null!, analyzer);
 
         return svc;
     }

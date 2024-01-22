@@ -51,7 +51,7 @@ namespace Prom.LPR.Api.Services
             foreach (var f in result)
             {
                 //Expire every 25 hours, cached will expire on every 24 hours
-                //TODO : Add cache logic here
+                //TODO : Add cache logic here. Also, check if cache is null
                 f.PresignedUrl = signer!.Sign(f.StoragePath, 25);
             }
 
