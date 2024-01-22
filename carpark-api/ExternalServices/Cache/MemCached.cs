@@ -13,15 +13,14 @@ public class MemCached : ICache
 
     public MemCached(IConfiguration cfg)
     {
-/*        
-        var config = new MemcachedClientConfiguration(null, new MemcachedClientOptions());
+        var loggerFactory = new LoggerFactory();
+        var config = new MemcachedClientConfiguration(loggerFactory, new MemcachedClientOptions());
 
         var host = ConfigUtils.GetConfig(cfg, "Memcached:host");
         var portStr = ConfigUtils.GetConfig(cfg, "Memcached:port");
 
         config.AddServer(host, portStr.ToInt());
-        cacheClient = new MemcachedClient(null, config);
-*/
+        cacheClient = new MemcachedClient(loggerFactory, config);
     }
 
     public T? GetValue<T>(string domain, string key)
