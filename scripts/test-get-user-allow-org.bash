@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./export-prod.bash
+. ./export-dev.bash
 
 USER=bancherd@cybertracx.com
 

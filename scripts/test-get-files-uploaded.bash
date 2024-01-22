@@ -1,6 +1,6 @@
 #!/bin/bash
 
-. ./export-prod.bash
+. ./export-dev.bash
 
 # Must use echo -n to remove new line !!!
 BASE64_AUTH_JWT=$(echo -n ${AUTH_JWT} | base64 -w0)

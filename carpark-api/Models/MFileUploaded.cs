@@ -64,6 +64,9 @@ namespace Prom.LPR.Api.Models
         [Column("file_size")]
         public long? FileSize { get; set; }
 
+        [Column("presigned_url")]
+        public string? PresignedUrl { get; set; }
+
         public MFileUploaded()
         {
             FileId = Guid.NewGuid();

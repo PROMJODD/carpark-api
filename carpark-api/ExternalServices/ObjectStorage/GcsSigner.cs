@@ -26,5 +26,24 @@ namespace Prom.LPR.Api.ExternalServices.ObjectStorage
             var url = urlSigner!.Sign(bucket, objectPath, TimeSpan.FromHours(1), HttpMethod.Get);
             return url;
         }
+
+        public string Sign(string? gcsPath, int hour)
+        {
+            //gcsPath --> gcs://<bucket>/<objectPath>
+            //TODO : Capture bucket and objectPath using regex
+
+            if (gcsPath == null)
+            {
+                return "";
+            }
+
+            //var bucket = "";
+            //var objectPath = "";
+
+            //var url = urlSigner!.Sign(bucket, objectPath, TimeSpan.FromHours(hour), HttpMethod.Get);
+            var url = "https://this-is-presigned-url/aaa.jpg";
+
+            return url; 
+        }
     }
 }
