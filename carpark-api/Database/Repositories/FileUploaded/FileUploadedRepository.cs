@@ -34,12 +34,12 @@ namespace Prom.LPR.Api.Database.Repositories
 
             if ((param.VehicleProvince != "") && (param.VehicleProvince != null))
             {
-                pd = pd.And(p => p.VehicleProvince!.Equals(param.VehicleProvince));
+                pd = pd.And(p => p.VehicleProvince!.Contains(param.VehicleProvince));
             }
 
             if ((param.VehicleLicense != "") && (param.VehicleLicense != null))
             {
-                pd = pd.And(p => p.VehicleLicense!.Equals(param.VehicleLicense));
+                pd = pd.And(p => p.VehicleLicense!.Contains(param.VehicleLicense));
             }
 
             if ((param.FullTextSearch != "") && (param.FullTextSearch != null))
