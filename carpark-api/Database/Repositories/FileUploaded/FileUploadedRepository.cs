@@ -42,6 +42,18 @@ namespace Prom.LPR.Api.Database.Repositories
                 pd = pd.And(p => p.VehicleLicense!.Equals(param.VehicleLicense));
             }
 
+            if ((param.FullTextSearch != "") && (param.FullTextSearch != null))
+            {
+                var fullTextPd = PredicateBuilder.New<MFileUploaded>();
+                fullTextPd = fullTextPd.Or(p => p.VehicleProvince!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleLicense!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleBrand!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleColor!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleClass!.Contains(param.FullTextSearch));
+
+                pd = pd.And(fullTextPd);
+            }
+
             return pd;
         }
 
