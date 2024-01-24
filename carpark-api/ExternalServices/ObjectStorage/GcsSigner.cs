@@ -40,9 +40,7 @@ namespace Prom.LPR.Api.ExternalServices.ObjectStorage
 
             var bucket = matches[0].Groups[1].Value;
             var objectPath = matches[0].Groups[2].Value;
-
             var url = urlSigner!.Sign(bucket, objectPath, TimeSpan.FromHours(hour), HttpMethod.Get);
-            //var url = "https://this-is-presigned-url/aaa.jpg";
 
             return url; 
         }
