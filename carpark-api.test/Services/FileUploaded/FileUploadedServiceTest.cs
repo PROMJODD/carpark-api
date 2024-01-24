@@ -9,6 +9,9 @@ using Prom.LPR.Api.ViewsModels;
 using Microsoft.Extensions.Configuration;
 using Prom.LPR.Api.ExternalServices.ObjectStorage;
 using Microsoft.AspNetCore.Http;
+using Prom.LPR.Api.ExternalServices.Cache;
+using Microsoft.VisualBasic;
+using System.Collections;
 
 namespace Prom.LPR.Test.Api.Services;
 
@@ -133,7 +136,7 @@ public class FileUploadedServiceTest
         Assert.Equal(expectedCount, list.Count());
     }
 
-    private IFileUploadedService GetFileUploadSvc(string orgId, IGcsSigner signer)
+    private IFileUploadedService GetFileUploadSvc(string orgId, IGcsSigner signer, ICache cache)
     {
         var setting = new Dictionary<string, string>
         {
@@ -153,7 +156,7 @@ public class FileUploadedServiceTest
 
         var files = new List<MFileUploaded>();
         var repo = CreateRepository(orgId, files);
-        var svc = new FileUploadedService(repo, gcs, configuration, signer, null!, analyzer);
+        var svc = new FileUploadedService(repo, gcs, configuration, signer, cache, analyzer);
 
         return svc;
     }
@@ -162,7 +165,7 @@ public class FileUploadedServiceTest
     [InlineData("default")]
     public void UploadFileNotFoundTest(string orgId)
     {        
-        var svc = GetFileUploadSvc(orgId, new GcsSignerMocked());
+        var svc = GetFileUploadSvc(orgId, new GcsSignerMocked(), null!);
 
         var f = new MImageUploaded();
         var context = new DefaultHttpContext();
@@ -179,7 +182,7 @@ public class FileUploadedServiceTest
         var localPath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
         File.Create(localPath).Dispose();
 
-        var svc = GetFileUploadSvc(orgId, new GcsSignerMocked());
+        var svc = GetFileUploadSvc(orgId, new GcsSignerMocked(), null!);
 
         var f = new MImageUploaded();
         using var stream = new MemoryStream(File.ReadAllBytes(localPath).ToArray());
@@ -200,5 +203,47 @@ public class FileUploadedServiceTest
         Assert.EndsWith("jpg", result.StorageData.StoragePath);
 
         File.Delete(localPath);
+    }
+
+    private void PopulateStoragePath(List<MFileUploaded> list)
+    {
+        foreach (var f in list)
+        {
+            f.StoragePath = f.VehicleLicense;
+        }
+    }
+
+    [Theory]
+    [InlineData("default", 5, "lic-1", "gs://bucket/lic-1.pjg")]
+    [InlineData("default", 5, "lic-2", "gs://bucket/lic-2.pjg")]
+    [InlineData("default", 5, "lic-3", "")]
+    public void GetFilesUploadedWithCacheTest(string orgId, int loopCnt, string key, string expectedValue)
+    {
+        var setting = new Dictionary<string, string>
+        {
+            {"LPR:bucket", "unittesting"},
+        };
+        var configuration = GetCofigFromDictionary(setting);
+
+        var files = new List<MFileUploaded>();
+        GenerateFilesUploaded(files, loopCnt, orgId);
+        PopulateStoragePath(files);
+
+        var repo = CreateRepository(orgId, files);
+        var cached = new CacheMocked();
+
+        var m = new VMFileUploadedQuery() { UploadedApi = "VehicleImageUpload", Limit = loopCnt, Offset = 1 };
+        var svc = new FileUploadedService(repo, new GoogleCloudStorage(), configuration, new GcsSignerMocked(), cached, null!);
+        var list = svc.GetFilesUploaded(orgId, m);
+
+        //Convert to Hashtable
+        var coll = new Hashtable();
+        foreach (var f in list)
+        {
+            coll.Add(f.StoragePath!, f.PresignedUrl);
+        }
+
+        var actualValue = coll[key];
+        Assert.Equal(expectedValue, actualValue);
     }
 }
