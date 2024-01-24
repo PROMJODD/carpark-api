@@ -6,7 +6,7 @@
 BASE64_AUTH_JWT=$(echo -n ${AUTH_JWT} | base64 -w0)
 DAT_TEMPLATE=template.json
 
-SEARCH=5437
+SEARCH=
 
 curl -s -X GET "${ENDPOINT_GET_FILES}?FullTextSearch=${SEARCH}" \
     -u ${AUTH_USER}:${AUTH_PASSWORD_VIEWER}

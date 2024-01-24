@@ -211,6 +211,98 @@ public class FileUploadedRepositoryTest
         Assert.Equal(limit, cnt);
     }
 
+    [Theory]
+    [InlineData(10, "brand-1", 2)]
+    [InlineData(11, "brand-1", 3)]
+    [InlineData(1, "brand-1", 1)]
+    [InlineData(100, "hello", 0)]
+    public void GetFilesUploadedFullTextSearch(int loopCnt, string fullText, int expectedCount)
+    {
+        var orgId = "fake-org-id";
+
+        var files = new List<MFileUploaded>();
+        GenerateFilesUploaded(files, loopCnt, orgId);
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.FileUploadeds).Returns(DbContextMock.GetQueryableMockDbSet(files));
+
+        var repo = new FileUploadedRepository(ctxMock.Object);
+        repo.SetCustomOrgId(orgId);
+
+        var u = new VMFileUploadedQuery() { FullTextSearch = fullText };
+        var list = repo.GetFilesUploaded(u);
+        var cnt = list.Count();
+
+        Assert.Equal(expectedCount, cnt);
+    }
+
+    [Theory]
+    [InlineData(10, "", 10)]
+    [InlineData(11, null, 11)]
+    public void GetFilesUploadedFullTextSearchEmpty(int loopCnt, string? fullText, int expectedCount)
+    {
+        var orgId = "fake-org-id";
+
+        var files = new List<MFileUploaded>();
+        GenerateFilesUploaded(files, loopCnt, orgId);
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.FileUploadeds).Returns(DbContextMock.GetQueryableMockDbSet(files));
+
+        var repo = new FileUploadedRepository(ctxMock.Object);
+        repo.SetCustomOrgId(orgId);
+
+        var u = new VMFileUploadedQuery() { FullTextSearch = fullText };
+        var list = repo.GetFilesUploaded(u);
+        var cnt = list.Count();
+
+        Assert.Equal(expectedCount, cnt);
+    }
+
+    [Theory]
+    [InlineData(10, 0, 0, 0)]
+    [InlineData(10, 0, 1, 1)]
+    public void GetFilesUploadedWithOffsetLimit(int loopCnt, int offset, int limit, int expectedCount)
+    {
+        var orgId = "fake-org-id";
+
+        var files = new List<MFileUploaded>();
+        GenerateFilesUploaded(files, loopCnt, orgId);
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.FileUploadeds).Returns(DbContextMock.GetQueryableMockDbSet(files));
+
+        var repo = new FileUploadedRepository(ctxMock.Object);
+        repo.SetCustomOrgId(orgId);
+
+        var u = new VMFileUploadedQuery() { Offset = offset, Limit = limit };
+        var list = repo.GetFilesUploaded(u);
+        var cnt = list.Count();
+
+        Assert.Equal(expectedCount, cnt);
+    }
+
+    [Theory]
+    [InlineData(10, 0)]
+    public void GetFilesUploadedWithDefaultParam(int loopCnt, int expectedCount)
+    {
+        var orgId = "fake-org-id";
+
+        var files = new List<MFileUploaded>();
+        GenerateFilesUploaded(files, loopCnt, orgId);
+
+        var ctxMock = new Mock<IDataContext>();
+        ctxMock.Setup(x => x.FileUploadeds).Returns(DbContextMock.GetQueryableMockDbSet(files));
+
+        var repo = new FileUploadedRepository(ctxMock.Object);
+        repo.SetCustomOrgId(orgId);
+
+        var u = new VMFileUploadedQuery() { Limit = -1, Offset = -1 };
+        var list = repo.GetFilesUploaded(u);
+        var cnt = list.Count();
+
+        Assert.Equal(expectedCount, cnt);
+    }
 
     [Theory]
     [InlineData(1)]

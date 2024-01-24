@@ -70,13 +70,15 @@ namespace Prom.LPR.Api.Database.Repositories
             var limit = 0;
             var offset = 0;
 
-            if ((param != null) && (param.Offset > 0))
+            //Param will never be null
+
+            if (param.Offset > 0)
             {
                 //Convert to zero base
                 offset = param.Offset-1;
             }
 
-            if ((param != null) && (param.Limit > 0))
+            if (param.Limit > 0)
             {
                 limit = param.Limit;
             }
