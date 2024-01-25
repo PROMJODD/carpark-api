@@ -34,12 +34,24 @@ namespace Prom.LPR.Api.Database.Repositories
 
             if ((param.VehicleProvince != "") && (param.VehicleProvince != null))
             {
-                pd = pd.And(p => p.VehicleProvince!.Equals(param.VehicleProvince));
+                pd = pd.And(p => p.VehicleProvince!.Contains(param.VehicleProvince));
             }
 
             if ((param.VehicleLicense != "") && (param.VehicleLicense != null))
             {
-                pd = pd.And(p => p.VehicleLicense!.Equals(param.VehicleLicense));
+                pd = pd.And(p => p.VehicleLicense!.Contains(param.VehicleLicense));
+            }
+
+            if ((param.FullTextSearch != "") && (param.FullTextSearch != null))
+            {
+                var fullTextPd = PredicateBuilder.New<MFileUploaded>();
+                fullTextPd = fullTextPd.Or(p => p.VehicleProvince!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleLicense!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleBrand!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleColor!.Contains(param.FullTextSearch));
+                fullTextPd = fullTextPd.Or(p => p.VehicleClass!.Contains(param.FullTextSearch));
+
+                pd = pd.And(fullTextPd);
             }
 
             return pd;
@@ -58,13 +70,15 @@ namespace Prom.LPR.Api.Database.Repositories
             var limit = 0;
             var offset = 0;
 
-            if ((param != null) && (param.Offset > 0))
+            //Param will never be null
+
+            if (param.Offset > 0)
             {
                 //Convert to zero base
                 offset = param.Offset-1;
             }
 
-            if ((param != null) && (param.Limit > 0))
+            if (param.Limit > 0)
             {
                 limit = param.Limit;
             }

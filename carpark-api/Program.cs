@@ -11,6 +11,7 @@ using Prom.LPR.Api.Authorizations;
 using System.Diagnostics.CodeAnalysis;
 using Prom.LPR.Api.ExternalServices.ObjectStorage;
 using Prom.LPR.Api.ExternalServices.Recognition;
+using Prom.LPR.Api.ExternalServices.Cache;
 
 namespace Prom.LPR.Worker
 {
@@ -38,6 +39,8 @@ namespace Prom.LPR.Worker
 
             builder.Services.AddDbContext<DataContext>(options => options.UseNpgsql(connStr));
             builder.Services.AddTransient<DataSeeder>();
+
+            builder.Services.AddScoped<ICache, MemCached>();
 
             builder.Services.AddScoped<IDataContext, DataContext>();
             builder.Services.AddScoped<IApiKeyService, ApiKeyService>();

@@ -12,5 +12,10 @@ namespace Prom.LPR.Test.Api.Services
         {
             return "";
         }
+
+        public string Sign(string? gcsPath, int hour)
+        {
+            return "";
+        }
     }
 }

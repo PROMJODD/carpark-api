@@ -11,5 +11,6 @@ namespace Prom.LPR.Api.ViewsModels
         public string? VehicleClass { get; set; }
         public string? VehicleColor { get; set; }
         public string? UploadedApi { get; set; }
+        public string? FullTextSearch { get; set; }
     }
 }

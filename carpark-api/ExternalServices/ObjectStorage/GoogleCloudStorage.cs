@@ -24,6 +24,11 @@ namespace Prom.LPR.Api.ExternalServices.ObjectStorage
             urlSigner = sn;
         }
 
+        public IGcsSigner? GetUrlSigner()
+        {
+            return(urlSigner);
+        }
+
         public MStorageData UploadFile(string localPath, string org, string bucket, string folder)
         {
             var objectName = Path.GetFileName(localPath);

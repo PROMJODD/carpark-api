@@ -5,6 +5,7 @@ using Prom.LPR.Api.ViewsModels;
 using Prom.LPR.Api.ExternalServices.Recognition;
 using Prom.LPR.Api.ExternalServices.ObjectStorage;
 using Prom.LPR.Api.Utils;
+using Prom.LPR.Api.ExternalServices.Cache;
 
 namespace Prom.LPR.Api.Services
 {
@@ -14,12 +15,14 @@ namespace Prom.LPR.Api.Services
         private readonly IImageAnalyzer? analyzer;
         private readonly IObjectStorage? gcs;
         private readonly string imagesBucket;
+        private readonly ICache cached;
 
         public FileUploadedService(
             IFileUploadedRepository repo,
             IObjectStorage objStorage,
             IConfiguration cfg,
             IGcsSigner signer,
+            ICache cache,
             IImageAnalyzer anlzr) : base()
         {
             repository = repo;
@@ -28,6 +31,7 @@ namespace Prom.LPR.Api.Services
             gcs = objStorage;
             gcs.SetUrlSigner(signer);
             imagesBucket = ConfigUtils.GetConfig(cfg, "LPR:bucket");
+            cached = cache;
         }
 
         public MFileUploaded AddFileUploaded(string orgId, MFileUploaded file)
@@ -42,6 +46,27 @@ namespace Prom.LPR.Api.Services
         {
             repository!.SetCustomOrgId(orgId);
             var result = repository!.GetFilesUploaded(param);
+
+            var signer = gcs!.GetUrlSigner();
+            var domain = "gcs_uploaded_file";
+
+            foreach (var f in result)
+            {
+                if ((f.StoragePath != null) && !f.StoragePath.Equals(""))
+                {
+                    var presignedUrl = cached.GetValue<string>(domain, f.StoragePath);
+                    if (presignedUrl == null)
+                    {
+                        //Not found in cache
+                        //Expire every 25 hours but cached will expire on every 24 hours
+
+                        presignedUrl = signer!.Sign(f.StoragePath, 25);
+                        cached.SetValue(domain, f.StoragePath, presignedUrl, 24 * 60);
+                    }
+
+                    f.PresignedUrl = presignedUrl;
+                }
+            }
 
             return result;
         }
