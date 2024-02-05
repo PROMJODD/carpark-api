@@ -85,9 +85,9 @@ namespace Prom.LPR.Api.Database.Repositories
 
             var predicate = FilesUploadedPredicate(param!);
             var arr = context!.FileUploadeds!.Where(predicate)
+                .OrderByDescending(e => e.UploadedDate)
                 .Skip(offset)
                 .Take(limit)
-                .OrderByDescending(e => e.UploadedDate)
                 .ToList();
 
             return arr;
