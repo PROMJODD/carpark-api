@@ -10,3 +10,4 @@ then
 fi
 
 curl -v -H "Authorization: Bearer ${LPR_TOKEN}" -F "image=@${FILE_TO_UPLOAD}" ${LPR_ENDPOINT}
+
